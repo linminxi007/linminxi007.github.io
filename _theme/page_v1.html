@@ -46,10 +46,6 @@ $if(site-note)$
 $if(toc)$<nav class="page-toc" aria-label="Table of contents">$table-of-contents$</nav>$endif$
 <div class="focus-row"><span data-i18n="focus">专注阅读</span><button class="track-switch focus-switch" role="switch" aria-checked="false" aria-label="专注阅读 / Focus reading"><span class="switch-knob"></span></button></div>
 <details class="related-panel" open><summary class="aside-title button-open"><span data-i18n="connections">关联文件</span><span aria-hidden="true">⌄</span></summary><div id="related-links"></div></details>
-<a class="aside-return-button button-return" id="aside-return-button" href="$site-prefix$notes/index.html" aria-label="返回笔记目录" title="返回笔记目录">
-<svg class="return-symbol" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5-6 6 6 6M3 11h10a7 7 0 0 1 7 7"/></svg>
-<span>返回</span>
-</a>
 <p class="aside-foot" data-i18n="asideFoot">保留来处，继续思考。</p>
 </aside>
 <article class="reading-sheet" id="reading-sheet">
@@ -68,10 +64,6 @@ $if(site-home)$$else$<div class="page-heading"><div class="eyebrow">$if(kicker)$
 $endif$
 </main>
 <footer class="site-footer"><span>linminxi007 <span class="footer-dot">/</span> <span data-i18n="footer">思考，记录，连接。</span></span><span>READING ROOM <span class="footer-dot">·</span> V3.1</span></footer>
-<button class="top-button button-return" id="top-button" type="button" aria-label="回到顶部" title="回到顶部">
-<svg class="return-symbol" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-<span>顶部</span>
-</button>
 <a class="return-button button-return" id="return-button" href="$site-prefix$notes/index.html" aria-label="返回笔记目录" title="返回笔记目录" hidden><svg class="return-symbol" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5-6 6 6 6M3 11h10a7 7 0 0 1 7 7"/></svg><span id="return-label">返回</span></a>
 <dialog class="type-dialog" id="type-dialog" aria-labelledby="type-title">
 <div class="dialog-head"><div><span class="eyebrow">READING PREFERENCES</span><h2 id="type-title" data-i18n="typeTitle">你的阅读方式</h2></div><button class="soft-icon" id="type-close" aria-label="关闭 / Close">×</button></div>
