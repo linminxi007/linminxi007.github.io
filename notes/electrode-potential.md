@@ -1,14 +1,18 @@
 ---
+
 title: "什么是电极电势"
 date: 2026-09-14
-description: "记录电极电势的发展历史、参比。"
+description: "记录电极电势的发展历史、参比。这可不是一个简单的事情。"
 categories:
-  - 电化学
-lang: zh-CN
-translation-key: electrode-potential
-status: working
-draft: false
+
+- 电极电势
+  lang: zh-CN
+  translation-key: electrode potential
+  status: working
+  draft: false
+
 ---
+
 #什么是电极电势
 这一期是关于一个很简单但是却非常深奥的科学问题,什么是电极电势?
 

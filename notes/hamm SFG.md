@@ -1,16 +1,19 @@
 ---
-title: "从樱井纯的量子力学到hamm的SFG"
+title: "SFG光谱的量子力学原理"
 date: 2026-09-14
-description: "记录SFG的基本原理、选择定则。"
+description: "从樱井纯的量子力学到hamm的非线性光学,再到阿金斯物理化学中的群论,最后尝试给出SFG/SHS光谱的选择定则推导全过程"
 categories:
-  - 从樱井纯的量子力学到hamm的SFG最后到选择定则
 
-lang: zh-CN
-translation-key: hamm SFG
-status: working
-draft: false
+- SFG与量子力学
+  lang: zh-CN
+  translation-key: hamm SFG
+  status: working
+  draft: false
+
 ---
+
 #从樱井纯的量子力学到hamm的SFG
+
 #### 我们大概的路径是先定义旋转和角动量的数学符号,引入Wigner-Eckart定理和对称性,判断hamm推导出的SFG二阶极化率是否为0.不为0的分量如何用DFT计算它,分子坐标系如何转发到实验室坐标系.到这一步我们基本上就可以解释SFG的信号了.
 
 我们使用到的书有樱井纯的现代量子力学,阿金斯物理化学 分子对称性群论部分 ,Principles of Nonlinear Optical Spectroscopy: A Practical Approach or: Mukamel for Dummies Peter Hamm
