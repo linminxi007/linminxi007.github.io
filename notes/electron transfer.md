@@ -1,13 +1,20 @@
 ---
 title: "电子转移是怎么发生的?"
+
 date: 2026-09-14
+
 description: "我常常弄不明白非绝热与绝热电子转移,隧穿与跳过去的电子转移之间有什么区别"
+
 categories:
-- 电子转移 
-  lang: zh-CN 
-  translation-key: electron transfer 
-  status: working 
-  draft: false 
+  - 电子转移
+
+lang: zh-CN
+
+translation-key: electron-transfer
+
+status: working
+
+draft: false
 ---
 
 #电子转移是怎么发生的?

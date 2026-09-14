@@ -1,14 +1,20 @@
 ---
 title: "SFG光谱的量子力学原理"
-date: 2026-09-14
-description: "从樱井纯的量子力学到hamm的非线性光学,再到阿金斯物理化学中的群论,最后尝试给出SFG/SHS光谱的选择定则推导全过程"
-categories:
 
-- SFG与量子力学
-  lang: zh-CN
-  translation-key: hamm SFG
-  status: working
-  draft: false
+date: 2026-09-14
+
+description: "从樱井纯的量子力学到hamm的非线性光学,再到阿金斯物理化学中的群论,最后尝试给出SFG/SHS光谱的选择定则推导全过程"
+
+categories:
+  - SFG与量子力学
+
+lang: zh-CN
+
+translation-key: hamm-sfg
+
+status: working
+
+draft: false
 
 ---
 

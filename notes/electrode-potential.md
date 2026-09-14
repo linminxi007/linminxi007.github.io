@@ -1,15 +1,20 @@
 ---
-
 title: "什么是电极电势"
-date: 2026-09-14
-description: "记录电极电势的发展历史、参比。这可不是一个简单的事情。"
-categories:
 
-- 电极电势
-  lang: zh-CN
-  translation-key: electrode potential
-  status: working
-  draft: false
+date: 2026-09-14
+
+description: "记录电极电势的发展历史、参比。这可不是一个简单的事情。"
+
+categories:
+  - 电极电势
+
+lang: zh-CN
+
+translation-key: electrode-potential
+
+status: working
+
+draft: false
 
 ---
 
