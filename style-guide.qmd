@@ -1,0 +1,17 @@
+---
+title: "按钮与阅读控件"
+kicker: "READING ROOM / V3.1"
+description: "返回用 01，下陷打开用 02，跳转用 05。统一的哑光实体控件。"
+toc: false
+---
+
+```{=html}
+<div class="style-grid">
+<section class="style-cell"><h2>01 / 返回</h2><button class="return-button button-return demo-return" type="button" data-demo-toast aria-label="返回按钮外观示例"><svg class="return-symbol" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5-6 6 6 6M3 11h10a7 7 0 0 1 7 7"/></svg><span style="font-size:13px;font-weight:650">返回</span></button><p>深凹的圆角方块，只显示图标和“返回”。页面右下角的实际按钮会沿阅读路径返回，来源文件保留在悬停提示和无障碍名称中。</p></section>
+<section class="style-cell"><h2>02 / 打开与二级菜单</h2><a class="soft-button button-open" href="files/objective.tex">打开 LaTeX 源文件 ↗</a><p>深槽式实体表面，用于打开文件、分类、搜索、AA 设置与二级菜单。没有透明玻璃或模糊滤镜。</p></section>
+<section class="style-cell"><h2>05 / 跳转</h2><a class="soft-button button-jump" href="notes/05-reading-layout.html">跳转到阅读示例 ↗</a><p>默认微凸，按下时内收。顶部房子图标、笔记、关联文件和关于采用同一组按钮。</p></section>
+<section class="style-cell"><h2>06 / 轨道开关</h2><button class="track-switch demo-switch" role="switch" aria-checked="true" aria-label="轨道开关外观示例"><span class="switch-knob"></span></button><p>关闭为混凝土灰；开启显示木色轨道。右上角为浅／深色与 E／中切换；专注阅读开关继续保留。</p></section>
+</div>
+```
+
+字号与字重仍在右上角的 **AA** 设置面板中独立调整。默认 22 px / 500，范围 18–28 px；保留常规与大字清晰快捷档。主题、字号、字重和阅读设置只存于当前浏览器。

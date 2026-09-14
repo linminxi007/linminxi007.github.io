@@ -1,0 +1,7 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {"label":"Quarto: 预览网站","type":"shell","command":"quarto preview","options":{"cwd":"${workspaceFolder}"},"problemMatcher":[],"isBackground":true},
+    {"label":"Quarto: 完整渲染检查","type":"shell","command":"quarto render","options":{"cwd":"${workspaceFolder}"},"problemMatcher":[],"group":"build"}
+  ]
+}

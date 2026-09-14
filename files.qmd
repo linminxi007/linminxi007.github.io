@@ -1,0 +1,13 @@
+---
+title: "关联文件"
+kicker: "THE MATERIALS / CONNECTED FILES"
+description: "公式、图像与数据，各有自己的位置。打开之后，仍能沿原路返回。"
+toc: false
+---
+
+```{=html}
+<div class="library-intro"><span data-lang="zh">files/ 中的公开文件会自动出现在这里。</span><span data-lang="en">Public files from files/ appear here automatically.</span><span data-lang="zh">演示附件 · 非真实科研数据</span><span data-lang="en">Demo attachments · not research data</span></div>
+```
+
+::: {#file-library}
+:::

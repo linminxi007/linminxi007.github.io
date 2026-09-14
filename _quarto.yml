@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - about.qmd
+    - files.qmd
+    - viewer.qmd
+    - style-guide.qmd
+    - "notes/**/*.md"
+    - "notes/**/*.qmd"
+  resources:
+    - "assets/**"
+    - "files/**"
+
+lang: zh-CN
+website:
+  title: "linminxi007"
+  description: "以笔记为起点，连接公式、图像与数据。"
+  site-url: "https://linminxi007.github.io/"
+  navbar: false
+  search: false
+  draft-mode: gone
+
+format:
+  html:
+    theme: none
+    minimal: true
+    template: _theme/page.html
+    html-math-method: mathml
+    toc: true
+    toc-depth: 3
+    section-divs: true
+    highlight-style: pygments
+
+filters:
+  - _theme/site.lua
+
+execute:
+  enabled: false

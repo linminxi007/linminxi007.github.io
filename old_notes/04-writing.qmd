@@ -1,0 +1,98 @@
+---
+title: "Markdown 写作与迁移"
+date: 2026-09-10
+description: "日常只维护文字和文件。列表、分类和关联入口在渲染时更新。"
+categories: [方法工具]
+demo: true
+lang: zh-CN
+status: working
+translation-key: 04-writing
+---
+
+## 直接写 Markdown {#markdown}
+
+本项目将 `notes/` 中的 `.md` 和 `.qmd` 都作为网页源文件。你不必为了发布纯文字笔记而把所有文件改成 `.qmd`。
+
+推荐新笔记使用这样的开头：
+
+```yaml
+---
+title: "我的第一篇科研笔记"
+date: 2026-09-13
+description: "这一篇记录的问题是什么。"
+categories: [研究记录]
+lang: zh-CN
+translation-key: my-first-note
+status: working
+---
+```
+
+标题、日期和分类会被目录读取。正文继续使用普通 Markdown。不要同时保存 `example.md` 和 `example.qmd`，否则它们会竞争同一个 `example.html` 输出文件。
+
+## 链接到另一份笔记 {#note-links}
+
+同一目录内，用相对文件名即可：
+
+```markdown
+[打开目标函数的推导](02-derivation.md)
+[直接查看推导结论](02-derivation.md#result)
+```
+
+网站会将已有笔记的 `.md`、`.qmd` 链接变成对应的网页链接。章节标识可以写在标题后面：
+
+```markdown
+## 我的结论 {#result}
+```
+
+这个项目使用标准 Markdown 链接，不把 Obsidian 的 `[[双链]]` 当成普通相对链接，也不会自动修复你电脑里的 `C:\\...` 绝对路径。迁移时需要把这些地址整理成相对路径。
+
+## 关联文件和图片 {#attachments}
+
+把需要公开的文件放在 `files/`。从 `notes/` 下的笔记访问它们，需要先向上一层：
+
+```markdown
+[查看 LaTeX 源文件](../files/objective.tex)
+[打开交互式 HTML](../files/response-surface.html)
+```
+
+[这个 HTML 链接可以直接测试](../files/response-surface.html)。阅读器有固定的小型返回按钮。原始 HTML 内部有自己的链接时，那些框内跳转不等于外层网站的阅读路径。
+
+图片可以直接嵌入：
+
+```markdown
+![图片说明](../assets/your-image.png)
+```
+
+也可以作为文件链接打开：
+
+```markdown
+[单独查看图片](../assets/your-image.png)
+```
+
+示例里的 `your-image.png` 是写法示意，并不是项目中已有的图片。请替换成你的真实文件名。手机屏幕较小时，长表格和代码块可以横向滚动。
+
+## 页面返回与滑动 {#return}
+
+页内链接平滑滚动到目标章节，跨文件链接使用轻微的横向过渡。返回按钮依据当前标签页中的实际访问路径工作，而不是永远回首页。
+
+专用滑动区只位于笔记底部，避免误触发正文、图片或表格。开启系统“减少动态效果”设置后，动画自动减弱或关闭。
+
+直接从外部网址打开某篇笔记时，没有本站上一步阅读记录，所以按钮显示“返回笔记目录”。下载文件或者新窗口打开属于浏览器原生操作，不会强行接管新窗口。
+
+## 修改后如何更新 {#update}
+
+在网站根目录运行：
+
+```bash
+quarto preview
+```
+
+新增或移动文件后，建议停止旧预览（终端 `Ctrl+C`），重新运行一次，确保文件索引和反向链接全部刷新。发布前使用 `quarto render` 做完整构建。
+
+本项目默认不执行 Python / R / Jupyter 代码。已有 `.ipynb` 可以先作为文件放进 `files/`，网页正文中的 `python` 围栏代码只做展示。之后需要可执行科研报告时，再单独配置执行环境。
+
+## 草稿与隐私 {#privacy}
+
+未准备公开的内容先放在本地 `_drafts/`，不要放进 `files/`。`files/` 是公开附件目录，其中的内容会被复制到成品网站。`draft: true` 不是加密，也不能让已推送到公开 GitHub 仓库的源文件变得私密。
+
+不要提交密钥、未脱敏的数据或不准备公开的原始记录。图片和文献的公开使用权也需要在上线前确认。

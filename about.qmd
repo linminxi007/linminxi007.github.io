@@ -1,0 +1,11 @@
+---
+title: "关于这个笔记空间"
+kicker: "ABOUT / THE NOTEBOOK"
+description: "保留问题、推导和资料之间的联系。"
+toc: false
+---
+
+```{=html}
+<section data-lang="zh"><h2>linminxi007</h2><p>这里用于整理数学、物理、化学与光谱相关的学习和研究笔记。内容可以持续修订，正文与图像、源码、交互结果通过链接连接。</p><h2>当前版本</h2><p>当前展示的是网站阅读界面与演示笔记，尚未加入新上传的科研文档。个人介绍、所属机构和研究成果没有代为编造。</p><h2>阅读方式</h2><p>左侧目录可以收起，右上角 A / 小 A 分别提供字号与字重设置。中英文界面与对应译稿可以切换，缺失译稿会明确说明。</p><p><a href="style-guide.html">查看可点击的按钮与控件样板 ↗</a></p></section>
+<section data-lang="en"><h2>linminxi007</h2><p>A place for notes in mathematics, physics, chemistry and spectroscopy. Notes can remain works in progress, with links to images, source files and interactive results.</p><h2>This version</h2><p>The current content demonstrates the reading interface. No newly uploaded research documents have been incorporated. Biographical details, affiliations and research results have not been invented.</p><h2>Reading</h2><p>Collapse the contents on the left. Adjust text size and weight at the upper right. Change the interface language or open a translated note when available; missing translations are explicitly marked.</p><p><a href="style-guide.html">Try the button and control samples ↗</a></p></section>
+```

@@ -1,0 +1,23 @@
+---
+title: "笔记与思考"
+description: "数学、物理、化学与光谱。一个以长文阅读为中心的个人笔记空间。"
+toc: false
+---
+
+```{=html}
+<section class="home-hero">
+<div><div class="eyebrow">A PERSONAL RESEARCH NOTEBOOK</div>
+<h1><span data-lang="zh">把问题写下来，<br>让思路<span class="accent">延续。</span></span><span data-lang="en">Keep the question.<br><span class="accent">Follow the thought.</span></span></h1>
+<p class="hero-description"><span data-lang="zh">数学、物理、化学与光谱。<br>以笔记为中心，让公式、实验与文献彼此相连。</span><span data-lang="en">Mathematics, physics, chemistry and spectroscopy.<br>Notes that connect equations, experiments and ideas.</span></p>
+<a class="soft-button button-jump" href="notes/05-reading-layout.html" data-translatable-link><span data-i18n="startReading">打开阅读示例</span><span aria-hidden="true">↗</span></a></div>
+<aside class="home-side"><div class="eyebrow">READING ROOM / V3.1</div><h2 data-i18n="spaceForThought">给思考，留出空间。</h2><p data-lang="zh">从一段文字走向一份推导，<br>再回到刚才停下的位置。<br>不必一次完成，慢慢整理。</p><p data-lang="en">Follow a link to the derivation.<br>Return to where you left off.<br>Take the time an idea needs.</p><div class="axis-decoration" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></aside>
+</section>
+<section class="home-recent" id="recent"><div class="section-heading"><h2 data-i18n="recentNotes">最近的笔记</h2><span>RESEARCH NOTES / INDEX</span></div>
+```
+
+::: {#latest-notes}
+:::
+
+```{=html}
+<div class="home-bottom"><a href="notes/index.html"><span data-i18n="browseAll">浏览全部笔记</span> ↗</a><span data-i18n="demoNotice">当前为排版与关联阅读示例，尚未加入你的科研文档。</span></div></section>
+```

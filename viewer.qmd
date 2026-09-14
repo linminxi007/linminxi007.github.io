@@ -1,0 +1,13 @@
+---
+title: "文件阅读器"
+kicker: "CONNECTED READING / MATERIAL VIEWER"
+description: "查看细节，不丢掉来时的阅读位置。"
+toc: false
+---
+
+```{=html}
+<div class="viewer-toolbar"><div class="viewer-filename" id="viewer-path">尚未选择文件</div><div class="viewer-actions"><a class="soft-button" id="open-original" href="files.html" target="_blank" rel="noopener noreferrer" data-native hidden>新窗口打开 ↗</a><a class="soft-button" id="download-file" href="files.html" download hidden>下载文件 ↓</a></div></div>
+<div class="viewer-surface" id="file-preview" aria-label="文件预览"><p class="empty-state">正在读取文件…</p></div>
+<p class="viewer-help" id="viewer-help">底部的返回按钮会回到来源笔记，并恢复阅读位置。</p>
+<section class="viewer-backlinks" id="viewer-backlinks" hidden><div class="eyebrow">MENTIONED IN / 引用这个文件的笔记</div><div id="viewer-backlinks-list"></div></section>
+```
