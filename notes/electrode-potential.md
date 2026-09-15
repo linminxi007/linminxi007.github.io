@@ -1,9 +1,9 @@
 ---
-title: "什么是电极电势"
+title: "什么是electrode potential"
 
 date: 2026-09-14
 
-description: "记录电极电势的发展历史、参比。这可不是一个简单的事情。"
+description: "当我们在测量电极电势的时候,我们在测量的是什么。当在计算化学中我们讨论电极电势的时候,这是什么意思?这可不是一个简单的事情。"
 
 categories:
   - 电极电势
