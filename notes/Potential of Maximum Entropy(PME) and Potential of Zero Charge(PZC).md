@@ -11,7 +11,7 @@ categories:
 
 lang: zh-CN
 
-translation-key: seventh-starling-scale-free
+translation-key: Potential of Maximum Entropy(PME) and Potential of Zero Charge(PZC)
 
 status: working
 

@@ -6,7 +6,7 @@ categories:
   - AI
   - 坐标系的旋转
 lang: zh-CN
-translation-key: SO3
+translation-key: SO3 Neural Networks
 status: working
 draft: false
 ---
