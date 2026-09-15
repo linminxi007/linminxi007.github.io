@@ -7,6 +7,7 @@ description: "如何用dpmd加速AIMD的轨迹计算和Dipole,Polarizability计�
 
 categories:
   - 光谱
+  - 坐标系的旋转
 
 lang: zh-CN
 

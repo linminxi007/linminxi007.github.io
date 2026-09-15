@@ -1,10 +1,10 @@
 ---
-title: "RoboMaster 坐标变换"
+title: "机器人自动瞄准中的坐标变换"
 date: 2026-09-14
 description: "记录 RoboMaster 坐标系变换与目标追踪。"
 
 categories:
-  - 旋转坐标系
+  - 坐标系的旋转
 
 lang: zh-CN
 translation-key: robomaster-target

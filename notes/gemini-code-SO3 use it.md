@@ -4,6 +4,7 @@ date: 2026-09-14
 description: "SO3等变神经网络的原理,球张量和CG系数的应用。"
 categories:
   - AI
+  - 坐标系的旋转
 lang: zh-CN
 translation-key: SO3
 status: working
