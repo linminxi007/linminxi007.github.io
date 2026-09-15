@@ -3,7 +3,7 @@ title: "什么是电极电势"
 
 date: 2026-09-14
 
-description: "记录电极电势的发展历史、参比。这可不是一个简单的事情。"
+description: "电极电势的发展史,也是人们从金属电极进入溶液的发展史。当我们在测量电极电势的时候,我们到底在测的是什么?如果你了解电化学你会知道这绝不是一件简单的事情。"
 
 categories:
   - 电化学
@@ -39,13 +39,280 @@ Fundamental Concepts in Heterogeneous Catalysis
 
 1. anderson
 
-2. newns
+为什么把极少量的磁性过渡金属原子（如 Fe）作为杂质掺入到非磁性金属（如 Cu）中时，有些杂质能保持磁性，而有些却失去了磁性？孤立定域态与连续能带相互作用”的数学框架，完美地契合了表面化学吸附的物理图像，从而在8年后被 D. M. Newns 借用，演变成了描述吸附的基石。
 
-3. Nørskov Fundamental Concepts in Heterogeneous Catalysis
+在这里我们先介绍一下格林函数,我数学不好,这次不太能理解这玩意的几何图像或物理意义.管他啥函数我们当个工具先耍耍.我们先来看看Green函数与态密度的关系,
 
-4. Hongliang
+## Green函数与态密度的关系
 
-5. 你会发现数学结构很像SFG的为什么?
+量子物理/固体物理中，Green函数可以通过与态密度相联系，以诠释其物理意义。态密度（Density of States, DOS）可被定义为
+
+$$
+\rho(E)=\sum_j\delta(E-E_j)
+$$
+
+态密度就是看电子在不同能量下是怎么排布的,$\delta$不是0就是1,在E=Ej的时候如果$\delta$取1就有一个电子排在这里.
+
+为了表达方便，接下来的表述都将采用 Dirac 符号。由于同一个哈密顿量作用在不同的本征矢上会得到不同的本征能量，因此我们可以定义
+
+$$
+\hat{H}\psi_j=E_j\psi_j
+$$
+
+咱先别管Green函数怎么来的,因为我就先把它当工具,咱们不是搞数学的.你就当你无聊乱试试看什么算符对$\psi_j$做投影能得到态密度. 人们就发现了一个算符Green函数，其可以作用在态矢上得到
+
+$$
+\langle\psi_j|G|\psi_j\rangle
+=
+\langle\psi_j|(E-\hat{H})^{-1}|\psi_j\rangle
+=
+(E-E_j)^{-1}\langle\psi_j|\psi_j\rangle
+$$
+
+由基态的正交性有
+
+$$
+\langle\psi_i|\psi_j\rangle=\delta_{ij}
+$$
+
+于是
+
+$$
+\langle\psi_j|G|\psi_j\rangle=(E-E_j)^{-1}
+$$
+
+以上公式对 $j$ 进行求和有
+
+$$
+\sum_j\langle\psi_j|G|\psi_j\rangle
+=
+\sum_j(E-E_j)^{-1}
+$$
+
+在量子力学中，一个算符可以被用一个矩阵表示。上式可以认为是对该矩阵对角线元素求和（其他元素如 $\langle\psi_1|G|\psi_2\rangle$、$\langle\psi_3|G|\psi_2\rangle$ 都不是对角线上的元素），即求矩阵的迹（Trace）。于是上式也可以写成
+
+$$
+\operatorname{Tr}G(E)=\sum_j(E-E_j)^{-1}
+$$
+
+这时候对比上式与态密度的定义
+
+$$
+\rho(E)=\sum_j\delta(E-E_j)
+$$
+
+已经可以发现 Green 函数和态密度之间可以存在联系，只不过相差了一个 $\delta$ 函数。接下来的工作就是要在 Green 函数中添加一个 $\delta$ 函数。
+
+为了避免分母为零，引入复数能量
+
+$$
+E\rightarrow E+is
+$$
+
+再令
+
+$$
+\xi_j=E-E_j
+$$
+
+于是上式可以写为
+
+$$
+\sum_j\langle\psi_j|G|\psi_j\rangle
+=
+\sum_j(\xi_j+is)^{-1}
+$$
+
+这时候数学家又给我了一个Plemelj 公式, [1]
+
+$$
+\frac{1}{\xi+i0^+}
+=
+\mathcal{P}\frac{1}{\xi}
+-i\pi\delta(\xi)
+$$
+
+因此
+
+$$
+\sum_j(\xi_j+i0^+)^{-1}
+=
+\sum_j
+\left[
+\mathcal{P}\left(\frac{1}{\xi_j}\right)
+-i\pi\delta(\xi_j)
+\right]
+$$
+
+我们所在意的仅仅是 $\delta$ 函数部分，因此只取上述复数的虚部（Imaginary），有
+
+$$
+\operatorname{Im}\sum_j(\xi_j+i0^+)^{-1}
+=
+-\pi\sum_j\delta(\xi_j)
+=
+-\pi\sum_j\delta(E-E_j)
+$$
+
+回到态密度的定义，得到 Green 函数与态密度的关系
+
+$$
+\operatorname{Im}\sum_j
+\langle\psi_j|G(E)|\psi_j\rangle
+=
+-\pi\rho(E)
+$$
+
+由于
+
+$$
+\operatorname{Tr}G(E)
+=
+\sum_j\langle\psi_j|G(E)|\psi_j\rangle
+$$
+
+因此更常见的写法是
+
+$$
+\boxed{
+\rho(E)
+=
+-\frac{1}{\pi}
+\operatorname{Im}\operatorname{Tr}G^R(E)
+}
+$$
+
+其中 $G^R(E)$ 是 retarded Green function：
+
+$$
+G^R(E)
+=
+\frac{1}{E-\hat H+i0^+}
+$$
+
+对于单独的一个态 $a$，定义局域态密度（local density of states）为 $\rho_a(E)$，则
+
+$$
+\rho_a(E)
+=
+-\frac{1}{\pi}
+\operatorname{Im}G_{aa}^R(E)
+$$
+
+其中
+
+$$
+G_{aa}^R(E)
+=
+\langle a|G^R(E)|a\rangle
+$$
+
+也就是说，
+
+$$
+\operatorname{Im}G_{aa}^R(E)
+=
+-\pi\rho_a(E)
+$$
+
+##### 所以阿,你想知道态密度DOS,那你就要先去找到格林函数Gaa的虚部.
+
+[1] Davison S. G., Sulston K. W. *Green-Function Theory of Chemisorption*. Springer Science & Business Media, 2006.
+
+https://www.mozheyang.top/2018/01/15/QMGreenFunction/
+
+或者你也可以按照Jens Nørskov在他的Fundamental Concepts in
+Heterogeneous Catalysis THE NEWNS–ANDERSON MODEL P185页,从矩阵里面看出Gaa.
+
+或者你也可以从更线性代数一点,更Two level形成分子轨道的角度出发,你可以看下面这个视频.
+
+如果你真的不熟悉格林函数,你也可以直接用久期方程,对行列式做一些处理,最后得到一条吸附物的直线和一系列金属电子态的交点,你会发现两者分享电子形成的新的态,会更稳定也就是向着低能量方向位移. 后续再用回路积分算出来. 在下面视频43分左右.
+
+![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-17-15-52-image.png)
+
+https://www.koushare.com/video/details/70117
+
+好了,总之你可以得到adsorbate-projected DOS或者说吸附物和金属表面耦合在一起的DOS
+
+$$
+n_a(\varepsilon)
+=
+-\frac{1}{\pi}\operatorname{Im}G_{aa}(\varepsilon)
+=
+-\frac{1}{\pi}\operatorname{Im}
+\left(
+\frac{1}
+{\varepsilon-\varepsilon_a-\Lambda(\varepsilon)+i\Delta(\varepsilon)}
+\right)
+\tag{12.31}
+$$
+
+这里$\varepsilon_k$表示金属的电子能级,$\varepsilon_a$表示分子的电子能级, $\varepsilon$ 就是你要画的态密度DOS的x轴.
+
+Multiplying the argument by its complex conjugate in the numerator and denominator and extracting the imaginary part, we get that
+
+$$
+n_a(\varepsilon)
+=
+\frac{1}{\pi}
+\frac{\Delta(\varepsilon)}
+{\left(\varepsilon-\varepsilon_a-\Lambda(\varepsilon)\right)^2+\Delta(\varepsilon)^2}
+\tag{12.32} 
+$$
+
+其中分子
+
+$$
+\Delta(\varepsilon)
+=
+\pi \sum_k V_{ak}^2 \, \delta(\varepsilon-\varepsilon_k)
+$$
+
+的物理意义是金属的每一个态和分子直接有多强的耦合,耦合强度主要取决于他们波函数重叠的程度,突然这里又可以用Wigner–Eckart theorem定理或者群论搞一通了哈哈.
+
+分子的$\Lambda(\varepsilon)$,代表吸附质轨道的“能级偏移函数”（Energy Shift Function）。在物理上，它描述了孤立原子的能级在与金属表面发生杂化后，其**共振中心位置所发生的移动**。也就是刚刚黑板上的图片直线和众多函数交线相对于原始位置的偏移量. 在数学上,也是我们刚刚用Plemelj公式的实部, 
+
+$\Lambda(\varepsilon) = \mathcal{P} \sum_k \frac{\vert{}V_{ak}\vert{}^2}{\varepsilon - \varepsilon_k}$
+
+其中 $\mathcal{P}$ 代表**柯西主值（Cauchy Principal Value）**，意味着在积分或求和时，要巧妙地扣除 $\varepsilon = \varepsilon_k$ 那个导致分母为零的奇点。在实际计算或者写代码的时候,是$\Delta(\varepsilon)$的希尔伯特变换（Hilbert Transform）.
+
+![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-20-00-01-image.png)
+
+图中的na(ε)就是分子吸附后分子的DOS, $\Delta(\varepsilon)$ 选取了宽大的sp electrons,所以很宽从-10eV到15eV.红线和橙色线的交点就是分子的单一轨道吸附到金属表面被轻微移动并且展宽了,电子被共享了,这个展宽还有个说法叫Electron Lifetime,在物理图像中，**共振峰越宽（“越肥大”），电子在吸附质上的寿命是越短的。** 也往往说明$V_{ak}$ 很小. 在量子力学中，能量与时间满足**海森堡不确定性原理**：
+
+$\Delta E \cdot \Delta t \ge \frac{\hbar}{2}$
+
+在表面吸附的格林函数图像中：
+
+- **能量不确定度 ($\Delta E$)**：正是投影态密度 $n_a(\varepsilon)$ 中洛伦兹峰的半高全宽，即**展宽 $\Delta$**。
+
+- **时间不确定度 ($\Delta t$)**：对应于电子在吸附质轨道（$\vert{}a\rangle$ 态）上停留的特征时间，也就是**电子寿命 $\tau$**。
+
+因此，它们的关系是严密的**反比关系.**
+
+$\tau \approx \frac{\hbar}{2\Delta}$
+
+从电子转移的角度来说,也就是说sp 电子会将吸附质能级展宽成一个**极宽的背景（宽度可达数个 eV）**，此时电子在吸附质上的寿命极短。相比之下，d 轨道是高度定域的。吸附质与 d 带的耦合相对较弱，电子的跨边界跃迁没有那么频繁。因此，d 电子带来的相互作用往往表现为态密度上**较窄的共振峰（宽度通常 < 1 eV）**，此时电子的定域性更强，寿命相对较长。
+
+在Nørskov 的书中他认为排斥项（$\alpha V_{ad}^2$）被认为是次要的或是与吸引项成正比。当 $\epsilon_d$ 上移（靠近费米能级 $E_F$）时，反键态被推高至 $E_F$ 以上，**$f_{ab}$ 减小（反键态排空），系统获得巨大的杂化吸引能**。因此：**$\epsilon_d$ 越高，吸附越强。下图就显示了两个na(ε)的小峰,高于0eV那个就是反键轨道.
+
+![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-20-20-21-image.png)
+
+
+
+Hongliang进一步在这个基础上完善,他们OH, F, Cl 吸附在 Pt, Pd 的 skin alloys,d band center出现了问题.当吸附态和金属都是**全满占据**（即 $f_d \approx 1, f_{ab} \approx 1$）时,**成键态下移的能量增益被反键态占据带来的能量抵消.他们引入了重叠 $S_{ad}$ 引起的正交化惩罚（Pauli排斥）来解释。
+
+1. 你会发现数学结构很像SFG的为什么?
+
+![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-17-06-04-image.png)
+
+https://www.koushare.com/video/details/51995
+
+jun huang在蔻享学术的视频
+
+
+
+
 
 说到数学结构,我们可以连接到另一篇文章,解释为什么exp这么常见中心极限定理,量子力学lin N区域0,最小平移旋转算符.(插入可跳转连接)
 
@@ -79,6 +346,14 @@ PZC = WF – 4.61 – 0.666*(2.10-X)
 
 他进一步去分析过渡金属和sp金属为什么符合不同的规律。他发现其中的奥秘是金属表面水分子极化。过渡金属对界面水分子有很强的化学吸附作用，而sp金属仅是通过静电作用调整界面水分子的取向。把sp金属上水分子的取向极化与金属元素的电负性关联起来。
 
+sy
+
+
+
+
+
+
+
 Trasatti, S.. "The absolute electrode potential: an explanatory note (Recommendations 1986)" *Pure and Applied Chemistry*, vol. 58, no. 7, 1986, pp. 955-966. https://doi.org/10.1351/pac198658070955
 
 http://www.cailiaoniu.com/?p=235685
@@ -90,6 +365,8 @@ http://www.cailiaoniu.com/?p=235685
 ![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-51-04-image.png)
 
 https://www.koushare.com/video/details/65721?series_id=2064
+
+![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-15-57-50-image.png)
 
 ### RHE SHE是什么意思? 内电势、外电势、表面电势与相间电势差
 
