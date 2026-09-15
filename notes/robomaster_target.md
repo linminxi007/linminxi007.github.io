@@ -4,7 +4,7 @@ date: 2026-09-14
 description: "记录 RoboMaster 坐标系变换与目标追踪。"
 
 categories:
-  - RoboMaster的自动瞄准
+  - 旋转坐标系
 
 lang: zh-CN
 translation-key: robomaster-target

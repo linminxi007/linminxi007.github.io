@@ -6,7 +6,7 @@ date: 2026-09-14
 description: "如何用dpmd加速AIMD的轨迹计算和Dipole,Polarizability计算呢?"
 
 categories:
-  - Dipole,Polarizability caculation
+  - 光谱
 
 lang: zh-CN
 
@@ -19,8 +19,6 @@ draft: false
 ---
 
 #如何用DP加速IR和Raman的计算
-
-
 
 Dipole Moment
 

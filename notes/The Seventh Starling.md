@@ -6,7 +6,7 @@ date: 2026-09-14
 description: "我曾经一直拿它和神经网络里的scaling law还有水的H bond network比较."
 
 categories:
-  - dynamics
+  - 动力学
 
 lang: zh-CN
 
@@ -16,7 +16,6 @@ status: working
 
 draft: false
 ---
-
 
 #非平衡微扰和Jarzynski's Slow-growth
 

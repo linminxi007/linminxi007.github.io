@@ -1,12 +1,12 @@
 ---
-title: "什么是electrode potential"
+title: "什么是电极电势"
 
 date: 2026-09-14
 
-description: "当我们在测量电极电势的时候,我们在测量的是什么。当在计算化学中我们讨论电极电势的时候,这是什么意思?这可不是一个简单的事情。"
+description: "记录电极电势的发展历史、参比。这可不是一个简单的事情。"
 
 categories:
-  - 电极电势
+  - 电化学
 
 lang: zh-CN
 
@@ -79,10 +79,20 @@ PZC = WF – 4.61 – 0.666*(2.10-X)
 
 他进一步去分析过渡金属和sp金属为什么符合不同的规律。他发现其中的奥秘是金属表面水分子极化。过渡金属对界面水分子有很强的化学吸附作用，而sp金属仅是通过静电作用调整界面水分子的取向。把sp金属上水分子的取向极化与金属元素的电负性关联起来。
 
-[Trasatti文章连接和http://www.cailiaoniu.com/?p=235685]
+Trasatti, S.. "The absolute electrode potential: an explanatory note (Recommendations 1986)" *Pure and Applied Chemistry*, vol. 58, no. 7, 1986, pp. 955-966. https://doi.org/10.1351/pac198658070955
 
+http://www.cailiaoniu.com/?p=235685
 
+![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-44-38-image.png)
 
-### RHE SHE是什么意思? SHE在实验上参比到哪里 在计算上参比到哪里 计算上的恒电势是什么意思?
+###### **Fig. 1.** Sketch to put in evidence the components of the electrode potential. Work along path B is expressed by eqn.(10) in the text. Work from M(M₁) to infinity (path A) and work from M(M₁) to S (path C) define the two other *conceptually* possible single electrode potentials.
+
+![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-51-04-image.png)
+
+https://www.koushare.com/video/details/65721?series_id=2064
+
+### RHE SHE是什么意思? 内电势、外电势、表面电势与相间电势差
+
+### SHE在实验上参比到哪里 在计算上参比到哪里 计算上的恒电势是什么意思?
 
 ### 电子溢出 PZC 如何测量PZC(最大熵,SFG)
