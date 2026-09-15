@@ -10,7 +10,7 @@ categories:
 
 lang: zh-CN
 
-translation-key: reoganization-energy
+translation-key: How to measure reoganization energy
 
 status: working
 

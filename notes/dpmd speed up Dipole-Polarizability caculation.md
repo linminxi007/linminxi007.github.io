@@ -1,5 +1,5 @@
 ---
-title: "dpmd speed up Dipole,Polarizability caculation"
+title: "dpmd speed up Dipole-Polarizability caculation"
 
 date: 2026-09-14
 
@@ -10,7 +10,7 @@ categories:
 
 lang: zh-CN
 
-translation-key: Dipole-Polarizability
+translation-key: dpmd speed up Dipole-Polarizability caculation
 
 status: working
 

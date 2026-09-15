@@ -3,19 +3,20 @@ title: "The Seventh Starling and Scale-free"
 
 date: 2026-09-14
 
-description: "我曾经一直拿它和神经网络里的scaling law还有水的H bond network比较"
+description: "我曾经一直拿它和神经网络里的scaling law还有水的H bond network比较."
 
 categories:
-  -     
+  - dynamics
 
 lang: zh-CN
 
-translation-key: dynamics 
+translation-key: seventh-starling-scale-free
 
 status: working
 
 draft: false
 ---
+
 
 #非平衡微扰和Jarzynski's Slow-growth
 
