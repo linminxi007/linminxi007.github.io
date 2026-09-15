@@ -12,34 +12,17 @@ status: working
 draft: false
 ---
 
----
 
-title: "RoboMaster 坐标变换"
-
-date: 2026-09-14
-
-description: "记录 RoboMaster 坐标系变换与目标追踪。"
-
-categories:
-
-* RoboMaster的自动瞄准
-
-lang: zh-CN
-
-translation-key: robomaster-target
-
-status: working
-
-## draft: false
 
 # 相机锁定自动瞄准
 
-#### 自动瞄准系统交互效果呈现（请点击）
+## 自动瞄准系统交互效果呈现（请点击）
+你可以拖动瞄准的目标,看到计算的相机屏幕上目标的投影
 
 <a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html"
 target="_blank">
 
-打开交互式结果(你可以拖动瞄准的目标,看到计算的相机屏幕上目标的投影) ↗
+打开 ↗
 
 </a>
 
@@ -47,6 +30,10 @@ target="_blank">
 download>
 
 下载 HTML ↓
+
+</a>
+
+
 
 在 RoboMaster 机器人比赛中，我们经常需要使用坐标系变换方法，实现对高速平移、旋转目标的识别、定位与自动瞄准。
 
