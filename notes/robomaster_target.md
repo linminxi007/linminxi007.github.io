@@ -5,9 +5,10 @@ description: "记录 RoboMaster 坐标系变换与目标追踪。"
 
 categories:
   - 坐标系的旋转
+  - Robot视觉
 
 lang: zh-CN
-translation-key: robomaster-target
+translation-key: Robot-vision-and-automatic-aiming
 status: working
 draft: false
 ---

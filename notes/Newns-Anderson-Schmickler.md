@@ -1,16 +1,17 @@
 ---
-title: "什么是电极电势"
+title: "Newns-Anderson-Schmickler"
 
 date: 2026-09-14
 
-description: "电极电势的发展史,也是人们从金属电极进入溶液的发展史。当我们在测量电极电势的时候,我们到底在测的是什么?如果你了解电化学你会知道这绝不是一件简单的事情。"
+description: "这是一个电子转移理论,我更愿意称之为电子共享理论.从电子结构的角度了解金属是如何与表面吸附的分子分享电子,也能帮助我们了解金属的电子结构如何影响双电层的形成."
 
 categories:
+  - 电子转移
   - 电化学
 
 lang: zh-CN
 
-translation-key: electrode-potential
+translation-key: Newns-Anderson-Schmickler
 
 status: working
 
@@ -18,20 +19,9 @@ draft: false
 
 ---
 
-#什么是电极电势
+#1
 
-我们将从电极的电子结构,再说到带水界面.
-这一期是关于一个很简单但是却非常深奥的科学问题,什么是电极电势?
-
-你可能觉得这个问题非常简单两个电极插到溶液中,电压表一打那就是电极电势.或者你会觉得这不就是一个选择参考点的问题我选真空或者H电极作为参考点把它作为0,其他的电极电势和它组成一个系统看看其他相对于它的电极电势是多少就好了.
-
-但实际上,这个简单的问题电化学家从苏联科学院A.N. Frumkin院士再到Sergio Trasatti (http://www.cailiaoniu.com/?p=235685) ,再到现在人们用计算化学手段去计算电极电势和理解电极电势在电化学电催化中的作用,以及最近人们的SFG光谱直接测量表面电场或者PZC零电荷电势.大概从1960年走到了2021年.一共60年.
-
-我对这个问题一开始毫不感兴趣,感觉这就是一个高中学生会遇到的问题,无聊的考试. 让我介绍一下我是如何走进这个问题的.一开始我对Nørskov的d ban center感兴趣. (https://www.pnas.org/doi/10.1073/pnas.1006652108) , (它描述了金属d 轨道...哈哈,因为也就是d(l=2)⟷rank-2 球张量,2l+1=5,分别是dz2​,dxz​,dyz​,dx2−y2​,dxy​五个,我不是在罗列,我只想说这正是我们之前SO3神经网络和Wigner–Eckart theorem描述的相同的球坐标系下表达世界的方法,跑题了...)
-
-话说回来，Nørskov 的 d band center模型，它描述可以用金属 d 轨道的积分中心位置来衡量分子在表面吸附的强弱。**实际上，这并不是因为金属的 d 轨道和分子的轨道相互作用最强。分子首先会和金属宽广的 sp 带发生极强的相互作用，但因为不同过渡金属的 sp 带非常宽且特征相似，这种相互作用在不同金属上贡献的吸附能差不多是一个常数。**
-
-这个时候，真正决定不同金属吸附强度差异（趋势）的，就是狭窄的 d 轨道了。**d 轨道与分子的作用不仅包含共价吸引，还包含轨道正交化带来的泡利排斥。正如Hongliang Xin(J. Chem. Phys. 2010, 132, 221101)指出的，当吸附物轨道与拥有几乎满 d 轨道的金属（如后期过渡金属）作用时，排斥作用甚至会占据主导。**但综合起来看，d band center确实是衡量这部分能量变化、描述气相分子吸附的一个简单且极其伟大的描述符。于是我就好奇 Nørskov 是怎么推导出来这个理论的，这就带我进入了美妙的量子力学世界，让我们从 Newns-Anderson 理论开始吧。
+d 轨道与分子的作用不仅包含共价吸引，还包含轨道正交化带来的泡利排斥。正如Hongliang Xin(J. Chem. Phys. 2010, 132, 221101)指出的，当吸附物轨道与拥有几乎满 d 轨道的金属（如后期过渡金属）作用时，排斥作用甚至会占据主导。**但综合起来看，d band center确实是衡量这部分能量变化、描述气相分子吸附的一个简单且极其伟大的描述符。于是我就好奇 Nørskov 是怎么推导出来这个理论的，这就带我进入了美妙的量子力学世界，让我们从 Newns-Anderson 理论开始吧。
 
 Fundamental Concepts in Heterogeneous Catalysis
 
@@ -227,8 +217,6 @@ https://www.mozheyang.top/2018/01/15/QMGreenFunction/ 中文
 
 https://www.koushare.com/video/details/33369?series_id=2063 中文,slides 英文.
 
-
-
 或者你也可以按照Jens Nørskov在他的Fundamental Concepts in
 Heterogeneous Catalysis THE NEWNS–ANDERSON MODEL P185页,从矩阵里面看出Gaa.
 
@@ -239,8 +227,6 @@ Heterogeneous Catalysis THE NEWNS–ANDERSON MODEL P185页,从矩阵里面看出
 ![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-17-15-52-image.png)
 
 https://www.koushare.com/video/details/70117
-
-
 
 如果你仔细的推导你就会发现,free-d state那篇Nat.cata工作居然是有问题的.
 
@@ -282,7 +268,7 @@ $$
 
 的物理意义是金属的每一个态和分子直接有多强的耦合,耦合强度主要取决于他们波函数重叠的程度,突然这里又可以用Wigner–Eckart theorem定理或者群论搞一通了哈哈.
 
-分子的$\Lambda(\varepsilon)$,代表吸附质轨道的“能级偏移函数”（Energy Shift Function）。在物理上，它描述了孤立原子的能级在与金属表面发生杂化后，其**共振中心位置所发生的移动**。也就是刚刚黑板上的图片直线和众多函数交线相对于原始位置的偏移量. 在数学上,也是我们刚刚用Plemelj公式的实部, 
+分子的$\Lambda(\varepsilon)$,代表吸附质轨道的“能级偏移函数”（Energy Shift Function）。在物理上，它描述了孤立原子的能级在与金属表面发生杂化后，其**共振中心位置所发生的移动**。也就是刚刚黑板上的图片直线和众多函数交线相对于原始位置的偏移量. 在数学上,也是我们刚刚用Plemelj公式的实部,
 
 $\Lambda(\varepsilon) = \mathcal{P} \sum_k \frac{\vert{}V_{ak}\vert{}^2}{\varepsilon - \varepsilon_k}$
 
@@ -324,7 +310,7 @@ Hongliang进一步在这个基础上完善,他们OH, F, Cl 吸附在 Pt, Pd 的 
 
 Schmickler 将这些慢变量显式地写进了哈密顿量中，将其建模为一个**声子浴（Phonon bath）**，一组与反应物电荷发生线性相互作用的谐振子。
 
-我们在这里说一点有趣的事情,你有没有想过,为什么谐振子这么好用.一方面是谐振子是一组好的正交基组就像xyz一样,进一步说官方一点,谐振子的本征态（Hermite 多项式）构成了一组完备正交基。就像三维空间中的 $(x, y, z)$ 矢量一样，任何复杂的波函数都可以通过这组基进行线性组合（这就是傅里叶变换的本质）。振动的模也可以被这样抽象,就能组合出我们的SFG SHS 拉曼 IR光谱咯. 
+我们在这里说一点有趣的事情,你有没有想过,为什么谐振子这么好用.一方面是谐振子是一组好的正交基组就像xyz一样,进一步说官方一点,谐振子的本征态（Hermite 多项式）构成了一组完备正交基。就像三维空间中的 $(x, y, z)$ 矢量一样，任何复杂的波函数都可以通过这组基进行线性组合（这就是傅里叶变换的本质）。振动的模也可以被这样抽象,就能组合出我们的SFG SHS 拉曼 IR光谱咯.
 
 另一方面:
 
@@ -342,7 +328,7 @@ $V(x) \approx \frac{1}{2}V''(x_0)(x-x_0)^2 = \frac{1}{2}k x^2$
 
 $P(x) \propto \exp\left(-\frac{H}{k_B T}\right) = \exp\left(-\frac{k x^2}{2 k_B T}\right)$
 
-你看，**二次函数的能量，直接在指数上生成了完美的高斯分布。** 
+你看，**二次函数的能量，直接在指数上生成了完美的高斯分布。**
 
 我们知道溶剂分子多的很，是阿伏伽德罗常数数量级（$10^{23}$）个水分子微观偶极矩在波动. 根据中心极限定理，大量独立（或弱相关）随机变量的叠加，其宏观统计必然服从**高斯分布**。所以我们就可以瞄着靶子射击,构建一个统计上是高斯分布的,那就推导出势能得是二次的,势能是二次的又要保证正交,那就拿谐振子模式来吧.
 
@@ -456,106 +442,10 @@ $2\sum_i \lambda_i (-\mu) - \epsilon_a = 0 \quad \Rightarrow \quad \mu = -\frac{
 
 $E_{\rm act} = \epsilon_a + \sum_i \lambda_i \left(\frac{\epsilon_a}{2\lambda}\right)^2 = \frac{\epsilon_a^2}{4\lambda}$
 
-我们之前说马库斯老爷子为了推导他的电子转移理论,把学校所有的电磁学书都看完了.
-
-现在也顺便说一下从电场角度来看
-
-### 宏观介电连续模型推导（外层重组能）
-
-对于“外层重组能（Outer sphere reorganization）” $\lambda_{\rm out}$ 的具体数值，Schmickler 采用了 Born 溶剂化模型，再次利用了快量与慢量的分离，但是是在极化场（Polarization field）的宏观电动力学框架下进行的。
-
-B站搜索高子昂 科大电化学 用一个小球能把下面的推导出来
-
-https://www.koushare.com/video/details/66317?series_id=2064 `中文`
-
-https://www.koushare.com/video/details/66973?series_id=2064 `中文`
-
-总极化 $\mathbf{P}$ 与电位移矢量 $\mathbf{D}$ 的关系为：
-
-$\mathbf{P} = \left(1-\frac{1}{\epsilon}\right)\mathbf{D}$
-
-根据时间尺度的分离：
-
-1. **快极化（$\mathbf{P}_f$）：** 仅由高频光学介电常数 $\epsilon_\infty$ 决定：
-   
-   $\mathbf{P}_f = \left(1-\frac{1}{\epsilon_\infty}\right)\mathbf{D}$
-
-2. **慢极化（$\mathbf{P}_s$）：** 由静态介电常数 $\epsilon_s$ 与光学介电常数之差决定：
-   
-   $\mathbf{P}_s = \mathbf{P} - \mathbf{P}_f = \left(\frac{1}{\epsilon_\infty} - \frac{1}{\epsilon_s}\right)\mathbf{D}$
-
-因为只有慢变量极化在电子转移瞬间是“冻结”的并产生势垒，系统的能量重组仅来自于 $\mathbf{P}_s$。考虑溶剂微元 $\Delta V$ 的相互作用势能 $\Delta U / \Delta V = \frac{1}{2}\alpha \mathbf{P}_s^2 - \mathbf{P}_s \cdot \mathbf{D}/\epsilon_0 + C$，通过最小化能量求得平衡点，即可得出该微元对重组能的贡献：
-
-$\Delta\lambda_{\rm out} = \frac{1}{2\epsilon_0} \left( \frac{1}{\epsilon_\infty} - \frac{1}{\epsilon_s} \right) (\mathbf{D}_{\rm ox} - \mathbf{D}_{\rm red})^2 \Delta V$
-
-对整个溶剂空间积分，就得到了著名的外层重组能经典公式：
-
-$\lambda_{\rm out} = \frac{1}{2\epsilon_0} \left( \frac{1}{\epsilon_\infty} - \frac{1}{\epsilon_s} \right) \int (\mathbf{D}_{\rm ox} - \mathbf{D}_{\rm red})^2 dV$
-
-对于距离金属电极表面 $d$ 处、半径为 $a$ 的球形离子，引入镜像电荷（Image force）修正后，积分结果即为：
-
-$\lambda_{\rm out} = \frac{e_0^2}{8\pi\epsilon_0} \left( \frac{1}{\epsilon_\infty} - \frac{1}{\epsilon_s} \right) \left( \frac{1}{a} - \frac{1}{2d} \right)$
-
 #### **总结：** Schmickler 的推导给出了无论是微观的多维声子浴模型，还是马库斯的宏观的介电极化场模型，其核心都在于剥离出能够跟上电子跃迁的“快变量”（将其吸收入能量基准）以及主导热涨落和过渡态形成的“慢变量”（即 $\lambda_{\rm out}$ 的来源），从而在数学上殊途同归地给出了电子转移的活化能图像。
-
-1. 你会发现数学结构很像SFG的为什么?
 
 ![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-17-06-04-image.png)
 
 https://www.koushare.com/video/details/51995
 
-jun huang在蔻享学术的视频
-
-说到数学结构,我们可以连接到另一篇文章,解释为什么exp这么常见中心极限定理,量子力学lin N区域0,最小平移旋转算符.(插入可跳转连接)
-
-但是当d band center进入电化学却发现遇到了更大的问题,在溶液中的分子周围裹挟着水,界面自然的出现了双电层,所以一切都变得不那么简单,简单的d band center在溶液中渐渐失效.
-
-所以我们需要从纯金属表面的电子结构过渡到金属-溶液界面.
-
-#### 于是我开始接触双电层结构是如何形成的?
-
-#### 这与金属表面的电子结构有什么关系?
-
-#### 如果对不同金属施加同一个大小的电极电势双电层结构会有什么不同?
-
-#### 金属中的电子是怎么向溶剂转移的?电子转移是怎么发生的? 金属表面附近的溶剂结构是怎么样的?
-
-#### 我能不能用光谱(SFG,SHS)看到或者模拟金属表面的溶剂结构?
-
-#### 这样的溶剂结构是怎么影响电子转移的? (这边插入一个可以调到电子转移markdown的链接)
-
-###### 于是我们开始进入电化学的世界,
-
- Trasatti 在1960年代,注意到金属的电化学性能与其本身电子结构之间的关联,他发现金属的功涵（WF）和零电荷电位(PZC)之间存在线性关联。在1971年的文章中，他提出一组著名的关系式：
-
-PZC = WF – 4.61 – 0.666*(2.10-X)
-
-对于除铂和钯族之外的过渡态金属，以及锌铝镓，X= 0.5*WF – 0.55
-
-对于碱金属、碱土金属、sp金属以及铂和钯族金属， X = 0.5*WF-0.29
-
-他筛选了一系列金属的WF和PZC数据，发现并不存在一个统一的规律，而是过渡金属和sp金属符合不同的规律。
-
-他进一步去分析过渡金属和sp金属为什么符合不同的规律。他发现其中的奥秘是金属表面水分子极化。过渡金属对界面水分子有很强的化学吸附作用，而sp金属仅是通过静电作用调整界面水分子的取向。把sp金属上水分子的取向极化与金属元素的电负性关联起来。
-
-sy
-
-Trasatti, S.. "The absolute electrode potential: an explanatory note (Recommendations 1986)" *Pure and Applied Chemistry*, vol. 58, no. 7, 1986, pp. 955-966. https://doi.org/10.1351/pac198658070955
-
-http://www.cailiaoniu.com/?p=235685
-
-![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-44-38-image.png)
-
-###### **Fig. 1.** Sketch to put in evidence the components of the electrode potential. Work along path B is expressed by eqn.(10) in the text. Work from M(M₁) to infinity (path A) and work from M(M₁) to S (path C) define the two other *conceptually* possible single electrode potentials.
-
-![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-51-04-image.png)
-
-https://www.koushare.com/video/details/65721?series_id=2064
-
-![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-15-57-50-image.png)
-
-### RHE SHE是什么意思? 内电势、外电势、表面电势与相间电势差
-
-### SHE在实验上参比到哪里 在计算上参比到哪里 计算上的恒电势是什么意思?
-
-### 电子溢出 PZC 如何测量PZC(最大熵,SFG)
+jun huang在蔻享学术的视频 Schmickler
