@@ -213,7 +213,7 @@ $$
 
 https://www.mozheyang.top/2018/01/15/QMGreenFunction/ 中文
 
-这里也有*Jülich* 的Jun Huang的视频
+这里也有*Jülich* 的Jun Huang的视频 34:00左右介绍格林函数用于anderson模型的推到细节.
 
 https://www.koushare.com/video/details/33369?series_id=2063 中文,slides 英文.
 
@@ -266,7 +266,7 @@ $$
 \pi \sum_k V_{ak}^2 \, \delta(\varepsilon-\varepsilon_k)
 $$
 
-的物理意义是金属的每一个态和分子直接有多强的耦合,耦合强度主要取决于他们波函数重叠的程度,突然这里又可以用Wigner–Eckart theorem定理或者群论搞一通了哈哈.
+的物理意义是金属的每一个态和分子直接有多强的耦合,耦合强度主要取决于他们波函数重叠的程度,也就是把一个波函数投影到另一个波函数上,突然这里又可以用类似Wigner–Eckart theorem定理的思维或者群论搞一通了哈哈.
 
 分子的$\Lambda(\varepsilon)$,代表吸附质轨道的“能级偏移函数”（Energy Shift Function）。在物理上，它描述了孤立原子的能级在与金属表面发生杂化后，其**共振中心位置所发生的移动**。也就是刚刚黑板上的图片直线和众多函数交线相对于原始位置的偏移量. 在数学上,也是我们刚刚用Plemelj公式的实部,
 

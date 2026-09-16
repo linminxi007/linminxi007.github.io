@@ -6,7 +6,7 @@ date: 2026-09-14
 description: "之前看到用热力学积分的非平衡微扰"
 
 categories:
-  - 动力学
+  - dynamics
 
 lang: zh-CN
 
@@ -19,4 +19,6 @@ draft: false
 
 #非平衡微扰和Jarzynski's Slow-growth
 
-12312312382
+Slow-growth算法后的Jarzynski's
+
+AI4S可能唯一盈利公司计算化学软件薛定谔的最著名的算法非平衡微扰
