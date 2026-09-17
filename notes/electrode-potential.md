@@ -27,7 +27,7 @@ draft: false
 
 但实际上,这个简单的问题电化学家从苏联科学院A.N. Frumkin院士再到Sergio Trasatti (http://www.cailiaoniu.com/?p=235685) ,再到现在人们用计算化学手段去计算电极电势和理解电极电势在电化学电催化中的作用,以及最近人们的SFG光谱直接测量表面电场或者PZC零电荷电势.大概从1960年走到了2021年.一共60年.
 
-我对这个问题一开始毫不感兴趣,感觉这就是一个高中学生会遇到的问题,无聊的考试. 让我介绍一下我是如何走进这个问题的.一开始我对Nørskov的d ban center感兴趣. (https://www.pnas.org/doi/10.1073/pnas.1006652108) , (它描述了金属d 轨道...哈哈,因为也就是d(l=2)⟷rank-2 球张量,2l+1=5,分别是dz2​,dxz​,dyz​,dx2−y2​,dxy​五个,我不是在罗列,我只想说这正是我们之前SO3神经网络和Wigner–Eckart theorem描述的相同的球坐标系下表达世界的方法,跑题了...)
+我对这个问题一开始毫不感兴趣,感觉这就是一个高中学生会遇到的问题,无聊的考试. 让我介绍一下我是如何走进这个问题的.一开始我对Nørskov的d ban center感兴趣. (https://www.pnas.org/doi/10.1073/pnas.1006652108) .
 
 话说回来，Nørskov 的 d band center模型，它描述可以用金属 d 轨道的积分中心位置来衡量分子在表面吸附的强弱。**实际上，这并不是因为金属的 d 轨道和分子的轨道相互作用最强。分子首先会和金属宽广的 sp 带发生极强的相互作用，但因为不同过渡金属的 sp 带非常宽且特征相似，这种相互作用在不同金属上贡献的吸附能差不多是一个常数。**
 
@@ -75,7 +75,7 @@ http://www.cailiaoniu.com/?p=235685
 
 
 
-我们在这里可以看到不同的参考零点,可以取无穷远的真空,比如我们把一个电子从无穷远真空移动到靠近电极表面的地方,我们称之为表面电势
+
 
 
 
@@ -87,58 +87,161 @@ http://www.cailiaoniu.com/?p=235685
 
 three reference levels 
 
-首先我们测的电极电势并不是你想的溶液的绝对电极电势减去电极的绝对电极电势,计算化学直到今天都不太清楚自己的计算在什么电极电势下.
-
-SHE It is defined as the potential energy by reducing a solvated H+(aq) to 1/2H2(g) at T = 298.15K in the standard condition (p = 1 bar and pH = 0). 我重复这句话是为了提醒计算化学的人们.reversible hydrogen electrode (RHE) is more popular
-for removing the pHeffect for electrochemical reactions involvingH+(aq), andsaturated
-calomel electrode (SCE) and Ag/AgCl electrode
-
-the electrochemical
-potential of the working electrode U = (𝜇̃Cue − 𝜇̃Cu′e)/−e0,where 𝜇̃Cu
-e and 𝜇̃Cu′
-e denote the electrochemical potential of electron in Cu and Cu’ wire
-connecting to the working electrode and reference electrode
-
-The electrochemical potential of the electron in Cu wire is composed
-by two parts𝜇̃Cu
-e = 𝜇Cu
-e − e0𝜙Cu
-
-the terms 𝜇Cu
-e and 𝜙Cu represent the chemical and electrostatic contributions
-
-Note that the working electrode and the reference electrode are terminated with the same
-metal (Cu). Therefore, the working electrode potential of the cell can be expressed as
-U = 𝜙Cu − 𝜙Cu′
-. (5.3)
+首先我们测的电极电势并不是你想的金属和溶液的电势差，还包括化学贡献（吉布斯能差）,那怕我们已经有AIMD等手段,计算化学直到今天都不太清楚自己的计算在什么电极电势下.
 
 
 
-想这样一个过程把一个正电荷从无限远处的真空移至物质**相内部**,真空中可能还有一些电场我们需要克服,这部分我们叫外电势(从无穷远到距表面约 $10^{-4}$ 厘米).然后我们需要穿过金属的表面,由于金属表面原子被截断,有部分电子溢出,这部分会贡献一个电势变化,我们称之为表面电势$\chi$. 所以最后整个过程需要做的功就是: $\phi = \psi + \chi$, 这个$\phi$叫做内电势 (Inner Potential / Galvani Potential).
+我们现在来介绍什么是电极电势,介绍的过程会涉及到很多的参数,我每次看过一段时间就忘记了.所以我们只要了解其中的物理意义,不要去记住这些量具体的名字
 
-Fermi Level, $E_F$我们可以定义为把一个金属最外层电子拿到无穷远真空需要做的功,又称之为金属电子的电化学势,等于电子的化学势+要电子穿过表面电势做的功.
+# 电极电势与绝对电极电势的理论推导
 
+![](/C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-17-20-47-36-image.png)
 
+如图 1 所示的电化学系统，中间连接的电压表不仅受到静电场的影响，还受到化学势的驱动。因此，测量得到的电极电势本质上是电压表两端测量引线中的**电子电化学势（Electrochemical Potential）之差**[cite: 4]：
 
+$U = \frac{\tilde{\mu}_e^{\mathrm{Cu}} - \tilde{\mu}_e^{\mathrm{Cu}'}}{-e_0} \quad (5.1)$
 
+其中，$\tilde{\mu}_e^{\mathrm{Cu}}$ 和 $\tilde{\mu}_e^{\mathrm{Cu}'}$ 分别代表连接工作电极和参比电极的 Cu 导线中电子的电化学势，$-e_0$ 为单个电子的电荷量[cite: 4]。Cu 导线中电子的电化学势由化学贡献和静电贡献两部分组成[cite: 4]：
 
+$\tilde{\mu}_e^{\mathrm{Cu}} = \mu_e^{\mathrm{Cu}} - e_0\phi^{\mathrm{Cu}} \quad (5.2)$
 
+此处 $\mu_e^{\mathrm{Cu}}$ 是电子的化学势，而 $\phi^{\mathrm{Cu}}$ 是 Cu 的**内电势（Galvani Potential）**。内电势的严格物理意义是将单位正电荷从无穷远真空移入金属**体相内部**所需做的静电功。
 
+注意，工作电极和参比电极最终接入电压表的终端通常是相同的金属（如 Cu）。因此，该电池的工作电极电势可简化表达为两终端的内电势之差[cite: 4]：
 
+$U = \phi^{\mathrm{Cu}} - \phi^{\mathrm{Cu}'} \quad (5.3)$
 
+我们可以通过加上各个相界面的内电势，将公式 (5.3) 展开为级数形式[cite: 4]：
 
+$U = (\phi^{\mathrm{Cu}} - \phi^{M}) + (\phi^{M} - \phi^{S}) + (\phi^{S} - \phi^{\mathrm{Pt}}) + (\phi^{\mathrm{Pt}} - \phi^{\mathrm{Cu}'}) \quad (5.4)$
 
-还可以取溶液为参考零点
+其中，$\phi^{\mathrm{Pt}}$、$\phi^{S}$ 和 $\phi^{M}$ 分别代表标准氢电极 (SHE) 中的 Pt、电解质溶液 $S$ 以及工作电极 $M$ 的内电势[cite: 4]。由于金属 $M$ 与终端 Cu 在电池中直接接触并达到电子热力学平衡（费米能级拉平），即：
+
+$\tilde{\mu}_e^{M} = \tilde{\mu}_e^{\mathrm{Cu}} \quad (5.5)$
+
+因此，公式 (5.4) 右侧的第一项可改写为[cite: 4]：
+
+$\phi^{\mathrm{Cu}} - \phi^{M} = \frac{1}{e_0}\left(\mu_e^{\mathrm{Cu}} - \mu_e^{M}\right) \quad (5.6)$
+
+同理，公式 (5.4) 的最后一项可表示为[cite: 4]：
+
+$\phi^{\mathrm{Pt}} - \phi^{\mathrm{Cu}'} = \frac{1}{e_0}\left(\mu_e^{\mathrm{Pt}} - \mu_e^{\mathrm{Cu}'}\right) \quad (5.7)$
+
+将公式 (5.6) 和 (5.7) 代回公式 (5.4) 并重新整理各项，由于两终端均是 Cu，其化学势互相抵消，我们得到：
+
+$U = \left[ (\phi^M - \phi^S) - \frac{\mu_e^M}{e_0} \right] - \left[ (\phi^{\mathrm{Pt}} - \phi^S) - \frac{\mu_e^{\mathrm{Pt}}}{e_0} \right] \quad (5.7b)$
+
+---
+
+### 引入绝对电极电势与常数 $K$
+
+此时，我们引入 Trasatti (1986) 在 IUPAC 报告《THE ABSOLUTE ELECTRODE POTENTIAL: AN EXPLANATORY NOTE》中的理论[cite: 5]。
+
+公式 (5.7b) 方括号中的每一项仅包含单一电极自身的属性，因此被定义为**约化单电极电势（Reduced Single Electrode Potential）** $E^{\mathrm{M}}(r)$[cite: 5]：
+
+$E^{\mathrm{M}}(r) = (\phi^M - \phi^S) - \frac{\mu_e^M}{e_0}$
+
+（注：若采用摩尔尺度，分母的 $e_0$ 即替换为法拉第常数 $F$[cite: 5]）。
+
+真正的绝对电极电势 $E^{\mathrm{M}}(\mathrm{abs})$ 与约化单电极电势的关系可以通过引入一个参考系常数 $K$ 来表达[cite: 5]：
+
+$E^{\mathrm{M}}(\mathrm{abs}) = E^{\mathrm{M}}(r) + K \quad (5.7c)$
+
+**常数 $K$ 的物理意义在于：它代表了我们将电子从体系中移出时，所人为选定的“绝对参考状态（Reference state）”。** 从热力学推导可知，常数 $K$ 的统一表达式为[cite: 5]：
+
+$K = \phi^S + \frac{\tilde{\mu}_e^{\mathrm{ref}}}{F}$
+
+其中 $\tilde{\mu}_e^{\mathrm{ref}}$ 是电子在该绝对参考态下的电化学势[cite: 5]。你可以选择不同的物理状态作为参考点，从而得到不同物理意义下的 $K$[cite: 5]。
 
 ![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-44-38-image.png)
 
-###### **Fig. 1.** Sketch to put in evidence the components of the electrode potential. Work along path B is expressed by eqn.(10) in the text. Work from M(M₁) to infinity (path A) and work from M(M₁) to S (path C) define the two other *conceptually* possible single electrode potentials.
+结合图 2，探讨三种不同的参考路径（即三种 $K$ 的选择）对单电极电势定义的影响：
 
-![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-51-04-image.png)
+#### 1. 路径 A (Path A)：移动到“无穷远处的真空”
 
-https://www.koushare.com/video/details/65721?series_id=2064
+- **物理情境**：如图 2 虚线 A 所示，电子从金属内部移动到距离系统无限远的真空中[cite: 5]。
+- **计算方式**：在无穷远处，电子既没有化学相互作用（化学势为 0），静电势也被定义为绝对零点（$\psi = 0$）。因此，参考态的电化学势 $\tilde{\mu}_e^{\mathrm{ref}} = 0$[cite: 5]。
+  代入常数公式：$K = \phi^S + \frac{0}{F} = \phi^S$[cite: 5]。
+- **结论**：如果选无穷远为参考点，常数 $K$ 直接等于溶液的内电势 $\phi^S$[cite: 5]。但这不符合常规表面物理实验的测量习惯[cite: 5]。
+
+#### 2. 路径 C (Path C)：移动到“溶液内部” (溶剂化电子)
+
+- **物理情境**：如图 2 实线 C 所示，电子从金属内部直接进入溶液相 S，变为溶剂化电子[cite: 5]。
+  *图 2 标注解释*：图中 $\alpha_e^S$ 代表电子在溶液中的**真实势（Real Potential）**，定义为将一个电子从溶液表面外侧真空移入溶液体相内部所做的功（$\alpha_e^S = \mu_e^S - F\chi^S$）。它代表溶剂网络吸纳电子的做功能力，物理意义上类似于溶液相对应于电子的“负功函数”[cite: 5]。
+- **计算方式**：电子的参考状态是“浸泡在溶液内部的溶剂化电子”，其在溶液体相中的电化学势为 $\tilde{\mu}_e^S = \mu_e^S - F\phi^S$[cite: 5]。
+  代入常数公式：$K = \phi^S + \frac{\mu_e^S - F\phi^S}{F} = \frac{\mu_e^S}{F}$[cite: 5]。
+- **结论**：如果选溶剂化电子为参考点，常数 $K$ 等于溶液中电子的化学势（除以 $F$）[cite: 5]。因为该值强烈依赖于具体溶剂种类，故不具备普适性[cite: 5]。
+
+#### 3. 路径 B (Path B)：移动到“靠近溶液表面的真空”（IUPAC 强烈推荐）
+
+- **物理情境**：如图 2 实线 B 所示，电子悬停在两相表面之间的气隙（真空）中[cite: 5]。
+- **计算方式**：在这个状态下，电子位于紧挨着溶液表面的真空中。此时电子不受溶液内部化学环境的影响（化学势为 0），但仍然处于溶液宏观剩余电荷产生的静电场中，这个静电势即溶液的外电势 $\psi^S$[cite: 5]。
+  因此，参考态的电化学势 $\tilde{\mu}_e^{\mathrm{ref}} = -F\psi^S$[cite: 5]。
+  代入常数公式：$K = \phi^S - \psi^S$[cite: 5]。
+  根据静电学定义，相的内电势等于外电势加上表面电势（偶极电势），即 $\phi^S = \psi^S + \chi^S$。因此：$K = (\psi^S + \chi^S) - \psi^S = \chi^S$[cite: 5]。
+- **结论**：选溶液表面外侧真空为参考点，常数 $K$ 等于纯溶剂的表面电势 $\chi^S$[cite: 5]。
+
+**为什么路径 B 具有终极的实验可操作性？**
+采用路径 B（靠近界面的真空），测量过程被拆解为两个在物理上完全**可独立测量**的步骤[cite: 5]：
+
+1. **从金属内部 $\rightarrow$ 金属表面外侧真空**：克服的能量恰好是金属的**电子功函数 $\Phi^M$**[cite: 5]。
+2. **从金属表面外侧真空 $\rightarrow$ 溶液表面外侧真空**：仅需克服这两点之间的静电势差，即**外电势差（接触电势差） $\Delta_S^M\psi$**[cite: 5]。
+
+将两步的能量合并，绝对电极电势获得了一个极其优雅且完全由纯物理量构成的计算公式[cite: 5]：
+$E^M(\mathrm{abs}) = \Phi^M + \Delta_S^M\psi$ 
+*(注：如果采用电势 V 为单位，功函数项常写为 $W_e^M/e_0$ 或 $\Phi^M/e_0$)*[cite: 4, 5]。
+
+特别地，在**零电荷电势（PZC）**状态下，该绝对电极电势的定义演化为[cite: 4]：
+$U_{\mathrm{PZC}}^{\mathrm{abs}} = \frac{\Phi^M}{e_0} + (\psi^M - \psi^S)$
+
+---
+
+### 与标准氢电极（SHE）的结合
+
+如图 1 所示，如果电池右侧的参比电极选用标准氢电极 (SHE)（若是 RHE 则需依据 Nernst 方程扣除 pH 影响），此时 Pt 电极电势应与以下半反应处于电化学平衡[cite: 4]：
+$\mathrm{H^+(aq) + e^-(vac) \rightarrow \frac{1}{2}H_2(g)}$
+
+因此，根据平衡态热力学[cite: 4]：
+$\phi^S - \phi^{\mathrm{Pt}} = \frac{1}{e_0}\left(\frac{1}{2}\mu_{\mathrm{H_2}}^{g,o} - \mu_{\mathrm{H^+}}^{S,o} - \mu_e^{\mathrm{Pt}}\right) \quad (5.8)$
+其中 $\mu_{\mathrm{H^+}}^{S,o}$ 和 $\mu_{\mathrm{H_2}}^{g,o}$ 分别代表溶剂化质子和氢气的标准化学势[cite: 4]。
+
+结合之前展开的公式 (5.4)、(5.6)、(5.7) 与 (5.8)，我们便得到了以 SHE 为基准的**一般电极电势表达式**[cite: 4]：
+$U = \frac{1}{e_0}\left(\frac{1}{2}\mu_{\mathrm{H_2}}^{g,o} - \mu_{\mathrm{H^+}}^{S,o} - \mu_e^{M}\right) + (\phi^{M} - \phi^{S}) \quad (5.9)$
+
+这就是实验中测量到的**相对电极电势**的微观热力学本质。
+
+---
+
+### 总结表格：电极电势的不同表达形式
+
+这是只考虑一根电极的
+
+| **参考状态 (Reference State)**                                     | **常数 K 的取值**        | **绝对单电极电势 EM(abs) 的展开式**                                 |
+| -------------------------------------------------------------- | ------------------- | -------------------------------------------------------- |
+| **1. 无穷远处的真空**<br>(Infinity in a vacuum)                       | $\phi^S$            | $\phi^M - \frac{\mu_e^M}{F}$                             |
+| **2. 溶液内部的溶剂化状态**<br>(Solvated state in the liquid phase)      | $\frac{\mu_e^S}{F}$ | $\Delta_S^M\phi - \frac{\mu_e^M}{F} + \frac{\mu_e^S}{F}$ |
+| **3. 靠近溶液表面的真空**<br>(A point in a vacuum close to the surface) | $\chi^S$            | $\frac{\Phi^M}{F} + \Delta_S^M\psi$                      |
+
+这是组合成cell的
+
+| SHE reduced potential    | Standard $\mathrm{H^+/H_2}$ equilibrium | $U_{\mathrm{SHE}}(r)=[\mu_{\mathrm{H^+}}^{S,o}-\tfrac12\mu_{\mathrm{H_2}}^{g,o}]/e_0$               | Reduced single-electrode potential of the SHE                                   |
+| ------------------------ | --------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| SHE absolute potential   | Path-B absolute reference               | $U_{\mathrm{SHE}}^{\mathrm{abs}}\approx4.44\ \mathrm{V}$ at 298.15 K                                | Absolute electronic-energy position of the SHE relative to vacuum outside water |
+| Working electrode vs SHE | SHE chosen as relative zero             | $U^{\mathrm{SHE}}=U^M(r)-U_{\mathrm{SHE}}(r)=U^M(\mathrm{abs})-U_{\mathrm{SHE}}^{\mathrm{abs}}$     | Experimentally reported electrode potential on the SHE scale                    |
+| Absolute PZC             | $\sigma_M=0$                            | $U_{\mathrm{PZC}}^{M,\mathrm{abs}}=[\Phi^M/e_0+\Delta_S^M\psi]_{\sigma_M=0}$                        | Absolute electrode potential evaluated at zero excess surface charge            |
+| PZC vs SHE               | $\sigma_M=0$, SHE reference             | $U_{\mathrm{PZC}}^{\mathrm{SHE}}=U_{\mathrm{PZC}}^{M,\mathrm{abs}}-U_{\mathrm{SHE}}^{\mathrm{abs}}$ | PZC reported on the conventional SHE scale                                      |
+
+如果你想搞清楚内电势 外电势等等具体的定义,可以去问AI加上下面这个视频中有一幅图可以帮助你理解,
+
+https://www.koushare.com/video/details/65721?series_id=2064 中文
 
 我们弄清楚这些关系,我们就可以得到不同的表达电极电势的方程.
+
+厦门大学计算化学的程俊有两篇PRL就是用AIMD把上面这些参比找到,并且计算.
+
+
+
+
 
 从而推导出PZC PZFC 
 
