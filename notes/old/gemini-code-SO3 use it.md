@@ -19,7 +19,7 @@ draft: false
 
 略
 
-### 2. PINN：大道至简，损失加在 LOSS 就好了！
+### 2. PINN：损失加在 LOSS 就好了！
 
 传统的神经网络不懂物理常识。当面临复杂的**坐标系变换**或者**物理微分方程**约束时，该怎么办？
 **PINN (Physics-Informed Neural Networks)** 给出了一种极其简单粗暴的方法：**不需要改网络结构，直接把物理定律当作惩罚项，加在 LOSS 里！**
@@ -29,7 +29,7 @@ draft: false
 
 这边放TINNET图片
 
-![Fig. 1: Schematic illustration of the theory-infused neural network (TinNet).](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41467-021-25639-8/MediaObjects/41467_2021_25639_Fig1_HTML.png)https://www.nature.com/articles/s41467-021-25639-8
+![Fig. 1: Schematic illustration of the theory-infused neural network (TinNet).](https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41467-021-25639-8/MediaObjects/41467_2021_25639_Fig1_HTML.png)Xin 2021 nature com. https://www.nature.com/articles/s41467-021-25639-8
 
 看起来很复杂,其实就是左边做个普通的神经网络或者GNN,右边把已知的物理公式部分关键项写入LOSS.
 
@@ -54,6 +54,8 @@ GNN 的计算过程，就像是一次“朋友圈收集信息”的过程：
 https://theaisummer.com/gnn-architectures/ 说的很清楚,这里面涉及到计算邻接矩阵和图的拉普拉斯变换.
 
 *(图注：GNN 的经典聚合过程，从第0成开始把周围节点的信息拿过来,可以看到节点颜色逐渐变深)*
+
+###### Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Prediction of Material Properties [Tian Xie](https://journals.aps.org/search/field/author/Tian%20Xie) and [Jeffrey C. Grossman ](https://journals.aps.org/search/field/author/Jeffrey%20C%20Grossman) Phys. Rev. Lett. **120**, 145301 – **Published 6 April, 2018**
 
 ### 2. GNN 的致命软肋：做不深，Scaling Law 不好施展
 

@@ -73,6 +73,63 @@ Trasatti, S.. "The absolute electrode potential: an explanatory note (Recommenda
 
 http://www.cailiaoniu.com/?p=235685
 
+
+
+我们在这里可以看到不同的参考零点,可以取无穷远的真空,比如我们把一个电子从无穷远真空移动到靠近电极表面的地方,我们称之为表面电势
+
+
+
+
+
+
+
+我们先介绍什么是absolute electrode potential 开始, 从Trasatti和计算化学的角度(***[Atomic-Scale Modelling of Electrochemical Systems](https://onlinelibrary.wiley.com/doi/book/10.1002/9781119605652)*** Jia-Bo Le, Xiao-Hui Yang **Jun Cheng***）（Chapter 5）**),
+
+three reference levels 
+
+首先我们测的电极电势并不是你想的溶液的绝对电极电势减去电极的绝对电极电势,计算化学直到今天都不太清楚自己的计算在什么电极电势下.
+
+SHE It is defined as the potential energy by reducing a solvated H+(aq) to 1/2H2(g) at T = 298.15K in the standard condition (p = 1 bar and pH = 0). 我重复这句话是为了提醒计算化学的人们.reversible hydrogen electrode (RHE) is more popular
+for removing the pHeffect for electrochemical reactions involvingH+(aq), andsaturated
+calomel electrode (SCE) and Ag/AgCl electrode
+
+the electrochemical
+potential of the working electrode U = (𝜇̃Cue − 𝜇̃Cu′e)/−e0,where 𝜇̃Cu
+e and 𝜇̃Cu′
+e denote the electrochemical potential of electron in Cu and Cu’ wire
+connecting to the working electrode and reference electrode
+
+The electrochemical potential of the electron in Cu wire is composed
+by two parts𝜇̃Cu
+e = 𝜇Cu
+e − e0𝜙Cu
+
+the terms 𝜇Cu
+e and 𝜙Cu represent the chemical and electrostatic contributions
+
+Note that the working electrode and the reference electrode are terminated with the same
+metal (Cu). Therefore, the working electrode potential of the cell can be expressed as
+U = 𝜙Cu − 𝜙Cu′
+. (5.3)
+
+
+
+想这样一个过程把一个正电荷从无限远处的真空移至物质**相内部**,真空中可能还有一些电场我们需要克服,这部分我们叫外电势(从无穷远到距表面约 $10^{-4}$ 厘米).然后我们需要穿过金属的表面,由于金属表面原子被截断,有部分电子溢出,这部分会贡献一个电势变化,我们称之为表面电势$\chi$. 所以最后整个过程需要做的功就是: $\phi = \psi + \chi$, 这个$\phi$叫做内电势 (Inner Potential / Galvani Potential).
+
+Fermi Level, $E_F$我们可以定义为把一个金属最外层电子拿到无穷远真空需要做的功,又称之为金属电子的电化学势,等于电子的化学势+要电子穿过表面电势做的功.
+
+
+
+
+
+
+
+
+
+
+
+还可以取溶液为参考零点
+
 ![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-44-38-image.png)
 
 ###### **Fig. 1.** Sketch to put in evidence the components of the electrode potential. Work along path B is expressed by eqn.(10) in the text. Work from M(M₁) to infinity (path A) and work from M(M₁) to S (path C) define the two other *conceptually* possible single electrode potentials.
@@ -80,6 +137,10 @@ http://www.cailiaoniu.com/?p=235685
 ![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-14-20-51-04-image.png)
 
 https://www.koushare.com/video/details/65721?series_id=2064
+
+我们弄清楚这些关系,我们就可以得到不同的表达电极电势的方程.
+
+从而推导出PZC PZFC 
 
 ![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-15-57-50-image.png)
 
