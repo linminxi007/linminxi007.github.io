@@ -19,15 +19,13 @@ draft: false
 
 ---
 
-#1
+# Newns-Anderson-Schmickler
 
-d 轨道与分子的作用不仅包含共价吸引，还包含轨道正交化带来的泡利排斥。正如Hongliang Xin(J. Chem. Phys. 2010, 132, 221101)指出的，当吸附物轨道与拥有几乎满 d 轨道的金属（如后期过渡金属）作用时，排斥作用甚至会占据主导。**但综合起来看，d band center确实是衡量这部分能量变化、描述气相分子吸附的一个简单且极其伟大的描述符。于是我就好奇 Nørskov 是怎么推导出来这个理论的，这就带我进入了美妙的量子力学世界，让我们从 Newns-Anderson 理论开始吧。
+那么金属是如何与分子相互作用的呢? 电子转移是如何发生的呢? 溶剂又能起到什么作用呢?
 
-Fundamental Concepts in Heterogeneous Catalysis
+还有一个好玩的发现,其实我们是用谐振子和中心极限定理来描述几乎溶液的一切.
 
-写的有点累,这部分先不太仔细的介绍Newns-Anderson的推导, 总之是Anderson先...,然后Newns,Hongliang Xin总结基本上这就是d ban center的全部了.
 
-这部分大概
 
 1. anderson
 
@@ -274,7 +272,7 @@ $\Lambda(\varepsilon) = \mathcal{P} \sum_k \frac{\vert{}V_{ak}\vert{}^2}{\vareps
 
 其中 $\mathcal{P}$ 代表**柯西主值（Cauchy Principal Value）**，意味着在积分或求和时，要巧妙地扣除 $\varepsilon = \varepsilon_k$ 那个导致分母为零的奇点。在实际计算或者写代码的时候,是$\Delta(\varepsilon)$的希尔伯特变换（Hilbert Transform）.
 
-![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-20-00-01-image.png)
+<img title="" src="file:///C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-20-00-01-image.png" alt="" width="417" data-align="center">
 
 图中的na(ε)就是分子吸附后分子的DOS, $\Delta(\varepsilon)$ 选取了宽大的sp electrons,所以很宽从-10eV到15eV.红线和橙色线的交点就是分子的单一轨道吸附到金属表面被轻微移动并且展宽了,电子被共享了,这个展宽还有个说法叫Electron Lifetime,在物理图像中，**共振峰越宽（“越肥大”），电子在吸附质上的寿命是越短的。** 也往往说明$V_{ak}$ 很小. 在量子力学中，能量与时间满足**海森堡不确定性原理**：
 
@@ -294,7 +292,7 @@ $\tau \approx \frac{\hbar}{2\Delta}$
 
 在Nørskov 的书中他认为反键态的占据是最重要的,所以反键态的占据电子如果被排空了，系统获得巨大的杂化吸引能**。因此：**$\epsilon_d$ 越高，吸附越强。下图就显示了两个na(ε)的小峰,高于0eV那个就是反键轨道.
 
-![](C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-20-20-21-image.png)
+<img title="" src="file:///C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-15-20-20-21-image.png" alt="" width="442" data-align="center">
 
 Hongliang进一步在这个基础上完善,他们OH, F, Cl 吸附在 Pt, Pd 的 skin alloys,d band center出现了问题.当吸附态和金属都是**全满占据**,成键态下移的能量增益被反键态占据带来的能量抵消. 他引入了重叠 $S_{ad}$ 引起的正交化惩罚（Pauli排斥）来解释。这就宣告了金属的sp和d与吸附物的相互作用理论基本上被理解清楚了.
 
