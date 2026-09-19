@@ -28,9 +28,9 @@ draft: false
 
 Parisi 等人在 *Scale-free correlations in starling flocks* 中，用多台相机重建空中椋鸟群的三维位置、速度和方向，再比较一只鸟的速度涨落与其他鸟之间的相关性。\[1\]
 
-他们发现一个很有意思的现象：椋鸟并不是固定半径内的所有鸟互动，而是大约跟固定数量的邻居——约 7-11 只 ,他们称之为是一种**topological interaction**. 换句话说，单只鸟获得的信息是 local 的，但是整个鸟群却可以出现非常大尺度的 collective motion。
+他们发现一个很有意思的现象：椋鸟并不是固定半径内的所有鸟互动，而是大约跟固定数量的邻居——约 7-11 只 ,他们称之为是一种**topological interaction**. 换句话说，单只鸟获得的信息是很少的，但是整个鸟群却可以出现非常大尺度的集体运动。
 
-他们在不同大小的鸟群中发现，速度涨落的 correlation length 会随着鸟群的线性尺寸一起增加。鸟群越大，每一只鸟能影响的鸟也跟着变多：
+他们在不同大小的鸟群中发现，速度涨落的关联长度会随着鸟群的线性尺寸一起增加。鸟群越大，每一只鸟能影响的鸟也跟着变多：
 
 $$
 \xi \propto L
@@ -82,12 +82,12 @@ $$
 
 这是 LLM 中 scaling law 的大致研究历史：
 
-| 论文 | 核心问题 | 最重要结论 |
-|------------------|------------------|------------------------------------|
-| Hestness et al. 2017 | 深度学习整体有没有可预测的规模规律？ | **有。误差随数据/模型规模呈近似幂律下降。** |
-| Kaplan et al. 2020 | 语言模型的参数、数据、算力如何影响 loss？ | **Loss 对参数** $N$、数据 $D$、计算 $C$ 都近似遵循 power law。 |
-| Hoffmann et al. 2022, Chinchilla | 固定算力下，应该把算力花在参数还是数据上？ | **Kaplan太偏向增大模型参数；Chinchilla说参数量和训练 token 应近似同比例增长。** |
-| Wei et al. 2022 | 如果 loss 平滑下降，为什么某些能力突然出现？ | **某些 downstream ability 看起来存在突然 threshold / emergence，而不是简单平滑增长。** |
+| 论文                               | 核心问题                      | 最重要结论                                                              |
+| -------------------------------- | ------------------------- | ------------------------------------------------------------------ |
+| Hestness et al. 2017             | 深度学习整体有没有可预测的规模规律？        | **有。误差随数据/模型规模呈近似幂律下降。**                                           |
+| Kaplan et al. 2020               | 语言模型的参数、数据、算力如何影响 loss？   | **Loss 对参数** $N$、数据 $D$、计算 $C$ 都近似遵循 power law。                    |
+| Hoffmann et al. 2022, Chinchilla | 固定算力下，应该把算力花在参数还是数据上？     | **Kaplan太偏向增大模型参数；Chinchilla说参数量和训练 token 应近似同比例增长。**              |
+| Wei et al. 2022                  | 如果 loss 平滑下降，为什么某些能力突然出现？ | **某些 downstream ability 看起来存在突然 threshold / emergence，而不是简单平滑增长。** |
 
 当然，现在随着 MoE、强化学习、后训练、持续学习和 inference-time compute 的出现，“参数、数据、算力”之间的关系已经没有早期 scaling law 那么简单，但 power-law scaling 仍然提供了一个很有用的观察角度。
 
@@ -135,9 +135,9 @@ $$
 
 如果真的要证明一个 H-bond network 是 scale-free，我觉得实验和模拟上至少应该同时看三件事：
 
-1.  $C(r)$ 是否在足够大的尺度区间表现为 power law，而不是一个很长但最终仍然 exponential 的 tail；
-2.  correlation length $\xi$ 是否会随着 system size 增长，而不是固定在某个分子尺度或纳米尺度；
-3.  改变温度、离子浓度、界面电荷或膜组成时，是否能看到类似 critical scaling 的系统性变化，而不是只看到某一个条件下“相关变远了”。
+1. $C(r)$ 是否在足够大的尺度区间表现为 power law，而不是一个很长但最终仍然 exponential 的 tail；
+2. correlation length $\xi$ 是否会随着 system size 增长，而不是固定在某个分子尺度或纳米尺度；
+3. 改变温度、离子浓度、界面电荷或膜组成时，是否能看到类似 critical scaling 的系统性变化，而不是只看到某一个条件下“相关变远了”。
 
 这也是我觉得 SHS、SFG、CVS 很有意思的地方。如果最后真的能找到一个条件，让 H-bond network 从普通的 finite-$\xi$ 状态走向非常大的、甚至近似 scale-free 的 correlation，那么下一步就很有意思了：**在这样的 collective solvent environment 中，电子转移、自组装、离子传输或者膜通透过程，会不会和普通短程相关的溶剂出现本质不同的动力学？**
 
@@ -151,35 +151,35 @@ $$
 
 ## References
 
-1.  Cavagna, A. et al. **Scale-free correlations in starling flocks.** *PNAS* **107**, 11865–11870 (2010).\
-    https://www.pnas.org/doi/10.1073/pnas.1005766107
+1. Cavagna, A. et al. **Scale-free correlations in starling flocks.** *PNAS* **107**, 11865–11870 (2010).\
+   https://www.pnas.org/doi/10.1073/pnas.1005766107
+   
+   Video: *The Seventh Starling: The Wonders of Collective Animal Behaviour*\
+   https://www.carmin.tv/en/video/the-seventh-starling-the-wonders-of-collective-animal-behaviour
 
-    Video: *The Seventh Starling: The Wonders of Collective Animal Behaviour*\
-    https://www.carmin.tv/en/video/the-seventh-starling-the-wonders-of-collective-animal-behaviour
+2. Hestness, J. et al. **Deep Learning Scaling is Predictable, Empirically.** arXiv:1712.00409 (2017).\
+   https://arxiv.org/abs/1712.00409
 
-2.  Hestness, J. et al. **Deep Learning Scaling is Predictable, Empirically.** arXiv:1712.00409 (2017).\
-    https://arxiv.org/abs/1712.00409
+3. Kaplan, J. et al. **Scaling Laws for Neural Language Models.** arXiv:2001.08361 (2020).\
+   https://arxiv.org/abs/2001.08361
 
-3.  Kaplan, J. et al. **Scaling Laws for Neural Language Models.** arXiv:2001.08361 (2020).\
-    https://arxiv.org/abs/2001.08361
+4. Hoffmann, J. et al. **Training Compute-Optimal Large Language Models.** NeurIPS (2022).\
+   https://arxiv.org/abs/2203.15556
 
-4.  Hoffmann, J. et al. **Training Compute-Optimal Large Language Models.** NeurIPS (2022).\
-    https://arxiv.org/abs/2203.15556
+5. Chen, Y. et al. **Electrolytes induce long-range orientational order and free energy changes in the H-bond network of bulk water.** *Science Advances* **2**, e1501891 (2016).\
+   https://pmc.ncbi.nlm.nih.gov/articles/PMC4846452/
 
-5.  Chen, Y. et al. **Electrolytes induce long-range orientational order and free energy changes in the H-bond network of bulk water.** *Science Advances* **2**, e1501891 (2016).\
-    https://pmc.ncbi.nlm.nih.gov/articles/PMC4846452/
+6. Duboué-Dijon, E. & Laage, D. **Size and Origins of Long-Range Orientational Water Correlations in Dilute Aqueous Salt Solutions.** *J. Phys. Chem. B* **121**, 7026–7035 (2017).\
+   https://pubmed.ncbi.nlm.nih.gov/28429943/
 
-6.  Duboué-Dijon, E. & Laage, D. **Size and Origins of Long-Range Orientational Water Correlations in Dilute Aqueous Salt Solutions.** *J. Phys. Chem. B* **121**, 7026–7035 (2017).\
-    https://pubmed.ncbi.nlm.nih.gov/28429943/
+7. Kanth, J. M. P., Vemparala, S. & Anishetty, R. **Long-distance correlations in molecular orientations of liquid water and shape-dependent hydrophobic force.** *Phys. Rev. E* **81**, 021201 (2010).\
+   https://pubmed.ncbi.nlm.nih.gov/20365555/
 
-7.  Kanth, J. M. P., Vemparala, S. & Anishetty, R. **Long-distance correlations in molecular orientations of liquid water and shape-dependent hydrophobic force.** *Phys. Rev. E* **81**, 021201 (2010).\
-    https://pubmed.ncbi.nlm.nih.gov/20365555/
+8. Omelyan, I. P. **Angular resolution and range of dipole-dipole correlations in water.** *J. Chem. Phys.* **120**, 3687–3701 (2004).\
+   https://pubmed.ncbi.nlm.nih.gov/15268608/
 
-8.  Omelyan, I. P. **Angular resolution and range of dipole-dipole correlations in water.** *J. Chem. Phys.* **120**, 3687–3701 (2004).\
-    https://pubmed.ncbi.nlm.nih.gov/15268608/
-
-9.  Huang, C. et al. **Increasing correlation length in bulk supercooled H₂O, D₂O, and NaCl solution determined from small angle x-ray scattering.** *J. Chem. Phys.* **133**, 134504 (2010).\
-    https://pubmed.ncbi.nlm.nih.gov/20942543/
+9. Huang, C. et al. **Increasing correlation length in bulk supercooled H₂O, D₂O, and NaCl solution determined from small angle x-ray scattering.** *J. Chem. Phys.* **133**, 134504 (2010).\
+   https://pubmed.ncbi.nlm.nih.gov/20942543/
 
 10. You, S. et al. **Experimental evidence of a liquid-liquid critical point in supercooled water.** *Science* **391**, 1387–1391 (2026).\
     https://doi.org/10.1126/science.aec0018
