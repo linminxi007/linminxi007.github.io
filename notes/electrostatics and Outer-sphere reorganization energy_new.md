@@ -39,9 +39,9 @@ $$
 \tag{1}
 $$
 
-我们先从这个大家都熟悉的电场公式来,真实电场 $\mathbf{E}$的大小,可以被看成是外部电荷带来的“原始场$D$”，**减去**介质极化后拼命“抵抗$P$”所消耗掉的场。其中$D$的物理意义是**一条起点只能是正的自由电荷，终点只能是负的自由电荷的线。**国际单位是 **库仑/平方米 ($C/m^2$)**。[1]
+我们先从这个大家都熟悉的电场公式来,真实电场 $\mathbf{E}$的大小,可以被看成是外部电荷带来的“原始场$D$”，**减去**介质极化后拼命“抵抗$P$”所消耗掉的场。其中$D$的物理意义是**一条起点只能是正的自由电荷，终点只能是负的自由电荷的线。**国际单位是 **库仑/平方米 (**$C/m^2$)。\[1\]
 
-$\varepsilon_0$ 是**真空介电常数（vacuum permittivity）**，在 SI 单位制中确定电荷、电场与电位移之间的尺度关系。[1]
+$\varepsilon_0$ 是**真空介电常数（vacuum permittivity）**，在 SI 单位制中确定电荷、电场与电位移之间的尺度关系。\[1\]
 
 然后我们改写一下,
 
@@ -63,7 +63,7 @@ $$
 \tag{3}
 $$
 
-$\varepsilon_0$ 是真空电容率，$\varepsilon_s$ 是溶剂的相对静介电常数.[1]
+$\varepsilon_0$ 是真空电容率，$\varepsilon_s$ 是溶剂的相对静介电常数.\[1\]
 
 ### 1.1 从介电常数看介质极化
 
@@ -130,7 +130,7 @@ q_{\mathrm{free}}
 \tag{8}
 $$
 
-也就是一个闭合的三维曲面（高斯面）上的电位移通量，恰好等于这个三维面包住的**自由电荷的总代数和**。[1]
+也就是一个闭合的三维曲面（高斯面）上的电位移通量，恰好等于这个三维面包住的**自由电荷的总代数和**。\[1\]
 
 那一个带 $q$ 电荷的小球能产生的电位移矢量$D$就可以等于:
 
@@ -231,17 +231,15 @@ $$
 
 # 5. Marcus 外层溶剂重组能：把快极化和慢极化拆开
 
-我们来假设一个“充电快，放电慢”的热力学循环（Thermodynamic Cycle），是 **Rudolph Marcus** 当初推导**外层溶剂重组能（Outer-sphere reorganization energy, $\lambda$）**的核心思想。[2,3,4]
+我们来假设一个“充电快，放电慢”的热力学循环（Thermodynamic Cycle），是 **Rudolph Marcus** 当初推导**外层溶剂重组能（Outer-sphere reorganization energy,** $\lambda$）的核心思想。\[2,3,4\]
 
-这个推导的精髓在于：将溶剂的响应（极化）严格拆分为**慢响应（取向/核极化，对应静介电常数 $\varepsilon_s$）**和**快响应（电子/光学极化，对应光学介电常数 $\varepsilon_{op}$，通常等于折射率的平方 $n^2$）**。[2,3,4]
+这个推导的精髓在于：将溶剂的响应（极化）严格拆分为**慢响应（取向/核极化，对应静介电常数** $\varepsilon_s$）和**快响应（电子/光学极化，对应光学介电常数** $\varepsilon_{op}$，通常等于折射率的平方 $n^2$）。\[2,3,4\]
 
 你可以认为溶剂极化的比较慢,,光(变化的电场)打过去带有偶极的水分子来不及跟着这个电场跳舞,所以这部分$\varepsilon_{op}$可以认为是电子在跳舞. 慢极化就是原子在跳舞,往往是被双电层电场这种静电场驱动
 
-<img title="" src="file:///C:/Users/linqiao/AppData/Roaming/marktext/images/2026-09-16-12-07-46-image.png" alt="" data-align="center" width="396">
+![](images/paste-3.png){fig-align="center" width="440"}
 
 我们关注的是溶剂如何改变电子转移的自由能。因此比较状态1 A0+B0 和状态2 A0sol​+B0sol​的能量差。在两个状态中保持相同的电子结构A0+B0，只改变溶剂构型，从而得到溶剂极化对电子转移体系能量的贡献。
-
-![](C:\Users\linqiao\Downloads\3%20state%20reoganization%20energy.svg)
 
 ## 6. 定义基础变量
 
@@ -344,7 +342,7 @@ $$
 
 - **态 3**：小球带有 $+e$ 和 $-e$ 电荷，且溶剂已经**完全弛豫**（快、慢极化均达到平衡）。
 
-- **过程 1$\rightarrow$3**：相当于把不带电的小球放入溶剂，并在溶剂中极其缓慢地给它们充电到 $e$。此时总介电常数 $\varepsilon_s$ 起作用。利用 **Born 公式**（包含两球库仑项）[5]，该平衡态的静电自由能为：
+- **过程 1** $\rightarrow\3$：相当于把不带电的小球放入溶剂，并在溶剂中极其缓慢地给它们充电到 $e$。此时总介电常数 $\varepsilon_s$ 起作用。利用 **Born 公式**（包含两球库仑项）\[5\]，该平衡态的静电自由能为：
 
 $$
 G_3
@@ -354,18 +352,18 @@ W_{1\rightarrow3}
 \frac{U_0}{\varepsilon_s}
 \tag{21}
 $$
-
+	
 ## 8. 态 2 到态 3：快响应过程的做功
 
 - **态 2（你的假想态）**：小球**不带电**，但溶剂的“慢响应（取向）”被冻结在了态 3（带电态）的构型。
 
-- **过程 2$\rightarrow$3**：我们在这种特殊的溶剂构型下，将小球从 0 极速充电到 $e$。
+- **过程 2** $\rightarrow\3$：我们在这种特殊的溶剂构型下，将小球从 0 极速充电到 $e$。
 
-- 因为充电极快，**只有快的光学介电常数** **$\varepsilon_{op}$** **能够跟上电荷的变化**。
+- 因为充电极快，**只有快的光学介电常数** $\varepsilon_{op}$ **能够跟上电荷的变化**。
 
 - 而溶剂的**慢极化场（取向极化）保持冻结**，它相当于一个预先存在的、恒定的外加电势场。
 
-- **能量积分**：在从电荷 $q=0$ 充到 $q=e$ 的过程中，电荷所感受到的电势包含两部分：(1) 瞬时电荷 $q$ 在快介质 $\varepsilon_{op}$ 中产生的电势；(2) 态 3 冻结下来的慢极化场产生的恒定电势。[2,3]
+- **能量积分**：在从电荷 $q=0$ 充到 $q=e$ 的过程中，电荷所感受到的电势包含两部分：(1) 瞬时电荷 $q$ 在快介质 $\varepsilon_{op}$ 中产生的电势；(2) 态 3 冻结下来的慢极化场产生的恒定电势。\[2,3\]
 
 “快过程”中做功为：
 
@@ -383,11 +381,11 @@ U_0
 \tag{22}
 $$
 
-*(**注：这里 $\frac{2}{\varepsilon_s}$* *的项来源于冻结的平衡态极化场对瞬时电荷所做的功，而 $-\frac{1}{\varepsilon_{op}}$* *来源于快介质自身的屏蔽效应。)*
+\*(\*\*注：这里 $\frac{2}{\varepsilon_s}$\* *的项来源于冻结的平衡态极化场对瞬时电荷所做的功，而* $-\frac{1}{\varepsilon_{op}}$ *来源于快介质自身的屏蔽效应。)*
 
 ## 9. 综合过程：求解重组能（态 1 到态 2）
 
-我们真正感兴趣的是**溶剂重组能** **$\lambda$**，也就是在没有发生电子转移时，纯粹为了把溶剂扭曲到产物构型（态 2）所需的能量代价。[2,3,4]
+我们真正感兴趣的是**溶剂重组能** $\lambda$，也就是在没有发生电子转移时，纯粹为了把溶剂扭曲到产物构型（态 2）所需的能量代价。\[2,3,4\]
 
 显然：
 
@@ -462,7 +460,7 @@ $$
 
 ## 10. 结论：Marcus 外层溶剂重组能
 
-将 $U_0$ 的表达式代入，我们就得到了大名鼎鼎的 **Marcus 溶剂重组能公式**（也被称为 Pekar factor 分离公式）[2,3,4]：
+将 $U_0$ 的表达式代入，我们就得到了大名鼎鼎的 **Marcus 溶剂重组能公式**（也被称为 Pekar factor 分离公式）\[2,3,4\]：
 
 $$
 \lambda
@@ -485,12 +483,12 @@ $$
 
 ## 参考文献
 
-[1] Griffiths, D. J. *Introduction to Electrodynamics*, 4th ed. Pearson, 2013.
+\[1\] Griffiths, D. J. *Introduction to Electrodynamics*, 4th ed. Pearson, 2013.
 
-[2] Marcus, R. A. “Electrostatic Free Energy and Other Properties of States Having Nonequilibrium Polarization. I.” *The Journal of Chemical Physics* **24** (5) (1956): 979–989. https://doi.org/10.1063/1.1742724
+\[2\] Marcus, R. A. “Electrostatic Free Energy and Other Properties of States Having Nonequilibrium Polarization. I.” *The Journal of Chemical Physics* **24** (5) (1956): 979–989. https://doi.org/10.1063/1.1742724
 
-[3] Marcus, R. A. “On the Theory of Oxidation-Reduction Reactions Involving Electron Transfer. I.” *The Journal of Chemical Physics* **24** (5) (1956): 966–978. https://doi.org/10.1063/1.1742723
+\[3\] Marcus, R. A. “On the Theory of Oxidation-Reduction Reactions Involving Electron Transfer. I.” *The Journal of Chemical Physics* **24** (5) (1956): 966–978. https://doi.org/10.1063/1.1742723
 
-[4] Marcus, R. A. “Electron transfer reactions in chemistry. Theory and experiment.” *Reviews of Modern Physics* **65** (3) (1993): 599–610. https://doi.org/10.1103/RevModPhys.65.599
+\[4\] Marcus, R. A. “Electron transfer reactions in chemistry. Theory and experiment.” *Reviews of Modern Physics* **65** (3) (1993): 599–610. https://doi.org/10.1103/RevModPhys.65.599
 
-[5] Born, M. “Volumen und Hydratationswärme der Ionen.” *Zeitschrift für Physik* **1** (1920): 45–48. https://doi.org/10.1007/BF01881023
+\[5\] Born, M. “Volumen und Hydratationswärme der Ionen.” *Zeitschrift für Physik* **1** (1920): 45–48. https://doi.org/10.1007/BF01881023

@@ -478,23 +478,23 @@ $$
 
 这是只考虑一根电极的
 
-| **参考状态 (Reference State)** | **常数 K 的取值** | **绝对单电极电势 EM(abs) 的展开式** |
-| --- | --- | --- |
-| **1. 无穷远处的真空**<br>(Infinity in a vacuum) | $\phi^S$ | $\phi^M - \frac{\mu_e^M}{F}$ |
-| **2. 溶液内部的溶剂化状态**<br>(Solvated state in the liquid phase) | $\frac{\mu_e^S}{F}$ | $\Delta_S^M\phi - \frac{\mu_e^M}{F} + \frac{\mu_e^S}{F}$ |
-| **3. 靠近溶液表面的真空**<br>(A point in a vacuum close to the surface) | $\chi^S$ | $\frac{\Phi^M}{F} + \Delta_S^M\psi$ |
+| **参考状态 (Reference State)**                                     | **常数 K 的取值**        | **绝对单电极电势 EM(abs) 的展开式**                                 |
+| -------------------------------------------------------------- | ------------------- | -------------------------------------------------------- |
+| **1. 无穷远处的真空**<br>(Infinity in a vacuum)                       | $\phi^S$            | $\phi^M - \frac{\mu_e^M}{F}$                             |
+| **2. 溶液内部的溶剂化状态**<br>(Solvated state in the liquid phase)      | $\frac{\mu_e^S}{F}$ | $\Delta_S^M\phi - \frac{\mu_e^M}{F} + \frac{\mu_e^S}{F}$ |
+| **3. 靠近溶液表面的真空**<br>(A point in a vacuum close to the surface) | $\chi^S$            | $\frac{\Phi^M}{F} + \Delta_S^M\psi$                      |
 
 ### 组合成 cell
 
 这是组合成cell的
 
-|  |  |  |  |
-| --- | --- | --- | --- |
-| SHE reduced potential | Standard $\mathrm{H^+/H_2}$ equilibrium | $U_{\mathrm{SHE}}(r)=[\mu_{\mathrm{H^+}}^{S,o}-\tfrac12\mu_{\mathrm{H_2}}^{g,o}]/e_0$ | Reduced single-electrode potential of the SHE |
-| SHE absolute potential | Path-B absolute reference | $U_{\mathrm{SHE}}^{\mathrm{abs}}\approx4.44\ \mathrm{V}$ at 298.15 K | Absolute electronic-energy position of the SHE relative to vacuum outside water |
-| Working electrode vs SHE | SHE chosen as relative zero | $U^{\mathrm{SHE}}=U^M(r)-U_{\mathrm{SHE}}(r)=U^M(\mathrm{abs})-U_{\mathrm{SHE}}^{\mathrm{abs}}$ | Experimentally reported electrode potential on the SHE scale |
-| Absolute PZC | $\sigma_M=0$ | $U_{\mathrm{PZC}}^{M,\mathrm{abs}}=[\Phi^M/e_0+\Delta_S^M\psi]_{\sigma_M=0}$ | Absolute electrode potential evaluated at zero excess surface charge |
-| PZC vs SHE | $\sigma_M=0$, SHE reference | $U_{\mathrm{PZC}}^{\mathrm{SHE}}=U_{\mathrm{PZC}}^{M,\mathrm{abs}}-U_{\mathrm{SHE}}^{\mathrm{abs}}$ | PZC reported on the conventional SHE scale |
+|                          |                                         |                                                                                                     |                                                                                 |
+| ------------------------ | --------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| SHE reduced potential    | Standard $\mathrm{H^+/H_2}$ equilibrium | $U_{\mathrm{SHE}}(r)=[\mu_{\mathrm{H^+}}^{S,o}-\tfrac12\mu_{\mathrm{H_2}}^{g,o}]/e_0$               | Reduced single-electrode potential of the SHE                                   |
+| SHE absolute potential   | Path-B absolute reference               | $U_{\mathrm{SHE}}^{\mathrm{abs}}\approx4.44\ \mathrm{V}$ at 298.15 K                                | Absolute electronic-energy position of the SHE relative to vacuum outside water |
+| Working electrode vs SHE | SHE chosen as relative zero             | $U^{\mathrm{SHE}}=U^M(r)-U_{\mathrm{SHE}}(r)=U^M(\mathrm{abs})-U_{\mathrm{SHE}}^{\mathrm{abs}}$     | Experimentally reported electrode potential on the SHE scale                    |
+| Absolute PZC             | $\sigma_M=0$                            | $U_{\mathrm{PZC}}^{M,\mathrm{abs}}=[\Phi^M/e_0+\Delta_S^M\psi]_{\sigma_M=0}$                        | Absolute electrode potential evaluated at zero excess surface charge            |
+| PZC vs SHE               | $\sigma_M=0$, SHE reference             | $U_{\mathrm{PZC}}^{\mathrm{SHE}}=U_{\mathrm{PZC}}^{M,\mathrm{abs}}-U_{\mathrm{SHE}}^{\mathrm{abs}}$ | PZC reported on the conventional SHE scale                                      |
 
 ## 7. 如果还想把内电势、外电势继续拆开
 
@@ -518,7 +518,9 @@ $$
 
 [2] Le, J.-B.; Yang, X.-H.; Zhuang, Y.-B.; Wang, F.; Cheng, J. “Ab initio modeling of electrochemical interfaces and determination of electrode potentials.” In *Atomic-Scale Modelling of Electrochemical Systems*, Chapter 5, pp. 173–200. Wiley, 2021. https://doi.org/10.1002/9781119605652.ch5
 
-[3] Trasatti, S. “The absolute electrode potential: an explanatory note (Recommendations 1986).” *Pure and Applied Chemistry* **58** (7) (1986): 955–966. https://doi.org/10.1351/pac198658070955
+[3] Trasatti, S. “The absolute electrode potential: an explanatory note (Recommendations 1986).” *Pure and Applied Chemistry* **58** (7) (1986): 955–966. https://doi.org/10.1351/pac198658070955   
+
+Trasatti, S. "The “absolute” electrode potential—the end of the story" Electrochimica Acta 1990 https://www.sciencedirect.com/science/article/abs/pii/001346869085069Y
 
 [4] Cheng, J.; VandeVondele, J. “Calculation of Electrochemical Energy Levels in Water Using the Random Phase Approximation and a Double Hybrid Functional.” *Physical Review Letters* **116** (2016): 086402. https://doi.org/10.1103/PhysRevLett.116.086402
 

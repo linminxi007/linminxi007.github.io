@@ -17,27 +17,32 @@ status: working
 
 draft: false
 
+format:
+  html:
+    html-math-method: mathjax
 ---
 
 # 从樱井纯的量子力学到 Hamm 的 SFG
 
 ## 内容概览
 
-这篇笔记的路线可以压缩成一条线：先从**平移与旋转生成元**建立角动量的数学语言，再引入**Wigner-Eckart 定理**和**分子对称性**判断跃迁矩阵元与二阶响应张量分量是否为零；随后从 Peter Hamm / Mukamel 的**含时微扰与密度矩阵**出发，把 SFG 的二阶响应写成偶极矩阵元的连乘；再用$ C_{2v}$群论说明$H_2O$ 的 IR/**Raman**/SFG 选择定则；最后把允许的$\beta_{ijk}$写成偶极矩与极化率对正常模坐标的导数，并说明如何通过 **DFT + 有限差分**得到这些量。最后一步是把分子坐标系中的响应投影到实验室坐标系。
+这篇笔记的路线可以压缩成一条线：先从**平移与旋转生成元**建立角动量的数学语言，再引入**Wigner-Eckart 定理**和**分子对称性**判断跃迁矩阵元与二阶响应张量分量是否为零；随后从 Peter Hamm / Mukamel 的**含时微扰与密度矩阵**出发，把 SFG 的二阶响应写成偶极矩阵元的连乘；再用$C_{2v}$ 群论说明 $H_2O$的 IR/**Raman**/SFG 选择定则；最后把允许的$\beta_{ijk}$写成偶极矩与极化率对正常模坐标的导数，并说明如何通过 **DFT + 有限差分**得到这些量。最后一步是把分子坐标系中的响应投影到实验室坐标系。
+
+![](images/paste-22.png)
 
 ## 原始路线
 
 #### 我们大概的路径是先定义旋转和角动量的数学符号,引入**Wigner-Eckart定理**和对称性,判断hamm推导出的SFG二阶极化率是否为0.不为0的分量如何用DFT计算它,分子坐标系如何转发到实验室坐标系.到这一步我们基本上就可以解释SFG的信号了.
 
-我们使用到的书有樱井纯的现代量子力学[1],阿金斯物理化学 分子对称性群论部分[2] ,Principles of Nonlinear Optical Spectroscopy: A Practical Approach or: Mukamel for Dummies Peter Hamm[3]
+我们使用到的书有樱井纯的现代量子力学\[1\],阿金斯物理化学 分子对称性群论部分\[2\] ,Principles of Nonlinear Optical Spectroscopy: A Practical Approach or: Mukamel for Dummies Peter Hamm\[3\]
 
----
+------------------------------------------------------------------------
 
 ## 一、从平移到旋转：角动量作为生成元
 
 ### 1.1 旋转生成元与 SO(3) 对易关系
 
-我们先来定义一些**讨厌的数学**，比如怎么旋转一个东西。我们需要引入最小的旋转操作. 
+我们先来定义一些**讨厌的数学**，比如怎么旋转一个东西。我们需要引入最小的旋转操作.
 
 ### 1.2 从平移生成元到有限平移
 
@@ -64,7 +69,7 @@ T(a) = \exp\left(-i \frac{p_x a}{\hbar}\right)
 \tag{3}
 $$
 
-我们可以把这一套方法放到旋转上,动量是平移的生成元,那么很自然**角动量 $\mathbf{J}$ 就是空间旋转的生成元**。$D(\mathbf{\hat{n}}, \phi) = \left[ D\left(\mathbf{\hat{n}}, \frac{\phi}{N}\right) \right]^N = \lim_{N \to \infty} \left[ 1 - i \left(\frac{\mathbf{J} \cdot \mathbf{\hat{n}}}{\hbar}\right) \frac{\phi}{N} \right]^N$
+我们可以把这一套方法放到旋转上,动量是平移的生成元,那么很自然**角动量** $\mathbf{J}$ 就是空间旋转的生成元。$D(\mathbf{\hat{n}}, \phi) = \left[ D\left(\mathbf{\hat{n}}, \frac{\phi}{N}\right) \right]^N = \lim_{N \to \infty} \left[ 1 - i \left(\frac{\mathbf{J} \cdot \mathbf{\hat{n}}}{\hbar}\right) \frac{\phi}{N} \right]^N$
 
 在连续三维空间中，角动量算符 $\mathbf{J}$ 的物理本质是**无穷小空间旋转操作的生成元**。只要把角动量放在指数上，它就能变成一个真实的旋转算符：
 
@@ -84,11 +89,11 @@ $$
 
 注意量子力学算符是从右往左作用在物体上的，所以第一步动作必须写在最右边。你可能会问为什么不是 XYZ 规定？XYZ 形式同样可以参数化一般的三维旋转；这里选择 ZYZ 只是常用的 Euler 角约定。任何三参数 Euler 角参数化都可能在某些构型出现坐标奇点（万向锁），这只是参数化的缺陷，并不是物理真实连续空间本身出了问题。
 
-**至于 SO(3) 只是一个数学上群的写法，你可以认为我们摆弄一个矿泉水瓶的过程——向上转、向左转——就是一个 SO(3) 过程。SU(2) 是描述自旋量子态旋转的群，电子自旋 \(1/2\) 是它的基本表示之一；它和真实世界的普通三维向量看起来有点不一样（自旋 \(1/2\) 态转 $360^\circ$ 不会完全复原，会多一个负号）。不管它，这就是一个符号，费曼说如果你只是知道一个符号或者它的名字，那你根本不了解它。所以别怕。**[1]
+**至于 SO(3) 只是一个数学上群的写法，你可以认为我们摆弄一个矿泉水瓶的过程——向上转、向左转——就是一个 SO(3) 过程。SU(2) 是描述自旋量子态旋转的群，电子自旋 (1/2) 是它的基本表示之一；它和真实世界的普通三维向量看起来有点不一样（自旋 (1/2) 态转** $360^\circ$ 不会完全复原，会多一个负号）。不管它，这就是一个符号，费曼说如果你只是知道一个符号或者它的名字，那你根本不了解它。所以别怕。\[1\]
 
 三维空间中不同方向的旋转操作是不可交换的，这个很好想象。你先把矿泉水瓶上下颠倒，然后再把标签转到后面去；如果你把这两个动作反过来，却绝对得不到相同的初始状态。
 
-上面这些几何非对易性，直接决定了微观算符的代数结构，导出 SO(3) 群的核心对易关系[1]：$[J_i, J_j] = i\hbar \epsilon_{ijk} J_k$。也就是把“旋转操作是不可交换的”按照数学语言再写一遍。有了这个公式，只是方便我们底下的计算罢了。
+上面这些几何非对易性，直接决定了微观算符的代数结构，导出 SO(3) 群的核心对易关系\[1\]：$[J_i, J_j] = i\hbar \epsilon_{ijk} J_k$。也就是把“旋转操作是不可交换的”按照数学语言再写一遍。有了这个公式，只是方便我们底下的计算罢了。
 
 ## 二、角动量的“好基底”与代数结构
 
@@ -110,22 +115,22 @@ $$
 
 ### 2.3 本征值谱与各向同性
 
-- **$J^2$（总角动量）**：本征值为 $j(j+1)\hbar^2$，其中 $j$ 为总角动量量子数。
+- $J^2$（总角动量）：本征值为 $j(j+1)\hbar^2$，其中 $j$ 为总角动量量子数。
 
 $$
 J^2 \vert{}j, m\rangle = j(j+1)\hbar^2 \vert{}j, m\rangle
 \tag{6}
 $$
 
-- **$J_z$（z轴投影）**：本征值为 $m\hbar$。$m$ 就是磁量子数，取值受限于 $-j \le m \le j$。
+- $J_z$（z轴投影）：本征值为 $m\hbar$。$m$ 就是磁量子数，取值受限于 $-j \le m \le j$。
 
 - $J_z \vert{}j, m\rangle = m\hbar \vert{}j, m\rangle$
 
-- **$J_x$ 与 $J_y$ 的平权性**：三维绝对空间是各向同性的，z 轴只是人为选定的投影轴。因此，$J_x$ 和 $J_y$ 必然拥有与 $J_z$ 完全一模一样的本征值谱（即 $m_x\hbar$ 和 $m_y\hbar$），尽管它们各自的本征态是由 $\vert{}j, m\rangle$ 混合而成的复杂线性叠加态。
+- $J_x$ 与 $J_y$ 的平权性：三维绝对空间是各向同性的，z 轴只是人为选定的投影轴。因此，$J_x$ 和 $J_y$ 必然拥有与 $J_z$ 完全一模一样的本征值谱（即 $m_x\hbar$ 和 $m_y\hbar$），尽管它们各自的本征态是由 $\vert{}j, m\rangle$ 混合而成的复杂线性叠加态。
 
 ### 2.4 Wigner-Eckart 定理的推导
 
-Wigner-Eckart的定律推导可以直接看樱井纯的[1],极其优美.我们这里不推导了,我看完一次推导就忘记一次. Wigner把群论引入量子力学一开始也让很多物理学家头痛,没人知道Wigner在做啥.所以我们搞不明白也不算我们很笨.
+Wigner-Eckart的定律推导可以直接看樱井纯的\[1\],极其优美.我们这里不推导了,我看完一次推导就忘记一次. 不过Wigner把群论引入量子力学一开始也让很多物理学家头痛,没人知道Wigner在做啥.所以我们搞不明白的话,也不算我们很笨.
 
 ## 三、不可约球张量与 Wigner-Eckart 定理
 
@@ -133,21 +138,21 @@ Wigner-Eckart的定律推导可以直接看樱井纯的[1],极其优美.我们�
 
 - 我们在算极化率 $\beta$ 时，光电场是用实验室的 $x, y, z$ 直角坐标系描述的，比如写成偶极算符 $\mu_x, \mu_y, \mu_z$。
 
-- 但是直角坐标系处理“旋转”极其笨拙。因为光子打进分子本质上是角动量的传递，我们必须换成跟角动量（$j, m$）说同一种语言的数学工具，这就是**不可约球张量算符 $T_q^{(k)}$**。
+- 但是直角坐标系处理“旋转”极其笨拙。因为光子打进分子本质上是角动量的传递，我们必须换成跟角动量（$j, m$）说同一种语言的数学工具，这就是**不可约球张量算符** $T_q^{(k)}$。
 
 - **它的简单表达**：对于我们关心的偶极跃迁（吸收或发射一个单光子），算符的“秩”就是 $k=1$。它的三个分量 $q \in \{-1, 0, 1\}$ 完美对应了光子携带的自旋角动量投影。我们可以直接把直角坐标“翻译”成球张量：
-  
+
   - $z = T_0^{(1)}$ （对应 $q=0$，不改变分子的 $z$ 轴角动量投影）
-  
+
   - $x = \frac{1}{\sqrt{2}}\left(T_{-1}^{(1)} - T_1^{(1)}\right)$ （包含 $q=\pm 1$ 两个方向角动量的组合）
-  
+
   - $y = \frac{i}{\sqrt{2}}\left(T_{-1}^{(1)} + T_1^{(1)}\right)$ （同样包含 $q=\pm 1$ 的组合，但带有虚数相位）
 
 - **物理意义**：就是XYZ换个形式表达.
 
 ### 3.2 Wigner-Eckart (WE) 定理：把几何与内部动力学拆开
 
-- 量子力学里最让人头疼的就是算积分,因为你波函数和态再精巧没有测量(<>框号一加紧做积分)也没用阿，WE可以帮助计算跃迁矩阵元[1] $\langle j_f, m_f \vert T_q^{(k)} \vert j_i, m_i \rangle$。如果你要手算，每次分子转一下姿态、你换一个偏振光，都要重新算一遍三维积分。
+- 量子力学里最让人头疼的就是算积分,因为你把波函数和态算再精巧,没有测量也就是加上\<\>框号做积分也没用阿，必须要project到现实世界. WE可以帮助计算跃迁矩阵元\[1\] $\langle j_f, m_f \vert T_q^{(k)} \vert j_i, m_i \rangle$。如果你要手算，每次分子转一下姿态、你换一个偏振光，都要重新算一遍三维积分。
 
 - WE 定理直接大手一挥，告诉我们：别算了！这个矩阵元可以被完美地切成两半：
 
@@ -157,6 +162,8 @@ $$
 $$
 
 - **等号右边的第一项（CG系数）**：纯纯的外部几何投影。它只关心三维空间的旋转对称性，也就是角动量守恒。不管你算的是水分子还是什么复杂的配合物，只要角动量量子数对不上，这一项直接是 0。你不用算任何积分，直接查表就能得到它。
+
+- 进一步说CG是:在 $C(j_1, m_1; k, q \vert j_2, m_2)$ 中，核心的几何动作是：**“外部场算符** $(k, q)$ 对初态 $(j_1, m_1)$ 进行了空间旋转与形变（张量积），随后我们将这个形变后的新形状，投影到终态 $(j_2, m_2)$ 上。”
 
 - **等号右边的第二项（约化矩阵元，带双竖线的那一项）**：纯纯的内部物理动力学。它包含了分子波函数的径向积分、内部结构的振子强度。注意看，它里面既没有 $m$ 也没有 $q$！这意味着它**与分子在空间中怎么摆、光子从哪个方向打过来毫无关系**。
 
@@ -172,7 +179,7 @@ $$
 
 ## 四、从含时微扰到 SFG 二阶响应
 
-现在我们直接来看看非线性光学 **SFG / SHS** 的量子力学基础,Peter Hamm 与 Mukamel 的含时微扰密度矩阵理论通过非线性响应函数的推导，将外部宏观光场与分子内部的微观偶极跃迁矩阵元建立了严格的解析联系。[3][4]
+现在我们直接来看看非线性光学 **SFG / SHS** 的量子力学基础,Peter Hamm 与 Mukamel 的含时微扰密度矩阵理论通过非线性响应函数的推导，将外部宏观光场与分子内部的微观偶极跃迁矩阵元建立了严格的解析联系。\[3\]\[4\]
 
 ### 4.1 第一步：Liouville 空间内的嵌套对易子展开
 
@@ -192,8 +199,7 @@ $$
 \tag{9}
 $$
 
-为了展示和频产生（SFG）中连续吸收两个光子的一条贡献路径，我们先在双侧费曼图中锁定纯 Ket 侧激发路径（即状态 $\vert{}a\rangle \xrightarrow{\omega_1} \vert{}b\rangle \xrightarrow{\omega_2} \vert{}c\rangle$）。这对应于两个相互作用算符都作用在密度矩阵左侧的第一项：$\tilde{V}(t_2)\tilde{V}(t_1)\rho^{(0)}$。完整的二阶响应还需要把其他允许的 Liouville 路径和时间排序一起加起来。[3][4]
-提取到达末态 $\vert{}c\rangle$ 的非对角元 $\rho_{ca}^{(2)}(t) = \langle c \vert{} \rho^{(2)}(t) \vert{} a \rangle$：
+为了展示和频产生（SFG）中连续吸收两个光子的一条贡献路径，我们先在双侧费曼图中锁定纯 Ket 侧激发路径（即状态 $\vert{}a\rangle \xrightarrow{\omega_1} \vert{}b\rangle \xrightarrow{\omega_2} \vert{}c\rangle$）。这对应于两个相互作用算符都作用在密度矩阵左侧的第一项：$\tilde{V}(t_2)\tilde{V}(t_1)\rho^{(0)}$。完整的二阶响应还需要把其他允许的 Liouville 路径和时间排序一起加起来。\[3\]\[4\] 提取到达末态 $\vert{}c\rangle$ 的非对角元 $\rho_{ca}^{(2)}(t) = \langle c \vert{} \rho^{(2)}(t) \vert{} a \rangle$：
 
 $$
 \rho_{ca}^{(2)}(t) = \left(\frac{-i}{\hbar}\right)^2 \int_{-\infty}^{t} dt_2 \int_{-\infty}^{t_2} dt_1 \langle c \vert{} \tilde{V}(t_2)\tilde{V}(t_1) \vert{} a \rangle \langle a \vert{} a \rangle
@@ -251,7 +257,7 @@ $$
 
 ### 4.3 第三步：求迹操作 (Trace) 与极化闭环
 
-单分子的二阶偶极响应 $p^{(2)}$ 是偶极算符的量子力学期望值，需要通过求迹（Trace）操作完成量子状态的缝合闭环；再经过分子数密度与取向平均，才得到实验中的宏观二阶极化 $P^{(2)}$。[4][5]
+单分子的二阶偶极响应 $p^{(2)}$ 是偶极算符的量子力学期望值，需要通过求迹（Trace）操作完成量子状态的缝合闭环；再经过分子数密度与取向平均，才得到实验中的宏观二阶极化 $P^{(2)}$。\[4\]\[5\]
 
 $$
 p^{(2)}(t) = \text{Tr}\left( \mu \rho^{(2)}(t) \right) = \sum_n \langle n \vert{} \mu \rho^{(2)}(t) \vert{} n \rangle
@@ -288,16 +294,16 @@ p_i^{(2)} = \left[ \sum_{b,c} \frac{\langle a \vert{} \mu_i \vert{} c \rangle \l
 \tag{22}
 $$
 
-根据单分子二阶偶极响应的定义 $p_i^{(2)} = \sum_{j,k} \beta_{ijk} E_j E_k$，直接剥离出微观超极化率张量 $\beta_{ijk}$ 的这一条 Liouville 路径对应的解析式。宏观介质中通常写成 $P_i^{(2)} = \varepsilon_0\sum_{j,k}\chi_{ijk}^{(2)}E_jE_k$，其中 $\chi^{(2)}$ 与分子数密度以及对 $\beta$ 的取向平均有关。[5]
+根据单分子二阶偶极响应的定义 $p_i^{(2)} = \sum_{j,k} \beta_{ijk} E_j E_k$，直接剥离出微观超极化率张量 $\beta_{ijk}$ 的这一条 Liouville 路径对应的解析式。宏观介质中通常写成 $P_i^{(2)} = \varepsilon_0\sum_{j,k}\chi_{ijk}^{(2)}E_jE_k$，其中 $\chi^{(2)}$ 与分子数密度以及对 $\beta$ 的取向平均有关。\[5\]
 
 $$
 \beta_{ijk} \propto \sum_{b,c} \frac{\langle a \vert{} \mu_i \vert{} c \rangle \langle c \vert{} \mu_j \vert{} b \rangle \langle b \vert{} \mu_k \vert{} a \rangle}{(\omega_{ca} - \omega_1 - \omega_2 - i\Gamma_{ca})(\omega_{ba} - \omega_1 - i\Gamma_{ba})} \rho_{aa}^{(0)}
 \tag{23}
 $$
 
-## 五、$H_2O$ 的$ C_{2v} $对称性与选择定则
+## 五、$H_2O$ 的$C_{2v}$对称性与选择定则
 
-### 5.1 $H_2O$为什么会出现 \(A1,A2,B1,B2\)？
+### 5.1 $H_2O$为什么会出现 (A1,A2,B1,B2)？
 
 先什么都不要谈振动。
 
@@ -310,7 +316,7 @@ z=\text{HOH 角平分线，也就是 }C_2\text{ 轴}
 \tag{24}
 $$
 
-并让水分子位于 \(yz\) 平面。
+并让水分子位于 (yz) 平面。
 
 这个水分子有四种“不改变它本身”的操作：
 
@@ -326,41 +332,40 @@ C_2(z)
 \tag{26}
 $$
 
-绕 \(z\) 轴转 \(180°)，两个 H 互换；
+绕 (z) 轴转 (180°)，两个 H 互换；
 
 $$
 \sigma_v(xz)
 \tag{27}
 $$
 
-关于 \(xz\) 平面镜像，两个 H 互换；
+关于 (xz) 平面镜像，两个 H 互换；
 
 $$
 \sigma_v'(yz)
 \tag{28}
 $$
 
-关于分子自身所在的 \(yz\) 平面镜像。
+关于分子自身所在的 (yz) 平面镜像。
 
 这四个操作组成：
 
-$C_2(z)$这一点阿金斯的物理化学说的很清楚[2],我们把上面的操作总结为
+$C_2(z)$这一点阿金斯的物理化学说的很清楚\[2\],我们把上面的操作总结为
 
 标准的$C_2(z)$character table 是：
 
-|      | E   | $C_2(z)$ | $\sigma_v(xz)$ | $\sigma_v'(yz)$ | 常见基函数             |
-| ---- | ---:| --------:| --------------:| ---------------:| ----------------- |
-| \A1\ | 1   | 1        | 1              | 1               | \(z,x^2,y^2,z^2\) |
-| \A2\ | 1   | 1        | -1             | -1              | \(R_z,xy\)        |
-| \B1\ | 1   | -1       | 1              | -1              | \(x,R_y,xz\)      |
-| \B2\ | 1   | -1       | -1             | 1               | \(y,R_x,yz\)      |
+|       |   E | $C_2(z)$ | $\sigma_v(xz)$ | $\sigma_v'(yz)$ | 常见基函数       |
+|-------|----:|---------:|---------------:|----------------:|------------------|
+| \A1\\ |   1 |        1 |              1 |               1 | (z,x^2,y^2,z\^2) |
+| \A2\\ |   1 |        1 |             -1 |              -1 | (R_z,xy)         |
+| \B1\\ |   1 |       -1 |              1 |              -1 | (x,R_y,xz)       |
+| \B2\\ |   1 |       -1 |             -1 |               1 | (y,R_x,yz)       |
 
 常见基函数的意思是这些函数属于这一行的对称性比如z属于A1,我们可以看到E操作无论对什么函数(或这个函数对应的对称性如A1)都是不变,所以A1这一行和E这一列都是1.
 
 ### 5.2 水分子的三个正常振动
 
-因为光谱实际上是观察分子的振动情况,振动又是一个可能会改变偶极的动作.
-水的自由度是3N-6 去掉平移和转动,剩下3个振动：
+因为光谱实际上是观察分子的振动情况,振动又是一个可能会改变偶极的动作. 水的自由度是3N-6 去掉平移和转动,剩下3个振动：
 
 $$
 \boxed{ \nu_1(A_1):\text{对称伸缩} } \qquad
@@ -436,7 +441,7 @@ $$
 \tag{37}
 $$
 
-因为乘一个 \(A_1\) 什么也不改变，所以：
+因为乘一个 (A_1) 什么也不改变，所以：
 
 $$
 \boxed{ \Gamma(Q_q) = \Gamma(\mu_i). }
@@ -463,23 +468,21 @@ $$
 
 ### 5.4 二阶超极化率张量的对称性判断
 
-回到我们的问题,一个分子整体的 \(\beta_{ijk}\) 张量分量能不能存在？
-    SOS 里面：
+回到我们的问题,一个分子整体的 (\beta\_{ijk}) 张量分量能不能存在？ SOS 里面：
 
 $$
 \beta_{ijk} \sim \sum_{b,c} \langle a|\mu_i|c\rangle \langle c|\mu_j|b\rangle \langle b|\mu_k|a\rangle.
 \tag{41}
 $$
 
-假设初态最终又回到同一个 \(A_1\) 基态，那么三个偶极算符连乘必须整体是全对称：
+假设初态最终又回到同一个 (A_1) 基态，那么三个偶极算符连乘必须整体是全对称：
 
 $$
 \Gamma(\mu_i)\otimes\Gamma(\mu_j)\otimes\Gamma(\mu_k)\supset A_1.
 \tag{42}
 $$
 
-道理很简单因为如果整个被积函数在某个对称操作下变号,这个积分<>就会出现I=-I,这样的情况那I就等于0了.
-所以我们可以直接用：
+道理很简单因为如果整个被积函数在某个对称操作下变号,这个积分\<\>就会出现I=-I,这样的情况那I就等于0了. 所以我们可以直接用：
 
 $$
 \mu_x\sim B_1,\quad \mu_y\sim B_2,\quad \mu_z\sim A_1
@@ -544,7 +547,7 @@ B_1\otimes B_1\otimes B_1=B_1.
 \tag{51}
 $$
 
-不是 \(A_1\)。
+不是 (A_1)。
 
 所以：
 
@@ -553,21 +556,20 @@ $$
 \tag{52}
 $$
 
-当然在具有反演对称性、可以明确使用奇偶宇称的情形,我们还可以通过<偶?奇?|奇|偶>来判断是不是为0,|偶>一般基态都是对称的,中间的偶极矩算符明显是奇函数,然后就看最左边的态是什么了,其实就是奇函数的对称积分为0,偶函数不为0的道理.
+当然在具有反演对称性、可以明确使用奇偶宇称的情形,我们还可以通过\<偶?奇?\|奇\|偶\>来判断是不是为0,\|偶\>一般基态都是对称的,中间的偶极矩算符明显是奇函数,然后就看最左边的态是什么了,其实就是奇函数的对称积分为0,偶函数不为0的道理.
 
 ## 六、为什么振动 SFG 同时要求 IR 与 Raman 活性
 
-进一步的我们还可以给出更简单的法则,在电偶极近似下振动SFG必须有拉曼和红外活性! both ![6]
+进一步的我们还可以给出更简单的法则,在电偶极近似下振动SFG必须有拉曼和红外活性! both \![6\]
 
-为什么呢?因为我们可以把 $\beta_{ijk,q}^{(2)}$ 从偶极矩连乘积的形式改写成 $\left(\frac{\partial\alpha_{ij}}{\partial Q_q}\right)\left(\frac{\partial\mu_k}{\partial Q_q}\right)$
-证明如下:
+为什么呢?因为我们可以把 $\beta_{ijk,q}^{(2)}$ 从偶极矩连乘积的形式改写成 $\left(\frac{\partial\alpha_{ij}}{\partial Q_q}\right)\left(\frac{\partial\mu_k}{\partial Q_q}\right)$ 证明如下:
 
 $$
-|g,0\rangle \xrightarrow{\mu_k,\omega_{\rm IR}} |g,1_q\rangle \xrightarrow{\mu_j,\omega_{\rm vis}} |e,\nu\rangle \xrightarrow{\mu_i,\omega_{\rm SFG}} |g,0\rangle.
+|g,0\rangle \xrightarrow{\mu_k,\omega_{\mathrm{IR}}} |g,1_q\rangle \xrightarrow{\mu_j,\omega_{\mathrm{vis}}} |e,\nu\rangle \xrightarrow{\mu_i,\omega_{\mathrm{SFG}}} |g,0\rangle.
 \tag{53}
 $$
 
-### 6.1 第一刀：振动共振分母直接变成 \(\omega_q-\omega_{\rm IR}\)
+### 6.1 第一刀：振动共振分母直接变成 (\omega\*q-\*\omega{\mathrm{IR}})
 
 因为
 
@@ -586,34 +588,34 @@ $$
 于是第二个分母：
 
 $$
-\omega_{ba}-\omega_{\rm IR}-i\Gamma_{ba}
+\omega_{ba}-\omega_{\mathrm{IR}}-i\Gamma_{ba}
 \tag{56}
 $$
 
 直接变成
 
 $$
-\boxed{ \omega_q-\omega_{\rm IR}-i\Gamma_q }.
+\boxed{ \omega_q-\omega_{\mathrm{IR}}-i\Gamma_q }.
 \tag{57}
 $$
 
 因此：
 
 $$
-\beta_{ijk,q} \propto \frac{1}{ \omega_q-\omega_{\rm IR}-i\Gamma_q } \sum_c \frac{ \langle g,0|\mu_i|c\rangle \langle c|\mu_j|g,1_q\rangle \langle g,1_q|\mu_k|g,0\rangle }{ \omega_{ca}-\omega_{\rm SFG}-i\Gamma_c }.
+\beta_{ijk,q} \propto \frac{1}{ \omega_q-\omega_{\mathrm{IR}}-i\Gamma_q } \sum_c \frac{ \langle g,0|\mu_i|c\rangle \langle c|\mu_j|g,1_q\rangle \langle g,1_q|\mu_k|g,0\rangle }{ \omega_{ca}-\omega_{\mathrm{SFG}}-i\Gamma_c }.
 \tag{58}
 $$
 
 把最后一个矩阵元拿出来：
 
 $$
-\beta_{ijk,q} \propto \frac{ \langle g,1_q|\mu_k|g,0\rangle }{ \omega_q-\omega_{\rm IR}-i\Gamma_q } \left[ \sum_c \frac{ \langle g,0|\mu_i|c\rangle \langle c|\mu_j|g,1_q\rangle }{ \omega_{ca}-\omega_{\rm SFG}-i\Gamma_c } \right].
+\beta_{ijk,q} \propto \frac{ \langle g,1_q|\mu_k|g,0\rangle }{ \omega_q-\omega_{\mathrm{IR}}-i\Gamma_q } \left[ \sum_c \frac{ \langle g,0|\mu_i|c\rangle \langle c|\mu_j|g,1_q\rangle }{ \omega_{ca}-\omega_{\mathrm{SFG}}-i\Gamma_c } \right].
 \tag{59}
 $$
 
 现在左右两块已经非常明显了。
 
-### 6.2 第二刀：右边单独的偶极矩阵元变成 \(\partial\mu/\partial Q_q\)
+### 6.2 第二刀：右边单独的偶极矩阵元变成 (\partial\mu/\partial Q_q)
 
 看：
 
@@ -622,7 +624,7 @@ $$
 \tag{60}
 $$
 
-在 **Born–Oppenheimer 近似**下，电子态仍然是 \(g\)，所以我们可以把它理解成振动波函数之间的积分：
+在 **Born–Oppenheimer 近似**下，电子态仍然是 (g)，所以我们可以把它理解成振动波函数之间的积分：
 
 $$
 \langle1_q|\mu_k(Q)|0\rangle.
@@ -638,14 +640,14 @@ $$
 \tag{62}
 $$
 
-在平衡构型 \(Q=0\) 附近 Taylor 展开：
+在平衡构型 (Q=0) 附近 Taylor 展开：
 
 $$
 \mu_k(Q) = \mu_k^{(0)} + \sum_r \left( \frac{\partial\mu_k}{\partial Q_r} \right)_0Q_r +\cdots
 \tag{63}
 $$
 
-对于我们正在看的第 \(q\) 个正常模：
+对于我们正在看的第 (q) 个正常模：
 
 $$
 \mu_k(Q) \simeq \mu_k^{(0)} + \left( \frac{\partial\mu_k}{\partial Q_q} \right)_0Q_q.
@@ -691,23 +693,23 @@ $$
 \tag{69}
 $$
 
-### 6.3 第三刀：两个电子偶极连乘变成 \(\alpha_{ij}\)
+### 6.3 第三刀：两个电子偶极连乘变成 (\alpha\_{ij})
 
 现在看括号里面：
 
 $$
-\sum_c \frac{ \langle g,0|\mu_i|c\rangle \langle c|\mu_j|g,1_q\rangle }{ \omega_{ca}-\omega_{\rm SFG}-i\Gamma_c }.
+\sum_c \frac{ \langle g,0|\mu_i|c\rangle \langle c|\mu_j|g,1_q\rangle }{ \omega_{ca}-\omega_{\mathrm{SFG}}-i\Gamma_c }.
 \tag{70}
 $$
 
 这个结构你应该已经很眼熟了：
 
 $$
-\boxed{ \sum_{\rm electronic\ states} \frac{\mu_i\mu_j}{\text{electronic energy denominator}} }
+\boxed{ \sum_{\mathrm{electronic\ states}} \frac{\mu_i\mu_j}{\text{electronic energy denominator}} }
 \tag{71}
 $$
 
-它正是极化率 \(\alpha_{ij}\) 的量子力学 SOS 结构。
+它正是极化率 (\alpha\_{ij}) 的量子力学 SOS 结构。
 
 例如线性极化率本身就具有 Kramers–Heisenberg 型形式：
 
@@ -719,7 +721,7 @@ $$
 所以我们可以定义一个有效的、频率依赖的电子极化率算符：
 
 $$
-\hat\alpha_{ij}(Q;\omega_{\rm vis},\omega_{\rm SFG}),
+\hat\alpha_{ij}(Q;\omega_{\mathrm{vis}},\omega_{\mathrm{SFG}}),
 \tag{73}
 $$
 
@@ -769,9 +771,9 @@ $$
 
 全部打包后的结果。
 
-这就是为什么 DFT response calculation 可以直接算 \(\alpha\)，而不用你真的枚举所有电子态 \(c\)。
+这就是为什么 DFT response calculation 可以直接算 (\alpha)，而不用你真的枚举所有电子态 (c)。
 
-### 6.4 第四刀：\(\langle0|\alpha_{ij}|1_q\rangle\) 再变成 \(\partial\alpha_{ij}/\partial Q_q\)
+### 6.4 第四刀：(\langle0\|\alpha\*{ij}\|1_q\*\rangle) 再变成 (\partial\alpha{ij}/\partial Q_q)
 
 现在与刚才偶极的处理完全一样。
 
@@ -789,7 +791,7 @@ $$
 \tag{81}
 $$
 
-对于模 \(q\)：
+对于模 (q)：
 
 $$
 \alpha_{ij}(Q) \simeq \alpha_{ij}^{(0)} + \left( \frac{\partial\alpha_{ij}}{\partial Q_q} \right)_0Q_q.
@@ -861,11 +863,11 @@ $$
 所以：
 
 $$
-\boxed{ \beta^{(2)}_{ijk,q} \propto \frac{ \alpha'_{ij,q}\mu'_{k,q} \left| \langle0|Q_q|1_q\rangle \right|^2 }{ \omega_q-\omega_{\rm IR}-i\Gamma_q } }.
+\boxed{ \beta^{(2)}_{ijk,q} \propto \frac{ \alpha'_{ij,q}\mu'_{k,q} \left| \langle0|Q_q|1_q\rangle \right|^2 }{ \omega_q-\omega_{\mathrm{IR}}-i\Gamma_q } }.
 \tag{91}
 $$
 
-如果 \(Q_q\) 是质量加权 harmonic normal coordinate，那么：
+如果 (Q_q) 是质量加权 harmonic normal coordinate，那么：
 
 $$
 \langle0|Q_q|1_q\rangle = \sqrt{\frac{\hbar}{2\omega_q}}.
@@ -882,7 +884,7 @@ $$
 因此更完整地：
 
 $$
-\boxed{ \beta^{(2)}_{ijk,q} \propto \frac{\hbar}{2\omega_q} \frac{ \left( \frac{\partial\alpha_{ij}}{\partial Q_q} \right)_0 \left( \frac{\partial\mu_k}{\partial Q_q} \right)_0 }{ \omega_q-\omega_{\rm IR}-i\Gamma_q } }.
+\boxed{ \beta^{(2)}_{ijk,q} \propto \frac{\hbar}{2\omega_q} \frac{ \left( \frac{\partial\alpha_{ij}}{\partial Q_q} \right)_0 \left( \frac{\partial\mu_k}{\partial Q_q} \right)_0 }{ \omega_q-\omega_{\mathrm{IR}}-i\Gamma_q } }.
 \tag{94}
 $$
 
@@ -896,7 +898,7 @@ $$
 以及单位、normal-coordinate normalization、电子频率因子等全部吸收到常数里面，于是就看到最熟悉的形式：
 
 $$
-\beta_{ijk,q}^{(2)} \propto \frac{\left(\frac{\partial\alpha_{ij}}{\partial Q_q}\right)\left(\frac{\partial\mu_k}{\partial Q_q}\right)}{\omega_q-\omega_{\rm IR}-i\Gamma_q}.
+\beta_{ijk,q}^{(2)} \propto \frac{\left(\frac{\partial\alpha_{ij}}{\partial Q_q}\right)\left(\frac{\partial\mu_k}{\partial Q_q}\right)}{\omega_q-\omega_{\mathrm{IR}}-i\Gamma_q}.
 \tag{96}
 $$
 
@@ -931,11 +933,11 @@ $$
 \tag{99}
 $$
 
-整个 \(3\times3\) polarizability tensor。
+整个 (3\times3) polarizability tensor。
 
 然后关键来了：
 
-我们不是只算平衡位置的 \(\alpha\)。
+我们不是只算平衡位置的 (\alpha)。
 
 我们要分别在：
 
@@ -976,18 +978,18 @@ $$
 
 然后现在我们把分子的坐标系project到lab的坐标系,就是一个矩阵变化比我的机器人自瞄项目简单多了.
 
----
+------------------------------------------------------------------------
 
 ## 参考文献
 
-[1] J. J. Sakurai and J. Napolitano, *Modern Quantum Mechanics*, 3rd ed., Cambridge University Press, 2020/2021.
+\[1\] J. J. Sakurai and J. Napolitano, *Modern Quantum Mechanics*, 3rd ed., Cambridge University Press, 2020/2021.
 
-[2] P. Atkins, J. de Paula, and J. Keeler, *Atkins' Physical Chemistry*, 12th ed., Oxford University Press, 2022.
+\[2\] P. Atkins, J. de Paula, and J. Keeler, *Atkins' Physical Chemistry*, 12th ed., Oxford University Press, 2022.
 
-[3] P. Hamm, *Principles of Nonlinear Optical Spectroscopy: A Practical Approach, or: Mukamel for Dummies*, University of Zurich, 2005.
+\[3\] P. Hamm, *Principles of Nonlinear Optical Spectroscopy: A Practical Approach, or: Mukamel for Dummies*, University of Zurich, 2005.
 
-[4] S. Mukamel, *Principles of Nonlinear Optical Spectroscopy*, Oxford University Press, New York, 1995.
+\[4\] S. Mukamel, *Principles of Nonlinear Optical Spectroscopy*, Oxford University Press, New York, 1995.
 
-[5] R. W. Boyd, *Nonlinear Optics*, 4th ed., Academic Press / Elsevier, 2020.
+\[5\] R. W. Boyd, *Nonlinear Optics*, 4th ed., Academic Press / Elsevier, 2020.
 
-[6] G. A. Somorjai and G. Rupprechter, “Molecular Studies of Catalytic Reactions on Crystal Surfaces at High Pressures and High Temperatures by Infrared–Visible Sum Frequency Generation (SFG) Surface Vibrational Spectroscopy,” *The Journal of Physical Chemistry B* **103** (1999): 1623–1638. DOI: 10.1021/jp983721h.
+\[6\] G. A. Somorjai and G. Rupprechter, “Molecular Studies of Catalytic Reactions on Crystal Surfaces at High Pressures and High Temperatures by Infrared–Visible Sum Frequency Generation (SFG) Surface Vibrational Spectroscopy,” *The Journal of Physical Chemistry B* **103** (1999): 1623–1638. DOI: 10.1021/jp983721h.
