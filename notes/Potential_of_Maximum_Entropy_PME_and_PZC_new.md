@@ -18,28 +18,29 @@ status: working
 draft: false
 ---
 
-这是一个启发性的实验,我们先介绍什么是PZC,再介绍PZC和表面水的关系,最后我们再介绍怎么测量它.
+我们先来念一则悼词: 第一张图片是Manos Mavrikakis & Jin Suntivich Nature Materials 2023, 他们用SFG测量了金属水表面的PZC,这也几乎彻底宣告了用最大熵方法测量PZC已经死去.
 
-## pzfc和pH的关系
+或者在未来的动力学和传热的研究中还能见到它.
 
-<div style="text-align: center;">
-  <img src="images/paste-13.png" width="500">
-</div>
+![](images/paste-27.png)
 
+但最大熵方法,仍然是一个足够启发性的实验,我们先介绍什么是PZC,再介绍PZC和表面水的关系,最后我们再介绍怎么用最大熵来测量它.
+
+::: {style="text-align: center;"}
+<img src="images/paste-13.png" width="500"/>
+:::
 
 由于表面金属原子的截断,金属几乎天然的溢出电子,如果所以往往天然金属表面不是没有电荷的.
 
-
-<div style="text-align: center;">
-  <img src="images/paste-20.png" width="409">
-</div>
+::: {style="text-align: center;"}
+<img src="images/paste-20.png" width="409"/>
+:::
 
 ## 所以我们先介绍一些定义
 
-
-<div style="text-align: center;">
-  <img src="images/paste-17.png" width="558">
-</div>
+::: {style="text-align: center;"}
+<img src="images/paste-17.png" width="558"/>
+:::
 
 \[做一个引用\]Jun Cheng Science Advances 2020 [DOI: 10.1126/sciadv.abb1219](https://doi.org/10.1126/sciadv.abb1219)
 
@@ -59,10 +60,9 @@ PME 最大熵 表面水分子处于最混乱的时候,我们姑且认为这就�
 
 ## **Trasatti**先把PZC和金属的电子结构(功函数)联系在一起
 
-
-<div style="text-align: center;">
-  <img src="images/paste-19.png" width="376">
-</div>
+::: {style="text-align: center;"}
+<img src="images/paste-19.png" width="376"/>
+:::
 
 Trasatti 在1960年代,注意到金属的电化学性能与其本身电子结构之间的关联,他发现金属的**功函数（WF）**和零电荷电位(PZC)之间存在线性关联。在1971年的文章中，他提出一组著名的关系式：\[1\]
 
@@ -95,19 +95,15 @@ $$
 
 ## 再到后来人们把表面水的取向和PZC也关联在一起,提出了不同的模型
 
-
-
-<div style="text-align: center;">
-  <img src="images/paste-18.png" width="178">
-</div>
-
+::: {style="text-align: center;"}
+<img src="images/paste-18.png" width="178"/>
+:::
 
 **Watts-Tobin / BDM 双态水模型**：该经典模型假设界面水分子主要以氢端朝上和氢端朝下两种离散状态存在。水分子的净取向会在界面处产生一个偶极电势降，其翻转行为直接响应界面静电场的变化，构成了双电层电容中溶剂贡献的微观基础。\[3,4\]
 
 **Huang 2016/2018 均场铂模型**：该模型突破了纯静电极化的传统观念，引入了水分子重排与表面化学吸附,表面带电不同项的耦合。模型指出在高电势下，强烈的化学吸附物（如Pt-O偶极子）会产生反向电势降，局部逆转双电层的电场，迫使水分子重新取向，从而导致电极表面出现反常的非单调充电行为。\[5,6\]
 
 <img src="https://acs.silverchair-cdn.com/acs/content_public/journal/jpccck/120/25/10.1021_acs.jpcc.6b03930/5/m_jp-2016-03930x_0001.png?Expires=1792719268&amp;Signature=fB2-rJCTCi9W-gAHpwYJs6G3aLgGPToKBRJF5IjAj663GwdhWZEhF54kGDTsT7dKcDDfqt~fnoJZ5J4l5-eRE96SlmVzd3k7kEs3KXPc-PH9q1FAlT5tImuOGBOFv3491TyXh~IvCrhuQl8L3-Rwp9O5yWkG-Fk7ME54vtxr6jCQ6s6zMISg5yDmnCKrnM-eP2ysVk7Uk93W49WX45QDKZXmGZZuLi4Jm1~9IAjQC~OTp8cn10QrY4oh1Vs~xkgOZ5VwrdC~ImHbLNevpdIbr838BeN3Q7TqgOET-5yWPNxEJnNpmzmQllgsARci~aBDqc015YwbcQSPXcRJC4apuQ__&amp;Key-Pair-Id=APKAIE5G5CRDK6RD3PGA" alt="Figure 3. Refer to the image caption for details." data-align="center" fig-align="center" width="284"/>
-
 
 水分子的偶极矩 按物理学标准定义为从负电荷中心指向正电荷中心，也就是O−→H+
 
@@ -138,12 +134,9 @@ $$
 
 这时候我们向水和金属界面打一束激光,激光的能量转化为热形成一个水的小空泡.界面第一层水暂时跑走了,过段时间水再慢慢扩散回来,这个时候我们就可以测量电极电势或者电流的变化,由于在PZFC时候前后水偶极随机取向,对电极电势的贡献很少.所以我们测量电极电势或者电流发现不了什么变化.但是如果在远离PZFC的电极电势下,再打激光,比如电势比较负,比PZFC更负,所有水的H都朝下,导致了一个表面电势降(要去确定一下,可能说反了).这时候打一个激光,等水重新回来的过程中就会产生一个电极电势的变化或者电流的变化.我们就能区分什么时候我们测到了PZFC.\[9\]
 
-
-
-<div style="text-align: center;">
-  <img src="images/paste-21.png" >
-</div>
-
+::: {style="text-align: center;"}
+<img src="images/paste-21.png"/>
+:::
 
 Laser-induced potential transients for Pt(111) in (0.1-x)M NaF + xM HClO4 at mainly low applied potentials: D) pH=5.70 (6): a) 150mV, b) 500mV, c) 550mV, d) 600mV, e) 640mV, f) 650mV, g) 700mV and h) 750mV.\[9\]
 

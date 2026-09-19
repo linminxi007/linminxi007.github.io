@@ -20,6 +20,8 @@ draft: false
 
 # Electrostatics and Outer-sphere Reorganization Energy
 
+![](images/paste-33.png){fig-align="center" width="390"}
+
 ## 开头总结
 
 这一部分想从最基础的介质静电学出发，先理解自由电荷、介质极化、电位移矢量、电场和电势之间的关系，再把这些结果放进 Marcus 的连续介质图像中。核心问题是：当电子发生转移时，为什么溶剂的“快极化”和“慢极化”不能同时响应，以及这种时间尺度分离为什么最终会给出外层重组能中的 $\left(1/\varepsilon_{op}-1/\varepsilon_s\right)$。
@@ -352,7 +354,7 @@ W_{1\rightarrow3}
 \frac{U_0}{\varepsilon_s}
 \tag{21}
 $$
-	
+
 ## 8. 态 2 到态 3：快响应过程的做功
 
 - **态 2（你的假想态）**：小球**不带电**，但溶剂的“慢响应（取向）”被冻结在了态 3（带电态）的构型。

@@ -20,7 +20,6 @@ draft: false
 format:
   html:
     html-math-method: mathjax
-
 ---
 
 # Newns-Anderson-Schmickler
