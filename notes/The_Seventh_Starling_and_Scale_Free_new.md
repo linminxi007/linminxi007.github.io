@@ -3,7 +3,7 @@ title: "The Seventh Starling and Scaling Law"
 date: 2026-09-14
 description: "我曾经一直拿它和大语言模型中的 scaling law，还有水的 H-bond network 比较。"
 categories:
-  - 动力学
+  - dynamics
 lang: zh-CN
 translation-key: The Seventh Starling and Scaling Law
 status: working
@@ -18,7 +18,7 @@ draft: false
 
 我的回答是：难道你不好奇吗？
 
-这次我们看看鸟群的**scale-free** 和大预言模型的 **scaling law**。我先说一下，下面的文字只是我的胡思乱想，主要是想给后续讨论 H-bond network 和水溶液中的 long-range interaction 引入一个角度。
+这次我们看看鸟群的**scale-free** 和大预言模型的 **scaling law** **scale-free** **[SO(3)-Equivariant Graph Neural Network](SO(3)-Equivariant Graph Neural Networks_new.en.md)** 。我先说一下，下面的文字只是我的胡思乱想，主要是想给后续讨论 H-bond network和水溶液中的 long-range interaction 引入一个角度,或许利用通过不同极化组合SHS的信号解算的correlated vibrational spectroscopy能进一步找到一些有趣的东西,谁知道呢?
 
 ------------------------------------------------------------------------
 

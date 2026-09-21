@@ -4,7 +4,7 @@ date: 2026-09-14
 description: "SO3等变神经网络的原理,球张量和CG系数的应用。"
 categories:
   - AI
-  - 坐标系的旋转
+  - Rotate
 lang: zh-CN
 translation-key: SO3 Neural Networks
 status: working
@@ -23,7 +23,7 @@ draft: false
 
 ### 2. PINN：损失加在 LOSS 就好了！
 
-传统的神经网络不懂物理常识。当面临复杂的**坐标系变换**或者**物理微分方程**约束时，该怎么办？
+传统的神经网络是一个黑箱,没用注入先验的物理常识。往往导致收敛慢和巨大的数据需求. 当面临复杂的**坐标系变换**或者**物理微分方程**约束时，该怎么办？
 
 **PINN (Physics-Informed Neural Networks)** 给出了一种极其简单粗暴的方法：**不需要改网络结构，直接把物理定律当作惩罚项，加在 LOSS 里！**
 
@@ -43,39 +43,34 @@ Xin 2021 nature com. \[1\]
 
 看起来很复杂,其实就是左边做个普通的神经网络或者GNN,右边把已知的物理公式部分关键项写入LOSS.
 
-我老板的工作,这些年慢慢的体会这篇文章.现在的感觉是预测准确已经不重要,重要的是能不能从对神经网络加入一些物理限制,然后中榨取更多的另一些没有加入的物理信息,这才是有趣的吧.
+我老板的工作,这些年慢慢的体会这篇文章.现在的感觉是对某个能量的准确已经不重要,重要的是能不能从对神经网络加入一些物理限制,然后中榨取更多的另一些没有加入的物理信息,这才是有趣的吧.
 
 ------------------------------------------------------------------------
 
 ## 二、 图神经网络 (GNN)：抛弃绝对坐标系
 
-为了避开“全局坐标系变化”带来的困扰，我们引入了**图神经网络（GNN）**。GNN 直接把分子变成一个“图”：原子是节点，化学键或距离是边，从而降维处理空间关系。
+**图神经网络（GNN）** 直接把分子变成一个“图”：原子是节点，化学键或距离是边，从而降维处理空间关系。
 
 ### 1. GNN 的核心机制：消息聚合 (Message Passing)
 
 GNN 的计算过程，就像是一次“朋友圈收集信息”的过程：
 
-1.  **消息构造 (Message)**：每个原子根据边（距离），提取周围邻居原子的特征。
-2.  **聚合 (Aggregation)**：把周围邻居传来的信息打包（比如图中的 $\bigoplus$ 求和操作）。
-3.  **更新 (Update)**：结合自己原有的状态和打包后的邻居信息，更新自己这一层的新特征。
+1. **消息构造 (Message)**：每个原子根据边（距离），提取周围邻居原子的特征。
+2. **聚合 (Aggregation)**：把周围邻居传来的信息打包（比如图中的 $\bigoplus$ 求和操作）。
+3. **更新 (Update)**：结合自己原有的状态和打包后的邻居信息，更新自己这一层的新特征。
 
 ![](../assets/images/SO3/GNN.png)
 
-\[2\]
-
-\[3\] 说的很清楚,这里面涉及到计算邻接矩阵和图的拉普拉斯变换.
+\[2\]\[3\] 说的很清楚,这里面涉及到计算邻接矩阵和图的拉普拉斯变换.
 
 *(图注：GNN 的经典聚合过程，从第0成开始把周围节点的信息拿过来,可以看到节点颜色逐渐变深)*
 
-Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Prediction of Material Properties Tian Xie \[4\] and Jeffrey C. Grossman \[5\] Phys. Rev. Lett. 120, 145301 – Published 6 April, 2018 \[6\]
-
 ### 2. GNN 的致命软肋：做不深，Scaling Law 不好施展
 
-在目前大模型“大力出奇迹”（**Scaling Law**）的时代，GNN 显得非常尴尬：
+在目前大模型“大力出奇迹”（**Scaling Law**）**[Scaling Law](The_Seventh_Starling_and_Scale_Free_new.md)**的时代，GNN 显得非常尴尬：
 
 - **过平滑 (Over-smoothing) 现象**：如果 GNN 层数做深（比如超过 8 层），经过多次“朋友圈消息传递”，最后所有原子的特征都会趋于同质化，网络失去分辨能力。
 - **Scaling Law 施展不开**：Transformer 可以无脑堆叠几百层，通过海量算力换取精度；而 GNN 浅尝辄止，算力再大也无法有效加深，导致其在暴力美学的 AI 时代遇到了极大的瓶颈。
-- 阿尔法fold 1 2 3 4是Transformer架构的,确定一下是不是正确
 
 ------------------------------------------------------------------------
 
@@ -98,7 +93,7 @@ Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Pr
 
 主要是**e3nn**、**NequIP** 和 **MACE**,我们重点讨论e3nn. NequIP 和 MACE我想可能是差不多的吧,主要是我实在是写不动了...
 
-一句话简单的说,之前我们搞**维格兰艾卡定理**时候,涉及到把笛卡尔坐标xyz变成球张量算符.现在这个e3nn也是,e3nn只是做一个映射结合图神经网络,保证了等变性.
+一句话简单的说,之前我们搞**Wigner-Eckart theorem**时候,涉及到把笛卡尔坐标xyz变成球张量算符.现在这个e3nn也是,e3nn只是做一个映射结合图神经网络,保证了等变性.**[SFG中的Wigner-Eckart theorem](SFG_QM math-cleaned-v2.md)**
 
 在化学中，我们常常见到电子的原子轨道 $(n,l,m)$，其中主量子数 $n$ 决定径向部分，$l$ 和 $m$ 决定角向部分。比如 s 轨道 $(n=1, l=0, m=0)$ 是一个球，因为 $l=0, m=0$ 所以没有长出‘犄角’。对应到球张量算符 $T^k_q$，其中 $k=l, q=m$，这就等价于波函数的角向部分。比如当 $k=1$ 时，$q$ 共有 $2k+1=3$ 个取值，即 $q=-1, 0, +1$。其中 $q=0$ 直接对应 $p_z$ 轨道，而 $q=+1$ 和 $q=-1$ 分量经过线性组合后，就构成了我们熟悉的 $p_x$ 和 $p_y$ 轨道。$T^1_0$ 直接对应 $p_z$ 轨道.
 
@@ -262,13 +257,7 @@ https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs414
 
 \[3\] https://theaisummer.com/gnn-architectures/
 
-\[4\] Tian Xie\
-https://journals.aps.org/search/field/author/Tian%20Xie
-
-\[5\] Jeffrey C. Grossman\
-https://journals.aps.org/search/field/author/Jeffrey%20C%20Grossman
-
-\[6\] Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Prediction of Material Properties. Phys. Rev. Lett. **120**, 145301 – **Published 6 April, 2018**
+\[4\] Tian Xie Crystal Graph Convolutional Neural Networks for an Accurate and Interpretable Prediction of Material Properties. Phys. Rev. Lett. **120**, 145301 – **Published 6 April, 2018**
 
 \[7\] The Bitter Lesson. Rich Sutton. March 13, 2019.\
 https://www.cs.utexas.edu/\~eunsol/courses/data/bitter_lesson.pdf

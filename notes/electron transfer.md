@@ -6,8 +6,8 @@ date: 2026-09-14
 description: "我常常弄不明白非绝热与绝热电子转移,隧穿与跳过去的电子转移之间有什么区别"
 
 categories:
-  - 动力学
-  - 电化学
+  - Electron transfer
+  - Electrochemistry
 
 lang: zh-CN
 

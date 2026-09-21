@@ -6,7 +6,7 @@ date: 2026-09-14
 description: "电极电势的发展史,也是人们从金属电极进入溶液的发展史。当我们在测量电极电势的时候,我们到底在测的是什么?如果你了解电化学你会知道这绝不是一件简单的事情。"
 
 categories:
-  - 电化学
+  - Electrochemistry
 
 lang: zh-CN
 
@@ -22,6 +22,8 @@ draft: false
 ## 开头总结
 
 这篇笔记想回答一个看起来简单、实际上牵涉电子结构、界面静电、化学势和参比体系的问题：我们测量**电极电势**的时候，到底在测什么？主线是从金属表面的电子结构出发，进入金属-水界面和双电层，再从 Trasatti 的绝对电极电势定义与计算化学的表达出发，理解实验中的相对电极电势、绝对电极电势、SHE、PZC，以及 AIMD 中电极电势的参比问题。
+
+![](images/paste-28.png){width="409"}
 
 ## 从电子结构走向带水界面
 
@@ -39,7 +41,7 @@ draft: false
 
 ### 从 d-band center 进入这个问题
 
-我对这个问题一开始毫不感兴趣,感觉这就是一个高中学生会遇到的问题,无聊的考试. 让我介绍一下我是如何走进这个问题的.一开始我是对Nørskov的**d-band center**感兴趣. 我们在另一篇笔记中提到了完整的推导过程.\[1\]
+我对这个问题一开始毫不感兴趣,感觉这就是一个高中学生会遇到的问题,无聊的考试. 让我介绍一下我是如何走进这个问题的.一开始我是对Nørskov的**[d-band center](Newns-Anderson-Schmickler_math-cleaned-v2.md)**感兴趣. 我们在另一篇笔记中提到了完整的推导过程.\[1\]
 
 它描述可以用金属 d 轨道的积分中心位置来衡量分子在表面吸附的强弱。**实际上，这并不是因为金属的 d 轨道和分子的轨道相互作用最强。分子首先会和金属宽广的 sp 带发生极强的相互作用，但因为不同过渡金属的 sp 带非常宽且特征相似，这种相互作用在不同金属上贡献的吸附能差不多是一个常数。**
 
@@ -366,8 +368,8 @@ $$
 
 采用路径 B（靠近界面的真空），测量过程被拆解为两个在物理上完全**可独立测量**的步骤\[3\]：
 
-1.  **从金属内部** $\rightarrow$ 金属表面外侧真空：克服的能量恰好是金属的**电子功函数** $\Phi^M$\[3\]。
-2.  **从金属表面外侧真空** $\rightarrow$ 溶液表面外侧真空：仅需克服这两点之间的静电势差，即**外电势差（接触电势差）** $\Delta_S^M\psi$\[3\]。
+1. **从金属内部** $\rightarrow$ 金属表面外侧真空：克服的能量恰好是金属的**电子功函数** $\Phi^M$\[3\]。
+2. **从金属表面外侧真空** $\rightarrow$ 溶液表面外侧真空：仅需克服这两点之间的静电势差，即**外电势差（接触电势差）** $\Delta_S^M\psi$\[3\]。
 
 ### 把功函数与外电势差合起来
 
@@ -468,23 +470,23 @@ $$
 
 这是只考虑一根电极的
 
-| **参考状态 (Reference State)** | **常数 K 的取值** | **绝对单电极电势 EM(abs) 的展开式** |
-|------------------------------|----------------|---------------------------|
-| **1. 无穷远处的真空**<br>(Infinity in a vacuum) | $\phi^S$ | $\phi^M - \frac{\mu_e^M}{F}$ |
-| **2. 溶液内部的溶剂化状态**<br>(Solvated state in the liquid phase) | $\frac{\mu_e^S}{F}$ | $\Delta_S^M\phi - \frac{\mu_e^M}{F} + \frac{\mu_e^S}{F}$ |
-| **3. 靠近溶液表面的真空**<br>(A point in a vacuum close to the surface) | $\chi^S$ | $\frac{\Phi^M}{F} + \Delta_S^M\psi$ |
+| **参考状态 (Reference State)**                                     | **常数 K 的取值**        | **绝对单电极电势 EM(abs) 的展开式**                                 |
+| -------------------------------------------------------------- | ------------------- | -------------------------------------------------------- |
+| **1. 无穷远处的真空**<br>(Infinity in a vacuum)                       | $\phi^S$            | $\phi^M - \frac{\mu_e^M}{F}$                             |
+| **2. 溶液内部的溶剂化状态**<br>(Solvated state in the liquid phase)      | $\frac{\mu_e^S}{F}$ | $\Delta_S^M\phi - \frac{\mu_e^M}{F} + \frac{\mu_e^S}{F}$ |
+| **3. 靠近溶液表面的真空**<br>(A point in a vacuum close to the surface) | $\chi^S$            | $\frac{\Phi^M}{F} + \Delta_S^M\psi$                      |
 
 ### 组合成 cell
 
 这是组合成cell的
 
-|  |  |  |  |
-|--------------|--------------|-------------------------|-------------------|
-| SHE reduced potential | Standard $\mathrm{H^+/H_2}$ equilibrium | $U_{\mathrm{SHE}}(r)=[\mu_{\mathrm{H^+}}^{S,o}-\tfrac12\mu_{\mathrm{H_2}}^{g,o}]/e_0$ | Reduced single-electrode potential of the SHE |
-| SHE absolute potential | Path-B absolute reference | $U_{\mathrm{SHE}}^{\mathrm{abs}}\approx4.44\ \mathrm{V}$ at 298.15 K | Absolute electronic-energy position of the SHE relative to vacuum outside water |
-| Working electrode vs SHE | SHE chosen as relative zero | $U^{\mathrm{SHE}}=U^M(r)-U_{\mathrm{SHE}}(r)=U^M(\mathrm{abs})-U_{\mathrm{SHE}}^{\mathrm{abs}}$ | Experimentally reported electrode potential on the SHE scale |
-| Absolute PZC | $\sigma_M=0$ | $U_{\mathrm{PZC}}^{M,\mathrm{abs}}=[\Phi^M/e_0+\Delta_S^M\psi]_{\sigma_M=0}$ | Absolute electrode potential evaluated at zero excess surface charge |
-| PZC vs SHE | $\sigma_M=0$, SHE reference | $U_{\mathrm{PZC}}^{\mathrm{SHE}}=U_{\mathrm{PZC}}^{M,\mathrm{abs}}-U_{\mathrm{SHE}}^{\mathrm{abs}}$ | PZC reported on the conventional SHE scale |
+|                          |                                         |                                                                                                     |                                                                                 |
+| ------------------------ | --------------------------------------- | --------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| SHE reduced potential    | Standard $\mathrm{H^+/H_2}$ equilibrium | $U_{\mathrm{SHE}}(r)=[\mu_{\mathrm{H^+}}^{S,o}-\tfrac12\mu_{\mathrm{H_2}}^{g,o}]/e_0$               | Reduced single-electrode potential of the SHE                                   |
+| SHE absolute potential   | Path-B absolute reference               | $U_{\mathrm{SHE}}^{\mathrm{abs}}\approx4.44\ \mathrm{V}$ at 298.15 K                                | Absolute electronic-energy position of the SHE relative to vacuum outside water |
+| Working electrode vs SHE | SHE chosen as relative zero             | $U^{\mathrm{SHE}}=U^M(r)-U_{\mathrm{SHE}}(r)=U^M(\mathrm{abs})-U_{\mathrm{SHE}}^{\mathrm{abs}}$     | Experimentally reported electrode potential on the SHE scale                    |
+| Absolute PZC             | $\sigma_M=0$                            | $U_{\mathrm{PZC}}^{M,\mathrm{abs}}=[\Phi^M/e_0+\Delta_S^M\psi]_{\sigma_M=0}$                        | Absolute electrode potential evaluated at zero excess surface charge            |
+| PZC vs SHE               | $\sigma_M=0$, SHE reference             | $U_{\mathrm{PZC}}^{\mathrm{SHE}}=U_{\mathrm{PZC}}^{M,\mathrm{abs}}-U_{\mathrm{SHE}}^{\mathrm{abs}}$ | PZC reported on the conventional SHE scale                                      |
 
 ## 7. 如果还想把内电势、外电势继续拆开
 
