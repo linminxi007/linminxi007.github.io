@@ -1,7 +1,7 @@
 ---
 title: "Quantum Mechanical Principles of SFG Spectroscopy"
 
-date: 2026-09-14
+date: 2026-09-16
 
 description: "From Sakurai's quantum mechanics to Hamm's nonlinear optics, then to group theory in Atkins' Physical Chemistry, and finally a full attempt to derive the selection rules of SFG/SHS spectroscopy."
 

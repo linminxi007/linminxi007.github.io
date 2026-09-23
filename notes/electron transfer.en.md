@@ -1,15 +1,15 @@
 ---
-title: "电子转移是怎么发生的?"
+title: "How does electron transfer occur?"
 
-date: 2026-09-14
+date: 2026-09-13
 
-description: "我常常弄不明白非绝热与绝热电子转移,隧穿与跳过去的电子转移之间有什么区别"
+description: "I often can't figure out the difference between non-adiabatic and adiabatic electron transfer, and between tunneling and hopping electron transfer."
 
 categories:
   - Electron transfer
   - Electrochemistry
 
-lang: zh-CN
+lang: en
 
 translation-key: electron-transfer
 

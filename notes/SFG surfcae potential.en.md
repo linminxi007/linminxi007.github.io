@@ -1,0 +1,23 @@
+---
+title: "how SFG measures surface potential"
+
+date: 2026-09-13
+
+description: "how Hongfei Wang and Franz Geiger slowly figured out how SFG measures surface potential starting around the year 2000."
+
+categories:
+  - Electrochemistry
+  - Spectrum
+
+lang: en
+
+translation-key: SFG-measures-surface-potential
+
+status: working
+
+draft: false
+---
+
+
+
+It's hard to write it right now. ~ ,~

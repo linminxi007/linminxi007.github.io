@@ -1,7 +1,7 @@
 ---
 title: "What Is Electrode Potential?"
 
-date: 2026-09-14
+date: 2026-09-16
 
 description: "The history of electrode potential is also a history of how we move from the metal electrode into the solution. When we measure electrode potential, what are we actually measuring? If you know electrochemistry, you know this is not a simple question."
 
