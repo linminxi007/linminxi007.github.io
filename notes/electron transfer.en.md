@@ -19,6 +19,7 @@ draft: false
 ---
 
 #
+It's hard to write it right now. ~ ,~
 
 Marcus + Fermi Golden Rule + PECT +generalized Langevin equation(friction kernel) + nonequilibrium Fermi Golden Rule +machine-learning molecular dynamics
 
