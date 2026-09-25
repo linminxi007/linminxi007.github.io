@@ -29,7 +29,7 @@ This was a robotics competition project that I worked on during my undergraduate
 
 The part I was most satisfied with was a compact **gimbal structure**. By arranging the mass distribution and center of gravity carefully, the system stayed stable while still keeping a small size and good motion performance.
 
-Later, when I studied molecular spectroscopy in **SFG/SHS** experiments, I noticed that some of the ideas are similar to those in a robot automatic aiming system. **[Wigner-Eckart theorem in SFG](SFG_QM math-cleaned-v2.en.md)**
+Later, when I studied molecular spectroscopy in **SFG/SHS** experiments, I noticed that some of the ideas are similar to those in a robot automatic aiming system. [**Wigner-Eckart theorem in SFG**](SFG_QM%20math-cleaned-v2.en.md)
 
 At least in the last step, the similarity is quite direct: in spectroscopy, we transform quantities from the molecular coordinate system to the laboratory coordinate system. In robot automatic aiming, we also transform the target from the camera coordinate system to the reference coordinate system used by the robot controller.
 
@@ -37,7 +37,7 @@ At least in the last step, the similarity is quite direct: in spectroscopy, we t
 
 So I reorganized this automatic aiming system into an interactive HTML file based on the basic idea of **matrix transformations**. It shows coordinate transformations, rotation matrices, and the target-tracking process.
 
-This also gives an intuitive starting point for understanding **ZYZ Euler-angle rotations**, **D matrices**, **Wigner d matrices**, and the **Wigner-Eckart theorem** in spherical coordinates. **[SO(3) Neural Networks](SO(3)-Equivariant Graph Neural Networks_new.en.md)**
+This also gives an intuitive starting point for understanding **ZYZ Euler-angle rotations**, **D matrices**, **Wigner d matrices**, and the **Wigner-Eckart theorem** in spherical coordinates. [**SO(3) Neural Networks**](SO(3)-Equivariant%20Graph%20Neural%20Networks_new.en.md)
 
 If you want to see the related references, jump to the end of this note:
 
@@ -48,6 +48,10 @@ If you want to see the related references, jump to the end of this note:
 ![](../assets/images/robo/2.png)
 
 Two competition videos are placed here.\[3\]\[4\]
+
+![](images/paste-4.jpeg)![](images/paste-3.jpeg)
+
+The robot I designed.
 
 ------------------------------------------------------------------------
 
@@ -112,7 +116,7 @@ $$
 
 So the direct connection between automatic aiming and **SO(3)** is simple:
 
-**The changes in direction between the gimbal, camera, and target are all rotations in three-dimensional space. The transformation between different coordinate systems is described by rotation matrices in $SO(3)$.**
+**The changes in direction between the gimbal, camera, and target are all rotations in three-dimensional space. The transformation between different coordinate systems is described by rotation matrices in** $SO(3)$.
 
 This mathematical structure is very similar to the choice of molecular and laboratory coordinate systems in **SHS/SFG**.
 
@@ -136,13 +140,13 @@ D_{mm'}^{(l)}(R)
 T_{m'}^{(l),\mathrm{mol}},
 $$
 
-where $D_{mm'}^{(l)}(R)$ is the **Wigner $D$ matrix**.
+where $D_{mm'}^{(l)}(R)$ is the **Wigner** $D$ matrix.
 
 So the real similarity is not between "cameras" and "spectroscopy" themselves.
 
 The important point is this:
 
-**We first describe an object in the local coordinate system that is most natural for that object. Then we use an $SO(3)$ rotation to transform the quantities into the coordinate system that is actually used by the laboratory setup or the control system.**
+**We first describe an object in the local coordinate system that is most natural for that object. Then we use an** $SO(3)$ rotation to transform the quantities into the coordinate system that is actually used by the laboratory setup or the control system.
 
 The difference is in what we transform.
 
@@ -156,7 +160,7 @@ So coordinate transformations in robotics can be used as a very intuitive classi
 
 ------------------------------------------------------------------------
 
-# References
+# References {#references}
 
 \[1\] Interactive HTML for the automatic aiming system: `../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html`
 
