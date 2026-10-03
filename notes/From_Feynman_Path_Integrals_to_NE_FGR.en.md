@@ -80,7 +80,7 @@ P(R_i\rightarrow R_f)
 |K|^2
 $$
 
----
+***
 
 ## Physical picture
 
@@ -107,7 +107,7 @@ $$
 
 Feynman’s path integral is basically the mathematical way of expressing this idea.
 
----
+***
 
 # 2. From the propagator to the path integral
 
@@ -209,7 +209,7 @@ $$
 
 and then integrate over every possible intermediate position.
 
----
+***
 
 # 3. Finding a short-time propagator
 
@@ -331,7 +331,7 @@ $$
 
 we can build the exact continuous-time propagator.
 
----
+***
 
 # 4. Insert the momentum completeness relation
 
@@ -433,7 +433,7 @@ V(x_n)\epsilon
 \right]
 $$
 
----
+***
 
 # 5. Integrating over momentum
 
@@ -495,7 +495,7 @@ $$
 
 This is the key step that takes us from the Hamiltonian form to the Lagrangian form.
 
----
+***
 
 # 6. Why does the Lagrangian appear?
 
@@ -558,7 +558,7 @@ $$
 
 where $C$ is the normalization factor that comes from the Gaussian momentum integral.
 
----
+***
 
 # 7. Back to the full propagator
 
@@ -638,7 +638,7 @@ $$
 e^{iS/\hbar}
 $$
 
----
+***
 
 # 8. From a single potential-energy surface to electron transfer
 
@@ -676,7 +676,7 @@ $$
 
 So we need to add the coupling between the two electronic states into the nuclear propagation picture.
 
----
+***
 # 9. Two-state Hamiltonian
 
 Introduce two diabatic electronic states:
@@ -792,7 +792,7 @@ $$
 \Gamma
 $$
 
----
+***
 
 # 10. The weak electronic-coupling limit of the Fermi Golden Rule
 
@@ -864,7 +864,7 @@ A more accurate way to say it is:
 
 > The electronic coupling is weak enough that transitions between the states can be treated as a low-order perturbation, while the electronic population changes more slowly than the environmental correlation function decays.
 
----
+***
 
 # 11. Introducing second-order perturbation theory
 
@@ -916,7 +916,7 @@ $$
 }
 $$
 
----
+***
 
 # 12. Moving to the interaction picture
 
@@ -991,7 +991,7 @@ $$
 \tilde V_{DA}^{\dagger}(t)
 $$
 
----
+***
 
 # 13. Second-order Dyson expansion of the density matrix
 
@@ -1057,7 +1057,7 @@ O(\Gamma^3)
 \end{aligned}
 $$
 
----
+***
 
 # 14. Defining the acceptor-state population
 
@@ -1150,7 +1150,7 @@ $$
 
 order.
 
----
+***
 # 15. Expanding the double commutator
 
 Using
@@ -1213,7 +1213,7 @@ $$
 
 means that the trace is taken only over the nuclear degrees of freedom.
 
----
+***
 
 # 16. Using the cyclic property of the trace
 
@@ -1278,7 +1278,7 @@ dt_2\,
 }
 $$
 
----
+***
 
 # 17. So the time-correlation function appears naturally
 
