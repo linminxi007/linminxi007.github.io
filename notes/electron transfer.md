@@ -18,6 +18,8 @@ status: working
 draft: false
 ---
 
+It's hard to write it right now. ~ ,~
+
 Marcus + Fermi Golden Rule + PECT +generalized Langevin equation(friction kernel) + nonequilibrium Fermi Golden Rule +machine-learning molecular dynamics
 
 Yang, Y.; Fu, G.
@@ -29,7 +31,6 @@ Mengke Zhang, Yanxia Chen, Marko Melander, Jun Huang
 "Solvent Effects on Electron Transfer Reactions at Electrode–Electrolyte Interfaces"
 
 Chemical Reviews 2026
-
 
 Soudackov, A. V.; Hammes-Schiffer, S.
 
