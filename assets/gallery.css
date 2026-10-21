@@ -21,3 +21,30 @@
 @media (max-width: 1180px) {.home-gallery {padding-inline: 0;} .research-gallery-card {flex-basis: calc((100% - 20px)/2);}}
 @media (max-width: 720px) {.home-gallery {padding: 0 5px 45px;} .research-gallery-track {gap: 14px;} .research-gallery-card {flex-basis: min(82vw, 340px);} .research-gallery-caption {min-height: 145px;} .research-gallery-caption h3 {font-size: 15px;} .research-gallery-image {aspect-ratio: 1.55;} }
 @media (prefers-reduced-motion: reduce) {.research-gallery-card {transition: none;} .research-gallery-track {scroll-behavior: auto;}}
+
+/* LOCAL GALLERY NAV BELOW CARDS PREVIEW v1 */
+/* 只改变视觉排列顺序，不修改相册 DOM，也不影响翻页 JavaScript。 */
+.home-gallery {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 36px;
+}
+.home-gallery > .section-heading {
+  order: 0;
+  padding-top: 14px;
+  padding-bottom: 12px;
+  margin-bottom: 0;
+}
+.home-gallery > .research-gallery-track { order: 1; }
+.home-gallery > .research-gallery-controls {
+  order: 2;
+  justify-content: flex-end;
+  align-self: stretch;
+  padding: 8px 4px 0;
+}
+.home-gallery > .research-gallery-status { order: 3; }
+.home-gallery > .research-gallery-status:empty { display: none; }
+@media (max-width: 720px) {
+  .home-gallery { padding-bottom: 28px; }
+}
+

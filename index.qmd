@@ -10,7 +10,7 @@ toc: false
 <div>
 
 <div class="eyebrow">
-A PERSONAL RESEARCH NOTEBOOK
+
 </div>
 
 <h1>
@@ -27,19 +27,7 @@ how do  <span class="accent">electrons transfer?</span>
 
 </h1>
 
-<p class="hero-description">
 
-<span class="lang-zh">
-光谱 · 量子力学 · 计算化学 · 人工智能。<br>
-
-</span>
-
-<span class="lang-en">
-Spectroscopy · Quantum Mechanics · Computational Chemistry · Artificial Intelligence.<br>
-
-</span>
-
-</p>
 
 <a class="soft-button button-jump"
 href="notes/index.html">
@@ -68,33 +56,9 @@ Feynman said,<br>
 </span>
 </h2>
 
-<p class="lang-zh">
 
 
-拆解复杂，<br>
-用简单解释。
 
-<br><br>
-
-探索光与物质的相互作用，<br>
-了解量子，<br>
-连接计算与AI。
-
-</p>
-
-<p class="lang-en">
-
-
-Break down complex concepts,<br>
-explained simply.
-
-<br><br>
-
-Explore light–matter interactions,<br>
-understand the quantum,<br>
-connect computation with AI.
-
-</p>
 
 <div class="axis-decoration" aria-hidden="true">
 <i></i>
@@ -120,7 +84,7 @@ connect computation with AI.
 <link rel="stylesheet" href="assets/gallery.css">
 <section class="home-gallery" id="research-gallery" aria-label="Research Gallery">
   <div class="section-heading">
-    <h2><span class="lang-zh">研究图片相册</span><span class="lang-en">Research Gallery</span></h2>
+    <h2><span class="lang-zh">相册</span><span class="lang-en">Research Gallery</span></h2>
     <span>VISUAL RESEARCH NOTES</span>
   </div>
   <div class="research-gallery-controls">
@@ -136,22 +100,13 @@ connect computation with AI.
 <!-- RESEARCH GALLERY: END -->
 ```
 
-<div class="home-recent" id="recent-notes-render">
+::::: {#recent-notes-render .home-recent}
+::: section-heading
+<h2>[最近 3 篇笔记]{.lang-zh} [Recent Research Notes]{.lang-en}</h2>
 
-<div class="section-heading">
-
-<h2>
-<span class="lang-zh">最近 3 篇笔记</span>
-<span class="lang-en">Recent Research Notes</span>
-</h2>
-
-<span>
 RECENT RESEARCH NOTES
-</span>
-
-</div>
+:::
 
 ::: {#latest-notes}
 :::
-
-</div>
+:::::
