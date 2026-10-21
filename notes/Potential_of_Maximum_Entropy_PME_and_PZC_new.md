@@ -7,7 +7,8 @@ description: "我一度觉得PME测量PZC的方法太酷了"
 
 categories:
   - dynamics
-  - Spectrum
+  - SFG
+  - Electrochemistry
 
 lang: zh-CN
 

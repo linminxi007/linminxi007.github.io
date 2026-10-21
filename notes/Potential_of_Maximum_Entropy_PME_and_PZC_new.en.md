@@ -7,7 +7,8 @@ description: "For a while, I thought using PME to measure PZC was an extremely c
 
 categories:
   - dynamics
-  - Spectroscopy
+  - SFG
+  - Electrochemistry
 
 lang: en
 

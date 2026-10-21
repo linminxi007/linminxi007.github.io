@@ -1,7 +1,7 @@
 ---
 title: "Plasmon-Enhanced SFG for Coupled DNA–Hydration-Water Vibrational Detection in an Asymmetric Au/HfO₂ Planar Nanochannel"
 
-date: 2026-09-16
+date: 2026-09-17
 
 description: "Why plasmon-enhanced SFG is unlikely to match commercial nanopore sequencing performance"
 
