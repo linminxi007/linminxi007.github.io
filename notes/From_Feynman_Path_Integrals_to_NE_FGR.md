@@ -12,7 +12,7 @@ translation-key: Path-Integrals-Fermi-Golden
 status: working
 draft: false
 ---
-
+![alt text](image-5.png)
 # 1. 从传播子开始：粒子如何从一个核构型到另一个核构型？
 
 考虑一个简单的核自由度：
@@ -628,9 +628,9 @@ $$
 它表示：
 
 > 从初态到末态的量子传播振幅，是所有可能路径振幅的相干叠加。也就是说量子是同时走所有的路.
-> 
+>
 > 这有一个很好看的视频可以参考:
-> 
+>
 > How Can Light Travel Everywhere at Once? Feynman’s Path Integral Explained
 > https://www.youtube.com/watch?v=ss0HABVUkeQ
 

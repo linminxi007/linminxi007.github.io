@@ -12,7 +12,7 @@ translation-key: Path-Integrals-Fermi-Golden
 status: working
 draft: false
 ---
-
+![alt text](image-4.png)
 # 1. Starting from the propagator: how does a particle move from one nuclear configuration to another?
 
 Consider a simple nuclear degree of freedom:
@@ -626,9 +626,9 @@ $$
 It means:
 
 > The quantum propagation amplitude from the initial state to the final state is the coherent sum of the amplitudes from all possible paths. In other words, the quantum particle takes all possible paths at the same time.
-> 
+>
 > There is a really nice video that explains this idea:
-> 
+>
 > How Can Light Travel Everywhere at Once? Feynman’s Path Integral Explained
 > https://www.youtube.com/watch?v=ss0HABVUkeQ
 

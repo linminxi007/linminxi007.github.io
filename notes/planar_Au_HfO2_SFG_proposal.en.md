@@ -1,7 +1,7 @@
 ---
 title: "Plasmon-Enhanced SFG for Coupled DNA–Hydration-Water Vibrational Detection in an Asymmetric Au/HfO₂ Planar Nanochannel"
 
-date: 2026-09-17
+date: 2026-09-16
 
 description: "Why plasmon-enhanced SFG is unlikely to match commercial nanopore sequencing performance"
 
@@ -249,7 +249,7 @@ $$
 The three reference rate coefficients are:
 
 | $q_\beta$ | Reference detected rate per oscillator $q_\beta K_{0,\mathrm{ref}}$ |
-|-----------------:|-----------------------------------------------------:|
+|------------------:|----------------------------------------------------:|
 | 1 | $5.62\times10^{-12}\ \mathrm{s^{-1}}$ |
 | 2.25 | $1.2645\times10^{-11}\ \mathrm{s^{-1}}$ |
 | 4 | $2.248\times10^{-11}\ \mathrm{s^{-1}}$ |

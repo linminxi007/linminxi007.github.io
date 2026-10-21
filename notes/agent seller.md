@@ -14,7 +14,7 @@ draft: false
 ---
 
 # agent自动交易系统的动力学
-
+![alt text](image-2.png)
 
 ## agent网络的架构
 
