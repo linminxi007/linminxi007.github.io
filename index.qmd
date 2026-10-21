@@ -115,6 +115,27 @@ connect computation with AI.
 </section>
 ```
 
+```{=html}
+<!-- RESEARCH GALLERY: BEGIN -->
+<link rel="stylesheet" href="assets/gallery.css">
+<section class="home-gallery" id="research-gallery" aria-label="Research Gallery">
+  <div class="section-heading">
+    <h2><span class="lang-zh">研究图片相册</span><span class="lang-en">Research Gallery</span></h2>
+    <span>VISUAL RESEARCH NOTES</span>
+  </div>
+  <div class="research-gallery-controls">
+    <span class="research-gallery-counter" data-gallery-counter aria-live="off">00 / 00</span>
+    <button class="research-gallery-nav" data-gallery-prev type="button" aria-label="上一张 / Previous" disabled>‹</button>
+    <button class="research-gallery-nav" data-gallery-next type="button" aria-label="下一张 / Next" disabled>›</button>
+  </div>
+  <div class="research-gallery-track" aria-label="Article illustrations" role="region" tabindex="0"></div>
+  <p class="research-gallery-status" data-gallery-status role="status"></p>
+  <noscript>请开启 JavaScript 以显示相册。 / Enable JavaScript to see this gallery.</noscript>
+</section>
+<script defer src="assets/gallery.js"></script>
+<!-- RESEARCH GALLERY: END -->
+```
+
 <div class="home-recent" id="recent-notes-render">
 
 <div class="section-heading">

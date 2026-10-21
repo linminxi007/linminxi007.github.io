@@ -14,7 +14,7 @@ draft: false
 ---
 
 # The dynamics of agent-based automated trading systems.
-
+![alt text](image-3.png)
 
 
 

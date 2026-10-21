@@ -1,0 +1,136 @@
+---
+title: "笔记与思考"
+description: "以费曼式理解为核心，连接光谱、量子力学、计算化学与人工智能。"
+toc: false
+---
+
+```{=html}
+<section class="home-hero">
+
+<div>
+
+<div class="eyebrow">
+A PERSONAL RESEARCH NOTEBOOK
+</div>
+
+<h1>
+
+<span class="lang-zh">
+那么，<br>
+电子是怎么转移的呢 <span class="accent">? </span>
+</span>
+
+<span class="lang-en">
+Then,<br>
+how do  <span class="accent">electrons transfer?</span>
+</span>
+
+</h1>
+
+<p class="hero-description">
+
+<span class="lang-zh">
+光谱 · 量子力学 · 计算化学 · 人工智能。<br>
+
+</span>
+
+<span class="lang-en">
+Spectroscopy · Quantum Mechanics · Computational Chemistry · Artificial Intelligence.<br>
+
+</span>
+
+</p>
+
+<a class="soft-button button-jump"
+href="notes/index.html">
+
+<span class="lang-zh">全部笔记</span>
+<span class="lang-en">All Notes</span>
+<span aria-hidden="true">↗</span>
+
+</a>
+
+</div>
+
+<aside class="home-side">
+
+<div class="eyebrow">
+READING ROOM / V3.1
+</div>
+
+<h2>
+<span class="lang-zh">
+费曼说:如果你只知道鸟的名字你并不理解这只鸟。
+</span>
+<span class="lang-en">
+Feynman said,<br>
+ "If you only know the name of a bird, you don't understand the bird."
+</span>
+</h2>
+
+<p class="lang-zh">
+
+
+拆解复杂，<br>
+用简单解释。
+
+<br><br>
+
+探索光与物质的相互作用，<br>
+了解量子，<br>
+连接计算与AI。
+
+</p>
+
+<p class="lang-en">
+
+
+Break down complex concepts,<br>
+explained simply.
+
+<br><br>
+
+Explore light–matter interactions,<br>
+understand the quantum,<br>
+connect computation with AI.
+
+</p>
+
+<div class="axis-decoration" aria-hidden="true">
+<i></i>
+<i></i>
+<i></i>
+<i></i>
+<i></i>
+</div>
+
+</aside>
+
+</section>
+
+<section class="home-recent" id="recent">
+
+
+
+</section>
+```
+
+<div class="home-recent" id="recent-notes-render">
+
+<div class="section-heading">
+
+<h2>
+<span class="lang-zh">最近 3 篇笔记</span>
+<span class="lang-en">Recent Research Notes</span>
+</h2>
+
+<span>
+RECENT RESEARCH NOTES
+</span>
+
+</div>
+
+::: {#latest-notes}
+:::
+
+</div>
