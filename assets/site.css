@@ -918,3 +918,24 @@ dialog::backdrop { background: var(--scrim); }
 .home-page .axis-decoration {
   margin-top: 85px;
 }
+
+
+/* 1. 在文件最末尾添加以下代码，让两个标题更加粗实、圆润，同时保持你现在设置的字体大小。 */
+
+/* 1. 主标题：那么，电子是怎么转移的呢？ */
+.home-page .home-hero h1 {
+  font-family: "PingFang SC", "Hiragino Sans GB",
+               -apple-system, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.22;
+}
+
+/* 2. 费曼名言 */
+.home-page .home-side h2 {
+  font-family: "PingFang SC", "Hiragino Sans GB",
+               -apple-system, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.5;
+}
