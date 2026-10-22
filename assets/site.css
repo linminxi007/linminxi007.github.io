@@ -847,10 +847,10 @@ dialog::backdrop { background: var(--scrim); }
   padding-bottom: 20px;
 }
 .home-page .home-hero h1 {
-  font-size: clamp(38px, 4vw, 100px);
+  font-size: clamp(40px, 5vw, 100px);
   line-height: 1.16;
   letter-spacing: -.035em;
-  margin: 14px 0 16px;
+  margin: 15px 0 17px;
 }
 .home-page .hero-description {
   font-size: 17px;
@@ -906,36 +906,18 @@ dialog::backdrop { background: var(--scrim); }
 
 /* 1. 主标题与 All Notes 按钮之间的距离 */
 .home-page .home-hero .soft-button {
-  margin-top: 85px;
+  margin-top: 60px;
 }
 
 /* 2. 费曼名言与下方内容之间的距离 */
 .home-page .home-side h2 {
-  margin-bottom: 85px;
+  margin-bottom: 75px;
 }
 
 /* 3. 费曼介绍下方与装饰图形之间的距离 */
 .home-page .axis-decoration {
-  margin-top: 85px;
+  margin-top: 75px;
 }
 
 
-/* 1. 在文件最末尾添加以下代码，让两个标题更加粗实、圆润，同时保持你现在设置的字体大小。 */
 
-/* 1. 主标题：那么，电子是怎么转移的呢？ */
-.home-page .home-hero h1 {
-  font-family: "PingFang SC", "Hiragino Sans GB",
-               -apple-system, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  line-height: 1.22;
-}
-
-/* 2. 费曼名言 */
-.home-page .home-side h2 {
-  font-family: "PingFang SC", "Hiragino Sans GB",
-               -apple-system, sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.015em;
-  line-height: 1.5;
-}
