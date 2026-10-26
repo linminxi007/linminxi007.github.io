@@ -3,10 +3,7 @@ title: "From Path Integrals to Non-Equilibrium Fermi Golden Rule"
 date: 2026-09-14
 description: "从费曼路径积分到非平衡费米黄金法则。"
 
-categories:
-  - Electron transfer
-  - Electrochemistry
-
+categories: [电子转移与电化学]
 lang: zh-CN
 translation-key: Path-Integrals-Fermi-Golden
 status: working

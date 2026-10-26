@@ -2,9 +2,7 @@
 title: "Can Exciting Interfacial Water Vibrations Speed Up Electron Transfer? — A Simple Model for SFG Experiments (Short Version)"
 date: 2026-10-14
 description: "Can we use light to excite molecular vibrations and thereby affect electron transfer? And can we actually observe this effect experimentally?"
-categories:
-  - Electron transfer
-  - SFG
+categories: [电子转移与电化学, 光谱与界面]
 lang: en
 ---
 

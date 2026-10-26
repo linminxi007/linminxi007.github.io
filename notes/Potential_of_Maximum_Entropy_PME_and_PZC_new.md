@@ -5,11 +5,7 @@ date: 2026-09-14
 
 description: "我一度觉得PME测量PZC的方法太酷了"
 
-categories:
-  - dynamics
-  - SFG
-  - Electrochemistry
-
+categories: [电子转移与电化学, 光谱与界面]
 lang: zh-CN
 
 translation-key: Potential of Maximum Entropy(PME) and Potential of Zero Charge(PZC)

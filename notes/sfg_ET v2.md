@@ -5,10 +5,7 @@ date: 2026-09-14
 
 description: "能不能用光影响分子振动从而影响电子转移？可以被观测到吗？"
 
-categories:
-  - Electron transfer
-  - Electrochemistry
-
+categories: [电子转移与电化学, 光谱与界面]
 lang: zh-CN
 
 translation-key: electron-transfer-sfg

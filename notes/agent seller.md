@@ -3,10 +3,7 @@ title: "agent自动交易系统的动力学"
 date: 2026-09-14
 description: "想看看一个由agent主导的市场有怎么样的动力学"
 
-categories:
-  - agent
-
-
+categories: [人工智能与机器学习, 统计物理与动力学]
 lang: zh-CN
 translation-key: Agents-buy-and-sell-in-the-market
 status: working

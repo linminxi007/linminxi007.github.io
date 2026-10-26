@@ -5,10 +5,7 @@ date: 2026-09-14
 
 description: "In the 1950s, using electrostatics to describe the solvent was reasonable. But now, with SHS and AIMD, we need more detail. Anyway, let us first follow Marcus and go through the derivation."
 
-categories:
-  - Electrochemistry
-  - Electron transfer
-
+categories: [电子转移与电化学]
 lang: en
 
 translation-key: electrostatics-and-Outer-sphere-reorganization-energy

@@ -2,9 +2,7 @@
 title: "SO3等变神经网络"
 date: 2026-09-14
 description: "SO3等变神经网络的原理,球张量和CG系数的应用。"
-categories:
-  - AI
-  - Rotate
+categories: [人工智能与机器学习]
 lang: zh-CN
 translation-key: SO3 Neural Networks
 status: working

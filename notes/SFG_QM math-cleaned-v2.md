@@ -5,11 +5,7 @@ date: 2026-09-14
 
 description: "从樱井纯的量子力学到hamm的非线性光学,再到阿金斯物理化学中的群论,最后尝试给出SFG/SHS光谱的选择定则推导全过程"
 
-categories:
-
-- Spectrum
-- Rotate
-
+categories: [光谱与界面]
 lang: zh-CN
 
 translation-key: from QM-hamm-sfg to selection rule

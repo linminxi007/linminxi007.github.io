@@ -5,9 +5,7 @@ date: 2026-09-15
 
 description: "电极电势的发展史,也是人们从金属电极进入溶液的发展史。当我们在测量电极电势的时候,我们到底在测的是什么?如果你了解电化学你会知道这绝不是一件简单的事情。"
 
-categories:
-  - Electrochemistry
-
+categories: [电子转移与电化学]
 lang: zh-CN
 
 translation-key: electrode-potential

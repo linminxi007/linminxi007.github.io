@@ -5,10 +5,7 @@ date: 2026-09-16
 
 description: "This is an electron-transfer theory, but I prefer to think of it as a theory of electron sharing. Looking at how a metal shares electrons with an adsorbed molecule from the viewpoint of electronic structure can also help us understand how the electronic structure of a metal affects the formation of the electric double layer."
 
-categories:
-  - Electron transfer
-  - Electrochemistry
-
+categories: [电子转移与电化学]
 lang: en
 
 translation-key: Newns-Anderson-Schmickler

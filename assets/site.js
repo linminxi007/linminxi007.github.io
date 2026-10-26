@@ -31,7 +31,7 @@
     Object.entries(values).forEach(([k,v]) => { text = text.replaceAll(`{${k}}`, String(v)); });
     return text;
   };
-  const topicNames = {'版式样例':'Reading layout','数学推导':'Mathematics','研究记录':'Research notes','阅读摘记':'Reading notes','写作与迁移':'Writing & migration','网站维护':'Site maintenance','未分类':'Uncategorized','方法工具':'Tools & methods','光谱':'Spectroscopy','物理':'Physics','化学':'Chemistry','电子转移':'Electron transfer'};
+  const topicNames = {'电子转移与电化学':'Electron Transfer & Electrochemistry','光谱与界面':'Spectroscopy & Interfaces','统计物理与动力学':'Statistical Physics & Dynamics','人工智能与机器学习':'AI & Machine Learning','机器人与自动化':'Robotics & Automation','未分类':'Uncategorized'};
   const topicLabel = name => uiLang === 'en' ? topicNames[name] || name : name;
   const preferredNote = n => catalog.notes.find(x => x.group === n.group && x.lang === uiLang) || n;
   const savePreferences = () => { preferences.ui = uiLang; try { localStorage.setItem(preferenceKey, JSON.stringify(preferences)); } catch {} };
@@ -458,7 +458,10 @@
     if (descMap[page] && $('.page-heading>p')) $('.page-heading>p').textContent = t(descMap[page]);
     if ($('#search-input')) $('#search-input').placeholder = t('searchPlaceholder');
     if ($('#search-status') && !$('#search-input').value) $('#search-status').textContent = t('searchHint');
-    $$('.dropdown-panel a').forEach(a => {
+    const activeNote = catalog.notes.find(n => n.path === page);
+    const articleCategories = $('.article-categories');
+    if (activeNote && articleCategories) articleCategories.textContent = activeNote.categories.map(topicLabel).join(' / ');
+    $('.dropdown-panel a').forEach(a => {
       const cat = new URL(a.href).searchParams.get('category');
       if (cat) a.textContent = topicLabel(cat);
     });

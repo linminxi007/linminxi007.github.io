@@ -3,10 +3,7 @@ title: "From Path Integrals to Non-Equilibrium Fermi Golden Rule"
 date: 2026-09-14
 description: "From Feynman path integrals to the non-equilibrium Fermi Golden Rule."
 
-categories:
-  - Electron transfer
-  - Electrochemistry
-
+categories: [电子转移与电化学]
 lang: en
 translation-key: Path-Integrals-Fermi-Golden
 status: working

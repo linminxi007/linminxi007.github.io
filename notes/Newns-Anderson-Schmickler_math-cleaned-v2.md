@@ -5,10 +5,7 @@ date: 2026-09-15
 
 description: "这是一个电子转移理论,我更愿意称之为电子共享理论.从电子结构的角度了解金属是如何与表面吸附的分子分享电子,也能帮助我们了解金属的电子结构如何影响双电层的形成."
 
-categories:
-  - Electron transfer
-  - Electrochemistry
-
+categories: [电子转移与电化学]
 lang: zh-CN
 
 translation-key: Newns-Anderson-Schmickler

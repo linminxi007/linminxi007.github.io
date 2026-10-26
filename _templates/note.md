@@ -2,7 +2,7 @@
 title: "笔记标题"
 date: 2026-09-13
 description: "一句话说明问题与范围。"
-categories: [光谱]
+categories: [光谱与界面]
 lang: zh-CN
 translation-key: my-note
 status: working

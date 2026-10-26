@@ -2,9 +2,7 @@
 title: "光激发界面水振动能否加速电子转移？简洁版"
 date: 2026-10-14
 description: "能不能用光影响分子振动从而影响电子转移？可以被观测到吗？"
-categories:
-  - Electron transfer
-  - SFG
+categories: [电子转移与电化学, 光谱与界面]
 lang: zh-CN
 ---
 

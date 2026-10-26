@@ -5,10 +5,7 @@ date: 2026-09-14
 
 description: "在1950年用静电学描述溶剂是合适的,但是现在有SHS和AIMD之后我们需要更多的细节.无论怎么样,让我们先跟着马库斯先生一起推导吧"
 
-categories:
-  - Electrochemistry
-  - Electron transfer
-
+categories: [电子转移与电化学]
 lang: zh-CN
 
 translation-key: electrostatics-and-Outer-sphere-reorganization-energy

@@ -3,10 +3,7 @@ title: "Coordinate Transformations in Robot Automatic Aiming"
 date: 2026-09-14
 description: "Notes on coordinate transformations and target tracking in RoboMaster."
 
-categories:
-  - Rotate
-  - Robot Vision
-
+categories: [机器人与自动化]
 lang: en
 translation-key: Robot-vision-and-automatic-aiming
 status: working

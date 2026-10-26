@@ -5,9 +5,7 @@ date: 2026-09-16
 
 description: "The history of electrode potential is also a history of how we move from the metal electrode into the solution. When we measure electrode potential, what are we actually measuring? If you know electrochemistry, you know this is not a simple question."
 
-categories:
-  - Electrochemistry
-
+categories: [电子转移与电化学]
 lang: en
 
 translation-key: electrode-potential

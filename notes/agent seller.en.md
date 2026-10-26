@@ -3,10 +3,7 @@ title: "The dynamics of agent-based automated trading systems"
 date: 2026-09-14
 description: "I want to see what kind of dynamics a market dominated by agents would have."
 
-categories:
-  - agent
-
-
+categories: [人工智能与机器学习, 统计物理与动力学]
 lang: en
 translation-key: Agents-buy-and-sell-in-the-market
 status: working

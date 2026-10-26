@@ -5,10 +5,7 @@ date: 2026-09-16
 
 description: "Why plasmon-enhanced SFG is unlikely to match commercial nanopore sequencing performance"
 
-categories:
-  - Electrochemistry
-  - SFG
-
+categories: [光谱与界面]
 lang: en
 
 translation-key: DNA

@@ -5,10 +5,7 @@ date: 2026-09-13
 
 description: "I often can't figure out the difference between non-adiabatic and adiabatic electron transfer, and between tunneling and hopping electron transfer."
 
-categories:
-  - Electron transfer
-  - Electrochemistry
-
+categories: [电子转移与电化学]
 lang: en
 
 translation-key: electron-transfer
