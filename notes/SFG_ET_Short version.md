@@ -4,7 +4,7 @@ date: 2026-10-14
 description: "能不能用光影响分子振动从而影响电子转移？可以被观测到吗？"
 categories:
   - Electron transfer
-  - SFG
+  - Spectroscopy
 lang: zh-CN
 ---
 

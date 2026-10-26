@@ -4,7 +4,7 @@ date: 2026-09-14
 description: "I want to see what kind of dynamics a market dominated by agents would have."
 
 categories:
-  - agent
+  - AI
 
 
 lang: en

@@ -4,7 +4,7 @@ date: 2026-10-14
 description: "Can we use light to excite molecular vibrations and thereby affect electron transfer? And can we actually observe this effect experimentally?"
 categories:
   - Electron transfer
-  - SFG
+  - Spectroscopy
 lang: en
 ---
 

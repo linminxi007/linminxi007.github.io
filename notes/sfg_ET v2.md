@@ -7,7 +7,7 @@ description: "能不能用光影响分子振动从而影响电子转移？可以
 
 categories:
   - Electron transfer
-  - Electrochemistry
+  - Spectroscopy
 
 lang: zh-CN
 

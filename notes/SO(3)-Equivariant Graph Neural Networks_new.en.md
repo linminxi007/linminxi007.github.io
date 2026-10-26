@@ -4,7 +4,8 @@ date: 2026-09-14
 description: "The basic ideas of SO(3)-equivariant neural networks, spherical tensors, and Clebsch-Gordan coefficients."
 categories:
   - AI
-  - Rotate
+  - Spectroscopy
+  - Robotics
 lang: en
 translation-key: SO3 Neural Networks
 status: working

@@ -7,7 +7,7 @@ description: "Why plasmon-enhanced SFG is unlikely to match commercial nanopore 
 
 categories:
   - Electrochemistry
-  - SFG
+  - Spectroscopy
 
 lang: en
 

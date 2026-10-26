@@ -4,7 +4,7 @@ date: 2026-09-14
 description: "想看看一个由agent主导的市场有怎么样的动力学"
 
 categories:
-  - agent
+  - AI
 
 
 lang: zh-CN

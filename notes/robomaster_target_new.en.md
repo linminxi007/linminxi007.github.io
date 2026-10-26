@@ -4,8 +4,8 @@ date: 2026-09-14
 description: "Notes on coordinate transformations and target tracking in RoboMaster."
 
 categories:
-  - Rotate
-  - Robot Vision
+  - Robotics
+
 
 lang: en
 translation-key: Robot-vision-and-automatic-aiming

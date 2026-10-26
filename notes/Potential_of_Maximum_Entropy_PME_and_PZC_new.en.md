@@ -6,9 +6,10 @@ date: 2026-09-15
 description: "For a while, I thought using PME to measure PZC was an extremely cool idea."
 
 categories:
-  - dynamics
-  - SFG
+  - Dynamics
+  - Spectroscopy
   - Electrochemistry
+  - Interfaces
 
 lang: en
 

@@ -7,6 +7,7 @@ description: "The history of electrode potential is also a history of how we mov
 
 categories:
   - Electrochemistry
+  - Interfaces
 
 lang: en
 

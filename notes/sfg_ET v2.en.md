@@ -7,7 +7,7 @@ description: "Can we use light to excite molecular vibrations and thereby affect
 
 categories:
   - Electron transfer
-  - Electrochemistry
+  - Spectroscopy
 
 lang: en
 

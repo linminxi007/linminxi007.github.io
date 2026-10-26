@@ -8,6 +8,7 @@ description: "一部电子转移的历史,其实也是溶液模型的发展史"
 categories:
   - Electron transfer
   - Electrochemistry
+  - Dynamics
 
 lang: zh-CN
 

@@ -8,6 +8,7 @@ description: "在1950年用静电学描述溶剂是合适的,但是现在有SHS�
 categories:
   - Electrochemistry
   - Electron transfer
+  - Dynamics
 
 lang: zh-CN
 

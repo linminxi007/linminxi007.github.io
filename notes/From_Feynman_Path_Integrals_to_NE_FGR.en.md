@@ -6,6 +6,8 @@ description: "From Feynman path integrals to the non-equilibrium Fermi Golden Ru
 categories:
   - Electron transfer
   - Electrochemistry
+  - Spectroscopy
+  - Dynamics
 
 lang: en
 translation-key: Path-Integrals-Fermi-Golden

@@ -8,7 +8,7 @@ description: "From Sakurai's quantum mechanics to Hamm's nonlinear optics, then 
 categories:
 
 - Spectrum
-- Rotate
+- Robotics
 
 lang: en
 

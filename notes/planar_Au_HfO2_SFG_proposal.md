@@ -6,8 +6,8 @@ date: 2026-09-16
 description: "想通过SFG加上Au等离子激元达到商业 DNA 纳米孔测序的性能大概是不可能的"
 
 categories:
-  - Electrochemistry
-  - SFG
+  - Electrochemistry  
+  - Spectroscopy
 
 lang: zh-CN
 

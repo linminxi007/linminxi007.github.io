@@ -6,6 +6,8 @@ description: "从费曼路径积分到非平衡费米黄金法则。"
 categories:
   - Electron transfer
   - Electrochemistry
+  - Spectroscopy
+  - Dynamics
 
 lang: zh-CN
 translation-key: Path-Integrals-Fermi-Golden

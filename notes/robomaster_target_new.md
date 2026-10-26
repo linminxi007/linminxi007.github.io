@@ -4,8 +4,8 @@ date: 2026-09-14
 description: "记录 RoboMaster 坐标系变换与目标追踪。"
 
 categories:
-  - Rotate
-  - Robot Vision
+  - Robotics
+
 
 lang: zh-CN
 translation-key: Robot-vision-and-automatic-aiming

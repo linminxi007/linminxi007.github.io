@@ -8,6 +8,7 @@ description: "In the 1950s, using electrostatics to describe the solvent was rea
 categories:
   - Electrochemistry
   - Electron transfer
+  - Dynamics
 
 lang: en
 

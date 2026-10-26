@@ -8,6 +8,7 @@ description: "This is an electron-transfer theory, but I prefer to think of it a
 categories:
   - Electron transfer
   - Electrochemistry
+  - Interfaces
 
 lang: en
 

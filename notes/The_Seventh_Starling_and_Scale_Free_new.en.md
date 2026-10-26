@@ -3,7 +3,8 @@ title: "The Seventh Starling and Scaling Law"
 date: 2026-09-14
 description: "I have often compared this idea with the scaling law of large language models and with the H-bond network of water."
 categories:
-  - dynamics
+  - Dynamics
+  - AI
 lang: en
 translation-key: The Seventh Starling and Scaling Law
 status: working
