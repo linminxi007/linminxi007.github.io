@@ -1,6 +1,6 @@
 ---
 title: "SO(3)-Equivariant Neural Networks"
-date: 2026-09-14
+date: 2026-09-20
 description: "The basic ideas of SO(3)-equivariant neural networks, spherical tensors, and Clebsch-Gordan coefficients."
 categories:
   - AI

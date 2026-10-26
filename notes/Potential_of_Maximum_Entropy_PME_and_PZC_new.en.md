@@ -1,7 +1,7 @@
 ---
 title: "Potential of Maximum Entropy(PME) and Potential of Zero Charge(PZC)"
 
-date: 2026-09-15
+date: 2026-09-21
 
 description: "For a while, I thought using PME to measure PZC was an extremely cool idea."
 
