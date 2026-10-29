@@ -1,5 +1,5 @@
 ---
-title: 'When Chiral Water SFG Meets DNA Electron Transfer and Self-Assembled Systems'
+title: 'Chiral SFG: Chapter 8. When Chiral Water SFG Meets DNA Electron Transfer and Self-Assembled Systems'
 date: 2026-10-29
 description: 'Chiral water SFG: interfacial symmetry, hydration structure, vibrational response, and connections to DNA electron transfer.'
 categories:
@@ -18,15 +18,15 @@ format:
 
 ---
 
-### 9.2 When Chiral Water SFG Meets DNA Electron Transfer and Self-Assembled Systems
+### Chapter 8. When Chiral Water SFG Meets DNA Electron Transfer and Self-Assembled Systems
 
-In the first eight chapters, the chiral hydration layers we discussed were all in a **static state of thermodynamic equilibrium**. DNA simply sat at an interface while we measured the chiral arrangement and vibrational coupling of the water molecules around it.
+In the first seven chapters, the chiral hydration layers we discussed were all in a **static state of thermodynamic equilibrium**. DNA simply sat at an interface while we measured the chiral arrangement and vibrational coupling of the water molecules around it.
 
 But in real biological processes and molecular electronics, DNA is not just a stationary, insulating plastic rod. It can also act as a **biomolecular wire** that transports charge. This brings us to a much more intriguing question: **When an electron or hole moves along the DNA double helix, does the chiral hydration layer tucked inside its grooves simply watch from the sidelines, or does it actively participate? And could we use the chiral SFG probe** $\Delta\operatorname{Im}\chi_{ZYX}^{(2)}(\omega,t)$ **to actually watch chiral water change during electron transfer?**
 
 ---
 
-#### 9.2.1 The Experimental Background: From Wasielewski's $\mathrm{D\text{-}DNA\text{-}A}$ Hairpins to Self-Assembled DNA and the CISS Effect
+#### 8.1 The Experimental Background: From Wasielewski's $\mathrm{D\text{-}DNA\text{-}A}$ Hairpins to Self-Assembled DNA and the CISS Effect
 
 To understand this question, let's first look at two major experimental platforms researchers use to study charge transport through DNA.
 
@@ -46,7 +46,7 @@ These two areas of research bring our attention back to the thin **first hydrati
 
 ---
 
-#### 9.2.2 Two Main Mechanisms of DNA Electron Transfer: Tunneling vs. Slow Hopping
+#### 8.2 Two Main Mechanisms of DNA Electron Transfer: Tunneling vs. Slow Hopping
 
 After more than two decades of debate and experimental tests, a common picture has emerged for charge transport along the DNA double helix: there are **two main mechanisms, and which one matters more depends strongly on the transport distance**.
 
@@ -74,7 +74,7 @@ After more than two decades of debate and experimental tests, a common picture h
 
 ---
 
-#### 9.2.3 The Central Question: Can We Observe Changes in Chiral Water During Slow Hopping Through $\Delta\operatorname{Im}\chi_{ZYX}^{(2)}(\omega,t)$?
+#### 8.3 The Central Question: Can We Observe Changes in Chiral Water During Slow Hopping Through $\Delta\operatorname{Im}\chi_{ZYX}^{(2)}(\omega,t)$?
 
 Now we arrive at the question that matters most: **If charge moves along DNA through slow hopping, what happens to the chiral water around it? Could we use `psp` polarization to detect a nonzero** $\Delta\operatorname{Im}\chi_{ZYX}^{(2)}(\omega,t)$ **and actually watch this process?**
 

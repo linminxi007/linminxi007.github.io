@@ -1,5 +1,5 @@
 ---
-title: 'Why Can Chiral SFG Selectively Probe the First Hydration Shell of DNA?'
+title: 'Chiral SFG: Chapter 6. Why Can Chiral SFG Selectively Probe the First Hydration Shell of DNA?'
 date: 2026-10-29
 description: 'Chiral water SFG: interfacial symmetry, hydration structure, vibrational response, and connections to DNA electron transfer.'
 categories:

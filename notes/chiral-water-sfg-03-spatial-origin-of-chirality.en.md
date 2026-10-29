@@ -1,5 +1,5 @@
 ---
-title: 'The Spatial Origin of Chirality: How Can Achiral Water Form a Chiral Hydration Structure?'
+title: 'Chiral SFG: Chapter 3. The Spatial Origin of Chirality: How Can Achiral Water Form a Chiral Hydration Structure?'
 date: 2026-10-29
 description: 'Chiral water SFG: interfacial symmetry, hydration structure, vibrational response, and connections to DNA electron transfer.'
 categories:

@@ -1,5 +1,5 @@
 ---
-title: 'Vibrational Coupling: How Can the Relative Twist Between O–H Bonds Produce Chiral SFG?'
+title: 'Chiral SFG: Chapter 5. Vibrational Coupling: How Can the Relative Twist Between O–H Bonds Produce Chiral SFG?'
 date: 2026-10-29
 description: 'Chiral water SFG: interfacial symmetry, hydration structure, vibrational response, and connections to DNA electron transfer.'
 categories:

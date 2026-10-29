@@ -7,7 +7,7 @@ description: "从樱井纯的量子力学到hamm的非线性光学,再到阿金�
 
 categories:
 
-- Spectrum
+- Spectroscopy
 - Robotics
 
 lang: zh-CN

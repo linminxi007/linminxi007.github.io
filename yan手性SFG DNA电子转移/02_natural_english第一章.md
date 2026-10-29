@@ -8,9 +8,7 @@ format:
     html-math-method: mathjax
 ---
 
-## Version 2 — Natural English, Keeping the Original Logic and Tone
-
-### Chapter 1. Macroscopic Symmetry: Why Can Chiral Interfaces Have Additional Second-Order Susceptibility Components?
+# Chapter 1. Macroscopic Symmetry: Why Can Chiral Interfaces Have Additional Second-Order Susceptibility Components?
 
 **The question we want to answer:** The second-order susceptibility tensor $\chi_{IJK}^{(2)}$ has 27 Cartesian components. Which of them can actually be nonzero at an interface? More importantly, why does $\chi_{ZYX}^{(2)}$ tell us something special about macroscopic chirality?
 
@@ -59,7 +57,7 @@ At many liquid interfaces and biomembranes, molecules may have a preferred orien
 
 So which of the 27 components can survive?
 
-Instead of doing a full tensor transformation, try rotating the coordinates by **$180^\circ$ around $Z$**:
+Instead of doing a full tensor transformation, try rotating the coordinates by $180^\circ$ around $Z$:
 
 $$
 Z\to+Z,\qquad X\to-X,\qquad Y\to-Y.
@@ -81,7 +79,7 @@ $$
 
 A $90^\circ$ rotation around $Z$ makes the $X$ and $Y$ directions equivalent. For example, $\chi_{XXZ}=\chi_{YYZ}$. The six components therefore form three equal pairs. Together with $\chi_{ZZZ}$, that gives **four independent coefficients**.
 
-**Group B: Six components containing $X$, $Y$, and $Z$ exactly once.**
+**Group B: Six components containing** $X$, $Y$, and $Z$ exactly once.
 
 They are
 
@@ -115,7 +113,7 @@ $$
 X\to+X,\qquad Z\to+Z,\qquad Y\to-Y.
 $$
 
-Only the direction perpendicular to the mirror, $Y$, changes sign. This means **we just need to count how many times $Y$ appears**.
+Only the direction perpendicular to the mirror, $Y$, changes sign. This means **we just need to count how many times** $Y$ appears.
 
 In Group A, $Y$ appears either zero times or twice. The resulting factor is $(-1)^0=(-1)^2=+1$, so these seven components survive the mirror test.
 
@@ -138,7 +136,7 @@ which is only possible when $\chi_{ZYX}^{(2)}=0$.
 Here is the result of the two symmetry tests:
 
 | Interfacial symmetry | Physical picture | Allowed Cartesian components | Independent coefficients |
-|:--|:--|:--:|:--:|
+|:----------------|:----------------|:-----------------:|:-----------------:|
 | **Achiral** $C_{\infty v}$ | Rotational isotropy and vertical mirror symmetry; e.g., an ordinary pure-water interface | **7** | **4** |
 | **Chiral** $C_\infty$ | Rotational isotropy without vertical mirror symmetry; e.g., a macroscopically chiral DNA/protein hydration interface | **13** | **7** |
 

@@ -1,5 +1,5 @@
 ---
-title: 'From Quartz Heterodyne Detection to Opposite-Sign Doublets: Measuring and Understanding Chiral Water SFG'
+title: 'Chiral SFG: Chapter 7 (Combining the Original Chapters 7 and 8). From Quartz Heterodyne Detection to Opposite-Sign Doublets: How Can We Measure and Understand Im χ⁽²⁾ZYX(ω) of Chiral Water?'
 date: 2026-10-29
 description: 'Chiral water SFG: interfacial symmetry, hydration structure, vibrational response, and connections to DNA electron transfer.'
 categories:

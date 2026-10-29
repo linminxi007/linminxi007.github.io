@@ -1,5 +1,5 @@
 ---
-title: 'Polarization Selection Rules in Chiral SFG: Why Did Yan Choose the ZYX Component?'
+title: 'Chiral SFG: Chapter 2. Polarization Selection Rules: Why Did Yan Choose χ⁽²⁾ZYX?'
 date: 2026-10-29
 description: 'Chiral water SFG: interfacial symmetry, hydration structure, vibrational response, and connections to DNA electron transfer.'
 categories:

@@ -1,5 +1,5 @@
 ---
-title: '第二章：偏振选择定则——为什么 Yan 最终选择 $\chi_{ZYX}^{(2)}$？'
+title: '手性SFG：第二章：偏振选择定则——为什么 Yan 最终选择 χ⁽²⁾ZYX？'
 date: 2026-10-29
 description: '手性水 SFG 系列笔记：界面对称性、水合结构、振动响应及其与 DNA 电子转移的联系。'
 categories:

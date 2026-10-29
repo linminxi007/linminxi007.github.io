@@ -7,7 +7,7 @@ description: "how Hongfei Wang and Franz Geiger slowly figured out how SFG measu
 
 categories:
   - Electrochemistry
-  - Spectrum
+  - Spectroscopy
 
 lang: en
 

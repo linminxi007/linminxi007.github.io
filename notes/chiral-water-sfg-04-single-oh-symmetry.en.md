@@ -1,5 +1,5 @@
 ---
-title: 'Microscopic Symmetry of a Single O–H Bond: Why Can a Chiral Arrangement Still Give Zero SFG Signal?'
+title: 'Chiral SFG: Chapter 4. Microscopic Symmetry of a Single O–H Bond: Why Can a Chiral Arrangement Still Give Zero SFG Signal?'
 date: 2026-10-29
 description: 'Chiral water SFG: interfacial symmetry, hydration structure, vibrational response, and connections to DNA electron transfer.'
 categories:

@@ -86,6 +86,25 @@
     keys.slice(60).forEach(k => delete positions[k]);
     storage.write('positions', positions);
   };
+  // Resolve stored trail labels using the current catalog and UI language.
+  function trailTitle(item) {
+    const u = new URL(item.url, location.href);
+    const path = relativePath(u);
+    const note = catalog.notes.find(n => n.path === path);
+    if (note) {
+      const peer = catalog.notes.find(n => n.group === note.group && n.lang === uiLang);
+      return (peer || note).title;
+    }
+    if (path === 'index.html' || path === '') {
+      return uiLang === 'en' ? 'Then, how do electrons transfer?' : '那么，电子是怎么转移的呢？';
+    }
+    if (path === 'notes/index.html') {
+      const category = u.searchParams.get('category');
+      return category ? topicLabel(category) : t('allNotes');
+    }
+    const labels = {'about.html': 'about', 'files.html': 'files', 'viewer.html': 'viewer', 'style-guide.html': 'styleTitle'};
+    return labels[path] ? t(labels[path]) : item.title;
+  }
   function updateReturn() {
     const previous = trail.at(-1);
     const currentIsHome = body.classList.contains('home-page');
@@ -95,7 +114,7 @@
     returnButton.href = previous?.url || new URL(atIndex ? 'index.html' : 'notes/index.html', root).href;
     // The compact face never contains a filename; the destination stays accessible.
     $('#return-label').textContent = t('returnShort');
-    const destinationLabel = previous ? `${t('returnFile')}：${previous.title}` : atIndex ? t('returnHome') : t('returnIndex');
+    const destinationLabel = previous ? `${t('returnFile')}：${trailTitle(previous)}` : atIndex ? t('returnHome') : t('returnIndex');
     returnButton.title = destinationLabel;
     returnButton.setAttribute('aria-label', destinationLabel);
     const crumb = $('#reading-trail');
@@ -104,7 +123,7 @@
       const lead = document.createElement('span'); lead.textContent = t('trail'); crumb.append(lead);
       trail.slice(-3).forEach(item => {
         const sep = document.createElement('span'); sep.textContent = ' / '; crumb.append(sep);
-        const link = document.createElement('a'); link.href = item.url; link.textContent = item.title; crumb.append(link);
+        const link = document.createElement('a'); link.href = item.url; link.textContent = trailTitle(item); crumb.append(link);
       });
     }
   }

@@ -1,5 +1,5 @@
 ---
-title: '第一章：宏观对称性——为什么手性水合界面具有额外的二阶光学响应？'
+title: '手性SFG：第一章：宏观对称性——为什么手性水合界面具有额外的二阶光学响应？'
 date: 2026-10-29
 description: '手性水 SFG 系列笔记：界面对称性、水合结构、振动响应及其与 DNA 电子转移的联系。'
 categories:
@@ -8,7 +8,7 @@ categories:
 lang: zh-CN
 translation-key: chiral-water-sfg-01-interfacial-symmetry-alternative
 status: working
-draft: false
+draft: true
 format:
   html:
     toc: true

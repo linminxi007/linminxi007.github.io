@@ -1,5 +1,5 @@
 ---
-title: '第六章：为什么 SFG 能选择性看到 DNA 第一水合层？'
+title: '手性SFG：第六章：为什么 SFG 能选择性看到 DNA 第一水合层？'
 date: 2026-10-29
 description: '手性水 SFG 系列笔记：界面对称性、水合结构、振动响应及其与 DNA 电子转移的联系。'
 categories:
