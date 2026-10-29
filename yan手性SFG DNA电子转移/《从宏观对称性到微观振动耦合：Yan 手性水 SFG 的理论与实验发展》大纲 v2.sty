@@ -1,0 +1,749 @@
+《从宏观对称性到微观振动耦合：Yan 手性水 SFG 的理论与实验发展》
+第一章：宏观对称性——为什么手性界面允许额外的二阶极化率？
+核心问题：一个界面究竟有哪些 \(\chi_{IJK}^{(2)}\) 可以非零？
+1. 建立实验室坐标系：\(Z\) 垂直界面，\(X\) 在入射面内，\(Y\) 垂直入射面。
+2. 从二阶非线性极化开始：
+\[
+P_I^{(2)}(\omega_{\mathrm{SFG}})
+=
+\varepsilon_0\sum_{JK}
+\chi_{IJK}^{(2)}
+E_J^{\mathrm{VIS}}E_K^{\mathrm{IR}}
+\]
+
+3. 讨论宏观面内旋转各向同性 \(C_\infty\) 对 27 个笛卡尔张量分量的约束。
+4. 加入垂直镜面对称性 \(C_{\infty v}\)，判断哪些分量进一步消失。
+5. 解释为什么手性水合层可以破坏镜面对称性，而水分子本身仍然是非手性的。
+得到下表：
+界面宏观对称性	允许非零的笛卡尔张量元	独立系数
+非手性 \(C_{\infty v}\)	7 个	4 个
+手性 \(C_\infty\)	13 个	7 个
+
+在普通非手性界面中：
+\[
+\chi_{ZYX}^{(2)}=0
+\]
+
+而对于宏观手性界面：
+\[
+\boxed{\chi_{ZYX}^{(2)}\ne0\ \text{被允许}}
+\]
+
+
+
+这一章主要依据 Simpson 的对称性理论，以及 Yan 的 2014 年 Chemical Reviews。
+
+现在讨论完宏观，我们可以讨论微观对称性或者信号。
+第二章：偏振选择定则——为什么 Yan 最终选择 \(\chi_{ZYX}^{(2)}\)？
+核心问题：既然有六个手性敏感的正交张量元，为什么主要测量其中一个？
+
+建议严格按下面的推导顺序：
+1. 介绍 psp、pps、spp 三种手性敏感偏振组合。
+2. 从 psp 的电场投影出发，列出参与测量的张量分量。
+3. 通过宏观 \(C_\infty\) 对称性排除不允许的分量。
+4. 在非电子共振、通常的振动 Raman 近似下，使用：
+\[
+\alpha'_{IJ}=\alpha'_{JI}
+\]
+
+5. 与旋转对称性联立：
+\[
+\chi_{XYZ}^{(2)}=-\chi_{YXZ}^{(2)}
+\]
+
+\[
+\chi_{XYZ}^{(2)}=\chi_{YXZ}^{(2)}
+\]
+
+   因此：
+\[
+\boxed{\chi_{XYZ}^{(2)}=0}
+\]
+
+最终：
+\[
+\boxed{
+\chi_{\mathrm{eff},psp}^{(2)}
+\propto F\chi_{ZYX}^{(2)}
+}
+\]
+
+这里 \(F\) 包含光学几何和 Fresnel 因子。
+本章重点不是记住 psp，而是理解为什么 \(\chi_{XYZ}\) 消失、\(\chi_{ZYX}\) 可以保留。
+还应说明 pps 和 spp 也可以测量手性响应；Yan 选择 psp 并不是因为其他偏振被禁止。或许电子转移或电子共振等过程中，\[
+\boxed{\chi_{XYZ}^{(2)}}\]也是很有用的。
+
+
+
+第三章：手性的空间来源——非手性的水如何排列成手性水合结构？
+本章核心问题：如果单个 H₂O 分子没有手性，为什么 DNA 周围的水合结构可以具有手性？
+
+这一章只讲几何与统计，不引入 \(\beta_{ZYX}\)、Raman 张量和振动耦合。
+
+手性不一定来自手性分子吗，宏观的手性结构也可以带来手性。
+DNA 如何将自己的螺旋结构传递给水，介绍 DNA 小沟、大沟和磷酸骨架。
+
+DNA 通过氢键、局域静电场以及空间限制，影响附近水分子的位置和取向。
+
+这里引入 2017 年 Petersen 团队的 DNA’s Chiral Spine of Hydration。
+
+该工作在室温水溶液条件下观察到了 DNA 模板化的手性水合超结构，为后续手性水 SFG 研究提供了实验基础。
+简单介绍，总结是DNA带来了手性水结构。
+这上面都尽可能简单 简短。
+3.3 为什么 DNA 随机转动后，水合层的手性不一定消失？
+这一节直接呼应第一章的 \(C_\infty\) 对称性。
+
+假设有很多右手 DNA，它们在基底平面内具有不同方位角：
+\[
+\phi_1,\phi_2,\ldots,\phi_N
+\]
+
+即使整体方位角均匀分布：
+\[
+p(\phi)=\frac1{2\pi}
+\]
+
+每一条 DNA 的螺旋手性仍不会因为正常旋转而改变。
+
+但是如果使用镜面反射，右手螺旋会变成对应的左手螺旋。
+
+因此：
+\[
+\boxed{
+\text{整体取向随机}
+\ne
+\text{左右手性平均抵消}
+}
+\]
+
+注意：这只说明宏观统计仍然可以保留手性，不是说所有旋转平均后的手性光学信号必然非零。
+3.4 为什么普通水合层也可能有取向有序，却没有净手性？
+这一节非常重要，因为要避免把“有序”与“手性”等同。
+
+例如，DNA 负电荷可以使周围水的偶极具有明显的取向偏好。
+
+但取向有序并不意味着整个统计分布一定没有镜面对称性。
+
+可以有：
+\[
+\text{取向有序}\ne0
+\]
+
+同时：
+\[
+\text{净手性}=0
+\]
+
+这里暂时只作几何解释。
+
+3.5 本章结论：宏观手性结构已经存在，但光学信号从哪里来？
+得到：
+\[
+\boxed{
+\begin{gathered}
+\text{DNA 具有螺旋手性}\\
+\Downarrow\\
+\text{周围水形成具有手性关联的空间结构}\\
+\Downarrow\\
+\text{宏观旋转平均后仍可保留净手性}\\
+\Downarrow\\
+\chi_{ZYX}^{(2)}\text{ 被对称性允许}
+\end{gathered}
+}
+\]
+
+我们已经知道 DNA 可以把非手性的水组织成手性结构，也知道宏观群论允许 \(\chi_{ZYX}^{(2)}\) 非零。
+
+但是，如果真的从最简单的单根 O–H 振子开始计算，它的手性 SFG 响应是多少？
+
+第四章：单根 O–H 的微观对称性——为什么有手性排列，信号仍然可能为零？
+本章核心问题：宏观群论允许 \(\chi_{ZYX}^{(2)}\) 非零，为什么独立 O–H 振子的最简单模型却给出零？
+
+这是整个理论发展的关键转折。
+4.1 从整个 H₂O 分子退回到一根 O–H 键
+先建立两个坐标系：
+- 实验室坐标系 \((X,Y,Z)\)。
+- 单根 O–H 的局域坐标系 \((a,b,c)\)，其中 \(c\) 沿 O–H 键方向。
+解释：
+
+整个水分子具有 \(C_{2v}\) 对称性，但当我们只研究一根 O–H 伸缩模式，并将其近似为圆柱对称的局域振子时，可以采用更简单的局域模型。
+
+在这个模型中，伸缩方向沿着 O–H 键：
+\[
+\boldsymbol{\mu}'=\mu'\mathbf u
+\]
+
+Raman 极化率导数为：
+\[
+\alpha'_{IJ}
+=
+a\delta_{IJ}+bu_Iu_J
+\]
+
+其中：
+\[
+b=\alpha'_\parallel-\alpha'_\perp
+\]
+
+这里要说明：所谓圆柱对称是局域键模型的近似，不是说真实水分子严格具有 \(C_{\infty v}\) 对称性。
+4.2 从局域 O–H 计算 \(\beta_{ZYX}^{(2)}\)
+使用第二章的关系：
+\[
+\beta_{IJK}^{(2)}
+\propto
+\alpha'_{IJ}\mu'_K
+\]
+
+得到：
+\[
+\beta_{ZYX}^{(2)}
+\propto
+u_Zu_Yu_X
+\]
+
+如果：
+\[
+\mathbf u=
+(\sin\theta\cos\phi,\,
+\sin\theta\sin\phi,\,
+\cos\theta)
+\]
+
+那么：
+\[
+\boxed{
+\beta_{ZYX}^{(2)}
+\propto
+\cos\theta\sin^2\theta
+\sin\phi\cos\phi
+}
+\]
+
+这一步应该完整推导，但不需要过多引入群论术语。可以参考第一章的表述。
+4.3 为什么对宏观方位角平均后，信号消失？
+考虑一个具有宏观 \(C_\infty\) 对称性的 DNA 水合样品。
+
+虽然每根 O–H 的局部取向不相同，但是对整体方位角作均匀旋转平均，有：
+\[
+\langle\sin\phi\cos\phi\rangle
+=
+\frac1{2\pi}
+\int_0^{2\pi}\sin\phi\cos\phi\,d\phi
+=0
+\]
+
+因此：
+\[
+\boxed{
+\left\langle
+\beta_{ZYX}^{(2)}
+\right\rangle_\phi=0
+}
+\]
+
+只要单键模型中的响应系数不依赖整体旋转角 \(\phi\)，即使倾角 \(\theta\) 具有复杂的分布，这个结论仍然成立。
+4.4 一个看起来矛盾的结果：DNA 水合层有手性，为什么 SFG 为零？
+这就是本章的核心。
+
+我们已经知道：
+- DNA 可以将水组织成手性结构。
+- 宏观 \(C_\infty\) 对称性允许 \(\chi_{ZYX}^{(2)}\) 非零。
+- 但独立、局域圆柱对称 O–H 模型的旋转平均为零。
+关键并不在于 DNA 失去了手性，而在于这个微观模型过于简单。
+
+因为：
+\[
+\beta_{ZYX}^{(2)}
+\propto u_Zu_Yu_X
+\]
+
+只包含一根 O–H 的方向。
+
+它没有描述两根 O–H 之间的相对排列。
+
+换句话说：
+DNA 可以将水分子排列成螺旋，但如果光学响应只独立读取每一根 O–H 的方向，宏观旋转平均仍可能完全抹掉这个信号。
+
+所以，我们在这一章真正发现的不是“手性水没有信号”，而是：
+\[
+\boxed{
+\text{独立局域键模型未能把水合层的相对手性几何编码进响应}
+}
+\]
+4.6 本章结论：单根键无法充分表达两根键的相对扭转
+\[
+\boxed{
+\begin{gathered}
+\text{DNA 水合结构具有手性}\\
+\Downarrow\\
+\text{将每根 O–H 视为独立振子}\\
+\Downarrow\\
+\beta_{ZYX}\propto u_Zu_Yu_X\\
+\Downarrow\\
+\langle\beta_{ZYX}\rangle_\phi=0
+\end{gathered}
+}
+\]
+如果单根 O–H 键无法充分表达水合层的相对手性几何，那么能不能让两根 O–H 共同参与同一个振动光学过程？
+
+如果红外跃迁与 Raman 跃迁不再局限于同一根 O–H，是否就有机会将两个振子的相对扭转转化为非零的手性 SFG？
+第五章：振动耦合——如何让 O–H 之间的相对扭转产生手性 SFG？
+本章核心问题：如果两根 O–H 相互耦合，能否让原本被平均消去的信号重新出现？
+
+这章应该以 Yan–Hammes-Schiffer 2021 年论文为理论基础。
+5.1 从两个独立振子到两个耦合振子
+首先考虑两根 O–H。
+
+没有耦合时：
+\[
+H_0=
+\begin{pmatrix}
+\hbar\omega_1&0\\
+0&\hbar\omega_2
+\end{pmatrix}
+\]
+
+两个模式彼此独立。
+
+现在引入振动耦合：
+\[
+\boxed{
+H_{\mathrm{vib}}=
+\begin{pmatrix}
+\hbar\omega_1&J_{12}\\
+J_{12}&\hbar\omega_2
+\end{pmatrix}
+}
+\]
+
+其中：
+- \(\omega_i\) 是局域 O–H 振动频率。
+- \(J_{12}\) 是振动耦合能量。
+- \(J_{12}\ne0\) 时，两个振动模式不再独立。
+先从最简单的两个振子讲起，不必立刻引入几百个 O–H 组成的大型哈密顿量。
+5.2 为什么耦合后，IR 和 Raman 可以读取不同 O–H 的信息？
+当两根 O–H 耦合时，本征模式可以写为：
+\[
+Q_\nu=c_{\nu1}q_1+c_{\nu2}q_2
+\]
+
+对应的 IR 跃迁偶极矩为：
+\[
+\boldsymbol{\mu}_\nu'
+=
+c_{\nu1}\boldsymbol{\mu}_1'
++
+c_{\nu2}\boldsymbol{\mu}_2'
+\]
+
+Raman 极化率导数为：
+\[
+\boldsymbol{\alpha}_\nu'
+=
+c_{\nu1}\boldsymbol{\alpha}_1'
++
+c_{\nu2}\boldsymbol{\alpha}_2'
+\]
+
+因此：
+\[
+\alpha'_{\nu,IJ}\mu'_{\nu,K}
+=
+\sum_{i,j}
+c_{\nu i}c_{\nu j}
+\alpha'_{i,IJ}\mu'_{j,K}
+\]
+
+这时可以分成两类：
+\[
+\boxed{
+\underbrace{i=j}_{\text{单键项}}
+\qquad
+\underbrace{i\ne j}_{\text{跨键交叉项}}
+}
+\]
+
+独立振子模型没有这种由模式混合引入的跨键响应。
+
+而耦合模式中出现：
+\[
+\boxed{
+\alpha'_{1,IJ}\mu'_{2,K}
+}
+\]
+
+这表示同一个集体模式的 Raman 响应与 IR 响应可以由不同 O–H 的局部贡献共同构成。
+
+5.3 为什么交叉项能够感知两根 O–H 的相对扭转？
+本章最漂亮的数学推导就放在这里，不再提前出现在第三章。
+
+考虑交叉项：
+\[
+\beta_{ZYX}^{(1,2)}
+\propto
+u_{1Z}u_{1Y}u_{2X}
+\]
+
+设两根 O–H 的方位角分别为：
+\[
+\phi_1=\Phi,\qquad
+\phi_2=\Phi+\Delta
+\]
+
+这里：
+- \(\Phi\) 是整个构型的方位角。
+- \(\Delta\) 是两根 O–H 之间的相对方位角。
+对整个构型的方位角 \(\Phi\) 作平均：
+\[
+\begin{aligned}
+\left\langle
+\sin\Phi\cos(\Phi+\Delta)
+\right\rangle_\Phi
+&=
+\frac1{2\pi}
+\int_0^{2\pi}
+\sin\Phi\cos(\Phi+\Delta)\,d\Phi\\
+&=-\frac12\sin\Delta
+\end{aligned}
+\]
+
+因此，保留完整极角因子后：
+\[
+\boxed{
+\left\langle
+u_{1Z}u_{1Y}u_{2X}
+\right\rangle_\Phi
+=
+-\frac12
+\cos\theta_1\sin\theta_1\sin\theta_2
+\sin\Delta
+}
+\]
+
+也可以写成：
+\[
+\boxed{
+\left\langle
+u_{1Z}u_{1Y}u_{2X}
+\right\rangle_\Phi
+=
+-\frac12
+u_{1Z}
+(\mathbf u_1\times\mathbf u_2)_Z
+}
+\]
+
+这与上一章得到的零响应形成鲜明对比：
+\[
+\boxed{
+\begin{aligned}
+\text{独立单键：}\quad&
+\langle\sin\Phi\cos\Phi\rangle=0\\[4pt]
+\text{跨键项：}\quad&
+\langle\sin\Phi\cos(\Phi+\Delta)\rangle
+=-\frac12\sin\Delta
+\end{aligned}
+}
+\]
+
+物理意义：整体旋转角 \(\Phi\) 被平均掉了，但两根 O–H 的相对扭转角 \(\Delta\) 保留下来了。
+5.4 为什么普通水也有振动耦合，却不产生宏观手性 SFG？
+这节紧接着第三章的镜面对称性讨论。
+
+两根 O–H 发生耦合，并不意味着它们的排列一定是手性的。
+
+例如，镜面反射可以使：
+\[
+\Delta\rightarrow-\Delta
+\]
+
+于是：
+\[
+\sin\Delta\rightarrow-\sin\Delta
+\]
+
+如果整个结构的镜像构型具有相同的统计权重，那么相反的贡献就会抵消。
+
+因此：
+\[
+\boxed{
+\text{振动耦合}
++
+\text{镜面对称分布}
+\rightarrow
+\text{净手性响应为零}
+}
+\]
+
+而当 DNA 水合层具有不与镜像等价的空间关联时，耦合模式的镜面奇贡献才有机会在平均后留下来。
+
+这就把第一章的宏观群论与第五章的微观振动模型连接起来。
+5.5 分子内耦合和分子间耦合有什么区别？
+本章接下来引入完整的振动激子模型：
+\[
+\boxed{
+\hat H_{\mathrm{vib}}
+=
+\sum_i\hbar\omega_i b_i^\dagger b_i
++
+\sum_{i\ne j}
+J_{ij}b_i^\dagger b_j
+}
+\]
+
+这里 \(J_{ij}\) 的定义应采用统一的求和约定，以避免重复计数。
+
+重点区分：
+
+分子内耦合 \(J_{\mathrm{intra}}\)： 同一个 H₂O 的两根 O–H 伸缩之间的耦合，使它们形成对称和反对称伸缩模式。
+
+分子间耦合 \(J_{\mathrm{inter}}\)： 不同水分子 O–H 伸缩之间的耦合，使振动模式可以跨分子离域。
+
+普通水也存在这两类耦合，因此不能将耦合本身等同于手性。
+
+这一节最后简单说一句：
+\[
+J_{ij}\ne E_{\mathrm{H-bond}}
+\]
+
+因为振动耦合强度并不是氢键结合能。氢键同时影响局域振动频率、分子取向、跃迁矩和振动耦合。
+5.6 Yan 2021 年如何通过模拟检验耦合的重要性？
+这里正式介绍 Konstantinovsky、Perets、Yan 与 Hammes-Schiffer 的 2021 年 JPCB 工作。
+
+他们在反平行 β-sheet 蛋白的水合层中，结合 MD、局域振动模型及振动耦合计算手性 SFG。
+
+建议按三种计算比较来解释：
+计算条件	想回答的问题
+关闭分子内与分子间耦合	独立 O–H 模型能否产生所需响应？
+只保留分子内耦合	同一水分子两根 O–H 的混合能解释多少信号？
+加入分子间耦合	水网络之间的振动耦合如何改变完整谱形？
+
+该论文发现，两类耦合都需要纳入，才能完整模拟研究体系的手性 SFG 谱形。
+ACS Publications
+随后再简要连接 2024 年 JCP 理论研究：
+
+在其模型中，分子内耦合对手性 O–H 谱形具有主要作用，而分子间耦合对完整谱形提供进一步修正。
+PMC
+
+
+不必在这里详细推导对称与反对称模式的反相双峰，因为原大纲第七章已经专门研究这个问题。
+5.7 本章结论：从单键的零响应到集体模式的手性响应
+最后将第三、四、五章连接起来：
+\[
+\boxed{
+\begin{gathered}
+\text{DNA 将水组织成手性空间结构}\\
+\Downarrow\\
+\text{独立局域 O–H 振子}\\
+\langle\beta_{ZYX}\rangle=0\\
+\Downarrow\\
+\text{引入 O–H 振动耦合}\\
+\Downarrow\\
+\text{集体模式出现跨键 IR–Raman 响应}\\
+\Downarrow\\
+\text{相对手性几何可以进入 }\chi_{ZYX}^{(2)}\\
+\Downarrow\\
+\text{宏观统计平均后可能保留非零手性信号}
+\end{gathered}
+}
+\]
+
+本章最后留下的问题：
+我们已经理解为什么耦合的水分子能够提供手性 SFG 响应，但 DNA 周围有大量水分子。
+
+为什么 Yan 的模拟发现第一水合层贡献显著，而更远处受到 DNA 电场影响的水，其手性贡献却几乎消失？
+
+这就自然进入原来的第六章：第一水合层选择性及不同水合区域的贡献。
+三章的内容边界
+这是我建议最终固定的安排，避免以后写正文时重复推导。
+章节	只研究什么	核心数学	不提前讨论什么
+第三章	DNA 如何把手性传递给水的空间结构	群论概念、方位角分布	\(\beta_{ZYX}\)、局域振动、耦合
+第四章	为什么独立 O–H 模型的手性响应为零	\(\beta_{ZYX}\propto u_Zu_Yu_X\)、单键角度平均	振动哈密顿量和跨键项
+第五章	振动耦合如何使相对手性几何进入光学响应	\(H_{\mathrm{vib}}\)、交叉项、\(\sin\Delta\)	第一水合层的定量归属、双峰详细拟合、石英外差
+
+第六章再分析 DNA 第一水合层，第七章解释对称/反对称 O–H 伸缩的反相双峰，第八章讨论石英外差与实验信号归属。这些章节不需要因本次调整而改变主体方向。
+建议保留的主要参考文献
+1. McDermott et al., ACS Central Science (2017)：DNA 手性水合脊柱的实验发现。主要放在第三章。
+2. Konstantinovsky et al., JPCB (2021)：振动耦合对模拟手性水 SFG 的必要作用。主要放在第五章。
+3. Konstantinovsky et al., JCP (2024)：分子内对称/反对称伸缩以及手性谱形。第五章简要提及，第七章详细展开。
+4. Perets et al., JCP (2024)：DNA 第一水合层、大沟、小沟及磷酸骨架附近水的手性贡献。第三章引出结构，第六章详细讨论。
+我建议最终采用的三个标题是：
+- 第三章：手性的空间来源——非手性的水如何排列成手性水合结构？
+- 第四章：单根 O–H 的微观对称性——为什么有手性排列，信号仍然可能为零？
+- 第五章：振动耦合——如何让 O–H 之间的相对扭转产生手性 SFG？
+
+
+
+
+
+
+第六章：为什么 SFG 能选择性看到 DNA 第一水合层？
+6.1 DNA 小沟、大沟和磷酸骨架附近的水合结构。
+
+6.2 DNA 螺旋如何使不同区域的水形成手性关联。
+
+6.3 为什么更远处的水可以受到 DNA 电场取向，却仍不产生净手性 SFG。
+
+6.4 利用 MD 将总水响应分解为：
+\[
+\chi_{\mathrm{water}}^{(2)}
+=
+\chi_{\mathrm{minor}}^{(2)}
++
+\chi_{\mathrm{major}}^{(2)}
++
+\chi_{\mathrm{backbone}}^{(2)}
++\cdots
+\]
+
+6.5 讨论不同区域手性响应的正负相消，以及第一、第二水合层之间的差异。
+
+这里直接连接 Yan 的两篇重要论文：
+- 2022 年 ACS Central Science：在蛋白模型体系中，结合 MD 与手性 SFG，证明第一水合层的选择性，并分析局部氢键结构。
+- 2024 年 Journal of Chemical Physics：在 DNA 水合体系中，利用实验与模拟确认第一水合层贡献，进一步区分小沟、大沟和骨架水。
+需要明确：“只看到第一水合层”是针对所研究体系及近似条件得到的实验与模拟结论，而不是所有手性水合体系都必须遵守的普适定理。
+
+第七章：从振动模式到手性谱形——为什么 O–H 会出现正负双峰？
+这一章对应 Yan 2024 年 2 月发表的理论工作。
+
+前面第五章已经引入分子内耦合。现在进一步讨论同一个 H₂O 的对称、反对称伸缩。
+
+可以写成：
+\[
+Q_s\sim q_1+q_2
+\]
+
+\[
+Q_a\sim q_1-q_2
+\]
+
+并研究两种模式的 Raman 与 IR 跃迁矩。
+
+在该论文采用的振动模型中，两种模式在手性 SFG 中产生相反符号的贡献，因此可能出现：
+\[
+\boxed{
+\operatorname{Im}\chi_{ZYX}^{(2)}(\omega)
+\sim
+L_s(\omega)-L_a(\omega)
+}
+\]
+
+这里 \(L_s,L_a\) 表示具有不同共振频率的谱线函数。
+
+这比把整个宽阔的 O–H 谱带拟合为一个 Lorentzian 峰具有更明确的物理基础。
+
+特别要讨论：
+- 耦合强度如何决定模式劈裂。
+- 局部氢键环境如何影响模式频率。
+- 为什么反相双峰不能简单理解为两类水分别朝上和朝下。
+- 为什么完整水合层谱需要考虑多个局部环境与耦合模式。
+Yan 2024 年 JCP 160, 055102 正是这一部分的核心文献
+
+第八章：石英外差检测——如何把极弱的手性响应转化为可分析的 \(\operatorname{Im}\chi^{(2)}\)？
+这一章应该放在理论推导之后，作为实验方法的收束。
+
+先解释普通 SFG 的局限：
+\[
+I_{\mathrm{SFG}}
+\propto|\chi^{(2)}|^2
+\]
+
+只能测强度时，不能唯一确定复数张量响应的正负相位。
+
+然后介绍 Yan 使用的右旋 z-cut α-quartz。
+
+8.1 为什么用石英？
+
+石英本身可以提供强的非共振 SFG 电场，作为与样品共路的内部本振光（LO）。
+
+8.2 为什么选石英的 \(+Y\) 与 \(-Y\) 方位？
+
+在 psp 测量中，Yan 选择使石英参考响应较强的两个方位。将石英绕法线旋转 \(180^\circ\) 后，它的参考 SFG 场反号，而宏观面内各向同性样品的手性响应保持不变。
+
+经适当相位约定，可示意为：
+\[
+E_+=E_s+iE_q
+\]
+
+\[
+E_-=E_s-iE_q
+\]
+
+于是：
+\[
+I_+-I_-
+=
+4E_q\operatorname{Im}(E_s)
+\]
+
+在对石英响应进行相应归一化后，Yan 使用：
+\[
+\boxed{
+\operatorname{Im}\chi^{(2)}
+=
+\frac{I_{+Y}-I_{-Y}}4
+}
+\]
+
+该简化式的系数和正负号依赖他们的归一化与相位约定。它并不是对任意基底都直接适用的公式。
+ACS Publications+1
+
+
+8.3 为什么本振能提高微弱信号的可检测性？
+
+普通强度测量的样品贡献是：
+\[
+I_s\propto|E_s|^2
+\]
+
+有本振以后，干涉交叉项为：
+\[
+I_{\mathrm{cross}}\propto2E_qE_s
+\]
+
+因此，当样品信号很弱时，可以将原本平方依赖的信号转换成对样品场振幅的线性检测。
+
+不过 LO 同时带来散粒噪声，因此并非本振越强，SNR 就能无限增加。
+
+8.4 为什么要测虚部？
+
+在给定相位约定下：
+\[
+\operatorname{Im}\chi^{(2)}(\omega)
+\]
+
+更直接呈现振动共振谱线的带符号响应，有助于区分相互抵消的振动模式、比较 D/L 镜像结构，以及约束谱线拟合。
+
+需要强调，单个峰的正负号不能未经分子模型就直接等同于某个水分子“朝上”或“朝下”。
+
+8.5 如何证明信号来自水而不是 DNA？
+
+这一节作为全篇实验验证的终点：
+- H₂¹⁶O/H₂¹⁸O 同位素位移。
+- D-DNA/L-DNA 镜像响应反号。
+- DNA 的 N–H 与水的 O–H 谱线区分。
+- MD 模拟对第一水合层及不同沟槽区域的贡献分解。
+这些步骤共同建立信号归属，而不是仅凭 psp 或石英参考就宣布测到了手性水。
+九、把这份大纲与实际论文发展史对应起来
+你的主线属于按物理原理重建的发展逻辑。如果再增加一页历史时间轴，就能将它与真实发表顺序对应。
+时间	代表性工作	推动了什么问题
+2004–2014	Simpson 的非线性手性理论、Yan 的 Chem. Rev. 2014	从宏观界面群论建立手性 SFG 张量与偏振选择定则
+2017	Petersen 等，DNA’s Chiral Spine of Hydration	首次利用手性振动光谱观察 DNA 模板化的手性水超结构
+2019	Yan，JPCL 2019	在 β-sheet 蛋白周围观测手性水，并利用同位素实验确认 O–H 来源
+2020	Yan，PNAS 2020	相位分辨测量显示 D/L 蛋白水合层手性响应反号
+2021	Yan–Hammes-Schiffer，JPBC 2021	证明振动耦合在模拟手性水 SFG 中的重要作用
+2022	Yan，ACS Central Science 2022；Langmuir 2022	分别建立第一水合层选择性，以及 DNA 双螺旋结构的手性振动检测
+2024 年 2 月	Yan–Hammes-Schiffer，JCP 160, 055102	建立对称/反对称 O–H 伸缩的反相双峰解释
+2024 年 9 月	Yan 等，JCP 161, 095104	将相位分辨手性 SFG 与模拟结合，归属 DNA 第一水合层及不同区域水的响应
+
+From Symmetry to Vibrational Coupling: Understanding Chiral Water SFG
+1. Macroscopic Symmetry: Why Can Chiral Interfaces Generate SFG?
+2. Polarization Selection Rules: Why Measure \(\chi_{ZYX}^{(2)}\)?
+3. Chirality Transfer: How Does DNA Organize Achiral Water?
+4. Microscopic Symmetry: Why Do Independent O–H Oscillators Give Zero Chiral SFG?
+5. Vibrational Coupling: How Do Collective O–H Modes Generate Chiral Response?
+6. Hydration-Shell Selectivity: Why Is the First Shell Special?
+7. Spectral Interpretation: Why Do Coupled O–H Modes Produce Opposite-Phase Peaks?
+8. Phase-Resolved Detection: How Does Quartz Reveal \(\operatorname{Im}\chi^{(2)}\)?
+9. Historical Development and Limitations: What Has Been Demonstrated, and What Remains Open?
+10.What Chiral SFG Does Not Tell Us
