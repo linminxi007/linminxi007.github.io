@@ -1,7 +1,7 @@
 ---
 title: "机器人自动瞄准中的坐标变换"
 date: 2026-09-14
-description: "记录 RoboMaster 坐标系变换与目标追踪。"
+description: "记录 RoboMaster 三维视觉、坐标变换与目标追踪。"
 
 categories:
   - Robotics
@@ -13,128 +13,84 @@ status: working
 draft: false
 ---
 
-# 相机锁定自动瞄准
+# 基于相机的机器人自动瞄准
 
-## 自动瞄准系统交互效果呈现（请点击）
+<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html" target="_blank" rel="noopener">打开自动瞄准交互演示 ↗</a> | <a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html" download>下载 HTML ↓</a>
 
-你可以拖动瞄准的目标,看到计算的相机屏幕上目标的投影
+*（可拖动三维空间中的目标，实时观察其在相机成像平面的投影及坐标变换过程。）*
 
-<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html" target="_blank"> 打开 ↗ </a>
+在本科阶段的 **RoboMaster** 机甲大师赛中，我主要负责机械结构设计与部分硬件电路开发。当时最令我满意的设计是一套紧凑型**双轴云台结构**——通过精细调配质量分布并使重心与旋转轴重合，云台在极为有限的体积内兼顾了高机动性与运动稳定性。
 
-<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html" download> 下载 HTML ↓ </a>\[1\]
+然而，要实现对高速移动、旋转目标的自动锁定（自瞄），机械响应只是执行末端，核心问题在于**如何将“相机看到的像素”实时转化为“云台电机的旋转角度”**。为了直观展示这一几何链路，我将自瞄系统中的矩阵变换与目标追踪过程整理成了上方的交互式 HTML 演示。
 
-在 **RoboMaster** 机器人比赛中，我们经常需要使用**坐标系变换**方法，实现对高速平移、旋转目标的识别、定位与自动瞄准。
+![RoboMaster 比赛中的机器人](../assets/images/robo/1.png)
 
-这是我本科阶段参与的一个机器人比赛项目，我主要负责机械设计以及部分电子工程工作。其中让我最满意的是设计了一套小巧的**云台结构**，通过合理的质量分布和重心控制，使整个系统保持了良好的稳定性，同时兼顾了体积和运动性能。
+![机器人与云台结构](../assets/images/robo/2.png)
 
-后来在学习 **SFG/SHS** 实验中的分子光谱分析时，我发现其中的思想与机器人自动瞄准系统存在一定的相似性[**SFG中的Wigner-Eckart theorem**](SFG_QM%20math-cleaned-v2.md) 至少是最后一步从分子坐标系变换到实验室坐标系中,与机器人自动瞄准很相似：
+比赛视频：[视频 1](https://www.bilibili.com/video/BV1nX9kBxEaN/) · [视频 2](https://www.bilibili.com/video/BV1JconBaEkC/)。
 
-**实验中，我们通过光谱信息确定分子坐标系，再利用坐标变换将其转换到实验室坐标系；而 RoboMaster 自动瞄准系统中，同样需要通过不同坐标系之间的转换，将目标在相机坐标系中的位置转换到机器人控制系统中的参考坐标系。**
+我使用 SolidWorks 设计的机器人：
 
-因此，我按照**矩阵变换**的基本原理，将这个自动瞄准系统重新整理为一个交互式 HTML 文件，用于展示坐标变换、旋转矩阵以及目标追踪过程。
+![机器人设计视图 1](images/paste-2.jpeg)
 
-这一过程也为后续理解球坐标系中的 **ZYZ 欧拉角旋转**、**D 矩阵**、**d Wigner 矩阵**以及 **Wigner-Eckart 定理**等内容提供了一些直观基础。[**SO3神经网络**](SO(3)-Equivariant%20Graph%20Neural%20Networks_new.md)
+![机器人设计视图 2](images/paste-1.jpeg)
 
-如需查看相关参考资料，请跳转至文末：
+## 机器人视觉原理：从二维像素到三维云台控制
 
-[跳转到参考链接 ↓](#references)
+从几何角度看，自动瞄准解决的是一个逆向空间映射问题：**相机捕捉到的只是一张二维平面图像，但云台控制器需要的是机械坐标系下的三维偏航（Yaw）与俯仰（Pitch）指令。** 打通这一链路需要经过以下三步：
 
-![](../assets/images/robo/1.png)
+### 1. 正向成像投影：三维目标如何变成二维像素
 
-![](../assets/images/robo/2.png)
-
-这里放置两个比赛视频。\[3\]\[4\]
-
-这个是我使用solidwork设计的robot.
-
-![](images/paste-2.jpeg)![](images/paste-1.jpeg)
-
-------------------------------------------------------------------------
-
-## 与 SO(3)、SHS/SFG 中坐标系选择的关联
-
-这个自动瞄准项目实际上可以理解为：**摄像头首先在二维图像中看到目标的位置和大小，再利用相机模型和坐标变换，把图像中的像素信息解算成相机坐标系中的目标方向或空间位置，最后再转换到云台或机器人坐标系中，计算云台应该转动多少角度才能重新锁定目标。** 如果目标的真实尺寸已知，那么目标在图像中的大小还可以提供距离信息；在最简单的针孔相机近似下，目标实际尺寸为 (L)，焦距为 (f)，图像中的投影尺寸为 (l)，则深度可以近似写成
+当相机捕捉到敌方机器人的装甲板时，相机坐标系下的三维空间点 $\mathbf{P}_c = [X_c, Y_c, Z_c]^T$ 会通过小孔成像模型（Pinhole Model），投影到二维图像传感器的像素坐标 $(u, v)$ 上：
 
 $$
-Z \approx \frac{fL}{l}.
+Z_c \begin{bmatrix} u \\ v \\ 1 \end{bmatrix} = \mathbf{K} \mathbf{P}_c
 $$
 
-更一般地，相机从三维坐标到二维像素坐标的投影可以写成
+其中 $\mathbf{K}$ 为**相机内参矩阵**（Intrinsic Matrix），由镜头焦距 $f$ 与感光芯片的光心偏移量决定。
+
+### 2. 深度恢复：从二维像素反推相机坐标系下的三维位置
+
+由于成像过程将三维空间压缩到了二维平面，单个像素点 $(u, v)$ 只能给出目标相对于光心的**方向射线**，而丢失了深度信息 $Z_c$。但由于赛场上装甲板灯条的真实物理尺寸 $L$ 是已知的，在最简小孔近似下，只要测出灯条在图像上占据的像素长度 $l$，就能直接反推出目标深度 $Z_c$：
 
 $$
-s
-\begin{pmatrix}
-u\\
-v\\
-1
-\end{pmatrix}
-=
-K
-\begin{pmatrix}
-R & \mathbf{t}
-\end{pmatrix}
-\begin{pmatrix}
-X\\
-Y\\
-Z\\
-1
-\end{pmatrix},
+Z_c \approx \frac{f \cdot L}{l}
 $$
 
-其中 (K) 是相机内参矩阵，(R) 是旋转矩阵，(\mathbf{t}) 是平移向量。相机坐标系中的目标位置进一步转换到云台或机器人参考坐标系时，可以写成
+*（在实际工程中，结合装甲板四个角点的已知几何尺寸与像素坐标，即可求解经典的 **PnP（Perspective-n-Point）** 问题。）* 获得深度 $Z_c$ 后，对内参投影方程求逆，就能完整还原出目标在**相机坐标系**下的三维坐标 $\mathbf{P}_c$。
+
+### 3. 刚体坐标变换：从相机坐标系到云台控制坐标系
+
+仅仅知道目标相对于相机的位置还无法直接控制枪管，因为相机安装位置与云台旋转中心存在物理偏移，且随云台一起运动。因此，必须将目标坐标从**相机坐标系**（$\mathbf{P}_c$）转换到**云台（或底盘）参考坐标系**（$\mathbf{P}_g$）：
 
 $$
-\mathbf{r}_{\mathrm{robot}}
-=
-R_{\mathrm{robot}\leftarrow\mathrm{camera}}
-\mathbf{r}_{\mathrm{camera}}
-+
-\mathbf{t}_{\mathrm{robot}\leftarrow\mathrm{camera}},
+\mathbf{P}_g = \mathbf{R}_{c \to g} \mathbf{P}_c + \mathbf{t}_{c \to g}
 $$
 
-其中旋转部分满足
+其中 $\mathbf{t}_{c \to g}$ 是相机光心相对于云台转轴的平移向量（外参平移），而 $\mathbf{R}_{c \to g}$ 则是描述两者姿态关系的 $3 \times 3$ 旋转矩阵，严格属于三维旋转群 $SO(3)$：
 
 $$
-R_{\mathrm{robot}\leftarrow\mathrm{camera}} \in SO(3),
-\qquad
-R^{T}R=I,
-\qquad
-\det R=1.
+\mathbf{R} \in SO(3), \quad \mathbf{R}^T \mathbf{R} = \mathbf{I}, \quad \det(\mathbf{R}) = 1
 $$
 
-因此，自动瞄准和 **SO(3)** 的直接联系就是：**云台、相机和目标之间的方向变化，本质上都是三维空间中的旋转；不同坐标系之间的方向变换由 (SO(3)) 的旋转矩阵描述。** 这和 **SHS/SFG** 中选择分子坐标系与实验室坐标系的数学结构非常相似。比如分子坐标系中的二阶超极化率张量 $\beta_{ijk}^{\mathrm{mol}}$ 转换到实验室坐标系时，可以写成
+得到目标在云台坐标系下的三维坐标 $\mathbf{P}_g = [X_g, Y_g, Z_g]^T$ 后，将其转换为球坐标方向角，即可直接解算出云台锁死目标所需的 **Yaw（偏航）** 和 **Pitch（俯仰）** 旋转量。
 
-$$
-\beta_{IJK}^{\mathrm{lab}}
-=
-\sum_{ijk}
-R_{Ii}R_{Jj}R_{Kk}
-\beta_{ijk}^{\mathrm{mol}}.
-$$
+## 共同的显式物理背景：跨尺度的坐标变换与 $SO(3)$ 对称性
 
-如果改用球张量表示，同一个旋转则可以写成
+后来在从事物理化学与机器学习研究时回看这段经历，我意识到：**机器人视觉、[SFG/SHS 非线性光谱中的坐标变换](SFG_QM%20math-cleaned-v2.md)、量子力学中的群论，以及 [$SO(3)$ 等变神经网络](SO(3)-Equivariant%20Graph%20Neural%20Networks_new.md)，背后其实共享着完全一致的显式物理背景。**
 
-$$
-T_{m}^{(l),\mathrm{lab}}
-=
-\sum_{m'}
-D_{mm'}^{(l)}(R)
-T_{m'}^{(l),\mathrm{mol}},
-$$
+这四个领域的底层逻辑高度统一：**先在研究对象最自然的“局域坐标系”中定义物理量，再借助三维旋转群 $SO(3)$ 的群表示，将其变换到观测或控制所用的“全局（实验室）坐标系”中。** 它们唯一的区别仅在于被旋转几何对象的阶数与表示形式：
 
-其中 $D_{mm'}^{(l)}(R)$就是 **Wigner (D) 矩阵**。所以两者真正共同的地方不是“摄像头”和“光谱”本身，而是：**我们首先在一个最自然的局域坐标系中描述对象，然后利用 (SO(3)) 旋转把这些量变换到实验室或控制系统真正使用的坐标系中。** 区别在于，自动瞄准主要变换的是目标位置、方向等几何向量，并最终解算 yaw/pitch 控制量；而 SHS/SFG 中主要变换的是分子偶极矩、极化率、超极化率等张量，并且通常还需要对分子的取向分布进行统计平均。因此，机器人中的坐标变换可以看成理解 SHS/SFG 中“分子坐标系 → 实验室坐标系 → 偏振可观测量”这一过程的一个很直观的经典几何类比。
+* **机器人视觉**：在欧氏空间中旋转**一阶向量**（目标位置与视线方向 $\mathbf{P}$），通过基础的 $3 \times 3$ 旋转矩阵 $\mathbf{R} \in SO(3)$ 完成相机系到云台控制系的转换。
+* **SFG/SHS 界面光谱**：将分子局域坐标系下的**高阶笛卡尔张量**（如二阶超极化率 $\beta_{ijk}$）通过方向余弦矩阵旋转并取系综平均，映射到实验室坐标系下的宏观极化率张量 $\chi^{(2)}_{IJK} = \sum \langle R_{Ii} R_{Jj} R_{Kk} \rangle \beta_{ijk}$。
+* **量子力学群论与 $SO(3)$ 等变神经网络**：将这一几何不变性推广到量子态与原子局域环境的球谐不可约表示中。通过 **Wigner $D$ 矩阵**（$T^{(l)}_{m} = \sum_{m'} D^{(l)}_{mm'}(\Omega) T^{(l)}_{m'}$）与 **Wigner–Eckart 定理**，无论是量子跃迁矩阵元还是神经网络中的几何特征，都在三维旋转变换下严格保持物理上的等变性（Equivariance）。
 
-------------------------------------------------------------------------
+从这个角度看，宏观世界里直观的机器人自动瞄准，恰好为理解微观尺度下的欧拉角旋转、Wigner $D$ 矩阵以及等变深度学习提供了一个最生动的经典力学切入点。
 
-# 参考链接
+## 参考链接 {#references}
 
-\[1\] 自动瞄准系统交互式 HTML：`../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html`
+- [打开自动瞄准交互演示 ↗](../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html)
+- [RoboMaster 官方频道](https://www.youtube.com/@RoboMaster/featured)
+- [比赛视频 1](https://www.bilibili.com/video/BV1nX9kBxEaN/)
+- [比赛视频 2](https://www.bilibili.com/video/BV1JconBaEkC/)
 
-\[2\] RoboMaster 官方频道：\
-https://www.youtube.com/@RoboMaster/featured
-
-\[3\] 比赛相关视频 1：\
-https://www.bilibili.com/video/BV1nX9kBxEaN/
-
-\[4\] 比赛相关视频 2：\
-https://www.bilibili.com/video/BV1JconBaEkC/

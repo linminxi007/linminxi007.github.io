@@ -1,7 +1,7 @@
 ---
 title: "Coordinate Transformations in Robot Automatic Aiming"
 date: 2026-09-14
-description: "Notes on coordinate transformations and target tracking in RoboMaster."
+description: "Notes on 3D vision, coordinate transformations, and target tracking in RoboMaster."
 
 categories:
   - Robotics
@@ -15,160 +15,82 @@ draft: false
 
 # Camera-Based Automatic Aiming
 
-## Interactive Demo of the Automatic Aiming System (Click to Open)
+<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html" target="_blank" rel="noopener">Open Interactive Demo ↗</a> | <a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html" download>Download HTML ↓</a>
 
-You can drag the target and see its calculated projection on the camera screen.
+*(Drag the target in 3D space to observe its real-time projection on the camera plane and the corresponding coordinate transformations.)*
 
-<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html" target="_blank"> Open ↗ </a>
+During my undergraduate studies, I participated in the **RoboMaster** robotics competition, focusing primarily on mechanical design and embedded electronics. The subsystem I was most proud of was a compact **two-axis gimbal**. By carefully optimizing the mass distribution and aligning the center of gravity with the rotation axes, the gimbal achieved high rotational agility and stability within a tightly constrained volume.
 
-<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html" download> Download HTML ↓ </a>\[1\]
+For an automatic aiming system to hit a high-speed, maneuvering robot, mechanical agility is only half the battle—the control system must continuously translate what the **camera sees** into how the **gimbal rotates**. To make this geometric pipeline intuitive, I built the interactive HTML visualization above to demonstrate how matrix transformations bridge visual perception and mechanical control.
 
-In **RoboMaster** competitions, we often need to use **coordinate transformations** to identify, locate, and automatically aim at targets that move and rotate at high speed.
+![RoboMaster robot during the competition](../assets/images/robo/1.png)
 
-This was a robotics competition project that I worked on during my undergraduate studies. I mainly worked on mechanical design and some electronic engineering.
+![Robot and gimbal assembly](../assets/images/robo/2.png)
 
-The part I was most satisfied with was a compact **gimbal structure**. By arranging the mass distribution and center of gravity carefully, the system stayed stable while still keeping a small size and good motion performance.
+Competition videos: [Video 1](https://www.bilibili.com/video/BV1nX9kBxEaN/) · [Video 2](https://www.bilibili.com/video/BV1JconBaEkC/).
 
-Later, when I studied molecular spectroscopy in **SFG/SHS** experiments, I noticed that some of the ideas are similar to those in a robot automatic aiming system. [**Wigner-Eckart theorem in SFG**](SFG_QM%20math-cleaned-v2.en.md)
+The robot I designed in SolidWorks:
 
-At least in the last step, the similarity is quite direct: in spectroscopy, we transform quantities from the molecular coordinate system to the laboratory coordinate system. In robot automatic aiming, we also transform the target from the camera coordinate system to the reference coordinate system used by the robot controller.
+![Robot design, view 1](images/paste-4.jpeg)
 
-**In experiments, we use spectroscopic information to describe the molecular coordinate system, and then use coordinate transformations to move into the laboratory coordinate system. In RoboMaster automatic aiming, we do something similar: we transform the target position from the camera coordinate system into the reference coordinate system used by the robot control system.**
+![Robot design, view 2](images/paste-3.jpeg)
 
-So I reorganized this automatic aiming system into an interactive HTML file based on the basic idea of **matrix transformations**. It shows coordinate transformations, rotation matrices, and the target-tracking process.
+## How Robot Vision Works: From 2D Pixels to 3D Gimbal Control
 
-This also gives an intuitive starting point for understanding **ZYZ Euler-angle rotations**, **D matrices**, **Wigner d matrices**, and the **Wigner-Eckart theorem** in spherical coordinates. [**SO(3) Neural Networks**](SO(3)-Equivariant%20Graph%20Neural%20Networks_new.en.md)
+At its core, camera-based automatic aiming solves an inverse geometric problem: **the camera only captures a flat 2D image, but the gimbal motors require 3D angular commands (Yaw and Pitch) in the robot's mechanical frame.** Bridging this gap requires three sequential steps:
 
-If you want to see the related references, jump to the end of this note:
+### 1. Forward Projection: How a 3D Target Becomes a 2D Pixel
 
-[Go to the references ↓](#references)
-
-![](../assets/images/robo/1.png)
-
-![](../assets/images/robo/2.png)
-
-Two competition videos are placed here.\[3\]\[4\]
-
-![](images/paste-4.jpeg)![](images/paste-3.jpeg)
-
-The robot I designed.
-
-------------------------------------------------------------------------
-
-## Connection to SO(3) and Coordinate-System Choices in SHS/SFG
-
-This automatic aiming project can be understood in the following way:
-
-**The camera first sees the position and size of the target in a two-dimensional image. Then, using the camera model and coordinate transformations, the pixel information is converted into a target direction or spatial position in the camera coordinate system. Finally, this result is transformed into the gimbal or robot coordinate system, so we can calculate how much the gimbal needs to rotate to lock onto the target again.**
-
-If the real size of the target is known, its size in the image can also provide distance information.
-
-Under the simplest pinhole-camera approximation, if the real target size is $(L)$, the focal length is $(f)$, and the projected size in the image is $(l)$, then the depth can be approximated as
+When the camera observes an armor plate on an opposing robot, a 3D point in the camera coordinate system, $\mathbf{P}_c = [X_c, Y_c, Z_c]^T$, is projected onto the 2D image sensor at pixel coordinates $(u, v)$ through the pinhole camera model:
 
 $$
-Z \approx \frac{fL}{l}.
+Z_c \begin{bmatrix} u \\ v \\ 1 \end{bmatrix} = \mathbf{K} \mathbf{P}_c
 $$
 
-More generally, the projection from three-dimensional coordinates to two-dimensional image coordinates can be written as
+Here, $\mathbf{K}$ is the **camera intrinsic matrix**, which encodes the lens focal length $f$ and the optical center of the sensor.
+
+### 2. Depth Recovery: Reconstructing 3D Camera Coordinates from 2D Pixels
+
+Because projection compresses 3D space onto a 2D plane, a single pixel $(u, v)$ only tells us the **direction (ray)** of the target relative to the camera, while the depth $Z_c$ is lost. Fortunately, RoboMaster armor plates have standardized, known physical dimensions. Under the pinhole approximation, if an armor light bar of known physical height $L$ spans $l$ pixels on the image sensor, its distance $Z_c$ from the camera can be estimated directly:
 
 $$
-s
-\begin{pmatrix}
-u\\
-v\\
-1
-\end{pmatrix}
-=
-K
-\begin{pmatrix}
-R & \mathbf{t}
-\end{pmatrix}
-\begin{pmatrix}
-X\\
-Y\\
-Z\\
-1
-\end{pmatrix},
+Z_c \approx \frac{f \cdot L}{l}
 $$
 
-where $(K)$ is the camera intrinsic matrix, $(R)$ is the rotation matrix, and $(\mathbf{t})$ is the translation vector.
+*(In practice, utilizing the four corners of the armor plate turns this into the classical **Perspective-n-Point (PnP)** problem.)* Once the depth $Z_c$ is recovered, inverting the intrinsic projection yields the target's complete 3D position vector $\mathbf{P}_c$ inside the **camera coordinate system**.
 
-When the target position in the camera coordinate system is further transformed into the gimbal or robot reference coordinate system, we can write
+### 3. Frame Transformation: From Camera Frame to Gimbal Frame
 
-$$
-\mathbf{r}_{\mathrm{robot}}
-=
-R_{\mathrm{robot}\leftarrow\mathrm{camera}}
-\mathbf{r}_{\mathrm{camera}}
-+
-\mathbf{t}_{\mathrm{robot}\leftarrow\mathrm{camera}},
-$$
-
-where the rotation part satisfies
+Knowing the target's position relative to the camera is still not enough to aim the barrel, because the camera is mounted at a physical offset from the gimbal's pivot center and rotates along with it. We must transform the target vector from the **camera coordinate system** ($\mathbf{P}_c$) into the **gimbal (or chassis) reference coordinate system** ($\mathbf{P}_g$):
 
 $$
-R_{\mathrm{robot}\leftarrow\mathrm{camera}} \in SO(3),
-\qquad
-R^{T}R=I,
-\qquad
-\det R=1.
+\mathbf{P}_g = \mathbf{R}_{c \to g} \mathbf{P}_c + \mathbf{t}_{c \to g}
 $$
 
-So the direct connection between automatic aiming and **SO(3)** is simple:
-
-**The changes in direction between the gimbal, camera, and target are all rotations in three-dimensional space. The transformation between different coordinate systems is described by rotation matrices in** $SO(3)$.
-
-This mathematical structure is very similar to the choice of molecular and laboratory coordinate systems in **SHS/SFG**.
-
-For example, when the second-order hyperpolarizability tensor $\beta_{ijk}^{\mathrm{mol}}$ in the molecular coordinate system is transformed into the laboratory coordinate system, we can write
+Here, $\mathbf{t}_{c \to g}$ is the translation vector representing the physical mounting offset between the camera optical center and the gimbal pivot, and $\mathbf{R}_{c \to g}$ is a $3 \times 3$ orthogonal rotation matrix belonging to the 3D rotation group $SO(3)$:
 
 $$
-\beta_{IJK}^{\mathrm{lab}}
-=
-\sum_{ijk}
-R_{Ii}R_{Jj}R_{Kk}
-\beta_{ijk}^{\mathrm{mol}}.
+\mathbf{R} \in SO(3), \quad \mathbf{R}^T \mathbf{R} = \mathbf{I}, \quad \det(\mathbf{R}) = 1
 $$
 
-If we use spherical tensors instead, the same rotation can be written as
+Once the target's 3D coordinates $\mathbf{P}_g = [X_g, Y_g, Z_g]^T$ are expressed in the gimbal frame, converting this Cartesian vector into spherical angles directly provides the required **Yaw** and **Pitch** rotation commands to lock onto the target.
 
-$$
-T_{m}^{(l),\mathrm{lab}}
-=
-\sum_{m'}
-D_{mm'}^{(l)}(R)
-T_{m'}^{(l),\mathrm{mol}},
-$$
+## A Shared Physical Background: Coordinate Transformations Across Scales
 
-where $D_{mm'}^{(l)}(R)$ is the **Wigner** $D$ matrix.
+Looking back at this undergraduate robotics project later during my research in physical chemistry and machine learning, I realized that **robot vision, coordinate transformations in [SFG/SHS spectroscopy](SFG_QM%20math-cleaned-v2.en.md), group theory in quantum mechanics, and [$SO(3)$-equivariant neural networks](SO(3)-Equivariant%20Graph%20Neural%20Networks_new.en.md) all share the exact same explicit physical background**.
 
-So the real similarity is not between "cameras" and "spectroscopy" themselves.
+Across all four domains, the fundamental principle is identical: **we first describe a physical object in its most natural local coordinate system, and then apply $SO(3)$ group representations to transform those quantities into the global laboratory or control coordinate system.** The only difference lies in the mathematical rank of the object being rotated:
 
-The important point is this:
+* **Robot Vision:** Transforms **rank-1 vectors** (3D target positions and rays $\mathbf{P}$) from the camera frame to the gimbal control frame via standard $3 \times 3$ rotation matrices $\mathbf{R} \in SO(3)$.
+* **SFG/SHS Spectroscopy:** Transforms **higher-rank Cartesian tensors**—such as the second-order molecular hyperpolarizability $\beta_{ijk}$ in the local molecular frame—into the macroscopic susceptibility $\chi^{(2)}_{IJK}$ in the laboratory frame via $\chi^{(2)}_{IJK} = \sum \langle R_{Ii} R_{Jj} R_{Kk} \rangle \beta_{ijk}$.
+* **Quantum Mechanics & $SO(3)$-Equivariant Neural Networks:** Generalizes this geometric invariance to quantum states and atomic environments using irreducible spherical representations. By expanding features on spherical harmonics and rotating them via **Wigner $D$-matrices**, $T^{(l)}_{m} = \sum_{m'} D^{(l)}_{mm'}(\Omega) T^{(l)}_{m'}$, along with the **Wigner–Eckart theorem**, physical observables and neural network representations strictly preserve rotational equivariance in 3D space.
 
-**We first describe an object in the local coordinate system that is most natural for that object. Then we use an** $SO(3)$ rotation to transform the quantities into the coordinate system that is actually used by the laboratory setup or the control system.
+Seen in this light, a classical robot aiming system serves as the most tangible geometric starting point for understanding Euler-angle rotations, Wigner $D$-matrices, and equivariant deep learning.
 
-The difference is in what we transform.
+## References {#references}
 
-In automatic aiming, we mainly transform geometric quantities such as target position and direction, and finally solve for yaw and pitch control values.
+- [Open Interactive Demo ↗](../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html)
+- [RoboMaster official channel](https://www.youtube.com/@RoboMaster/featured)
+- [Competition video 1](https://www.bilibili.com/video/BV1nX9kBxEaN/)
+- [Competition video 2](https://www.bilibili.com/video/BV1JconBaEkC/)
 
-In SHS/SFG, we mainly transform tensors such as molecular dipole moments, polarizabilities, and hyperpolarizabilities. We also usually need to average over the molecular orientation distribution.
-
-So coordinate transformations in robotics can be used as a very intuitive classical analogy for understanding the path in SHS/SFG:
-
-**molecular coordinate system → laboratory coordinate system → polarization-dependent observable**
-
-------------------------------------------------------------------------
-
-# References {#references}
-
-\[1\] Interactive HTML for the automatic aiming system: `../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html`
-
-\[2\] RoboMaster official channel:\
-https://www.youtube.com/@RoboMaster/featured
-
-\[3\] Competition video 1:\
-https://www.bilibili.com/video/BV1nX9kBxEaN/
-
-\[4\] Competition video 2:\
-https://www.bilibili.com/video/BV1JconBaEkC/
