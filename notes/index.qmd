@@ -1,7 +1,6 @@
 ---
 title: "全部笔记"
 kicker: "FIELD NOTES / INDEX"
-description: "让问题、推导与资料，在同一条阅读路径上。"
 toc: false
 ---
 

@@ -20,8 +20,7 @@ $if(math)$$math$$endif$
 <div class="header-right">
 <nav class="main-nav" id="main-nav" aria-label="网站导航 / Main navigation">
 <a class="nav-home button-jump" data-section="home" href="$site-prefix$index.html" aria-label="回到首页 / Home" title="回到首页 / Home"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h5v-6h3v6h5V9"/></svg></a>
-<a class="nav-item button-jump" data-section="notes" href="$site-prefix$notes/index.html" data-i18n="notes">笔记</a>
-<details class="category-menu"><summary class="nav-item button-open"><span data-i18n="topics">分类</span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="dropdown-panel"><a href="$site-prefix$notes/index.html" data-i18n="allNotes">全部笔记</a>$site-categories$</div></details>
+<details class="category-menu"><summary class="nav-item button-open"><span data-i18n="topics">分类</span><svg class="chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 9 7 6 7-6"/></svg></summary><div class="dropdown-panel"><a href="$site-prefix$notes/index.html" data-i18n="allNotes">全部笔记</a>$site-categories$</div></details>
 <a class="nav-item button-jump" data-section="files" href="$site-prefix$files.html" data-i18n="files">关联文件</a>
 <a class="nav-item button-jump" data-section="about" href="$site-prefix$about.html" data-i18n="about">关于</a>
 </nav>
@@ -32,7 +31,7 @@ $if(math)$$math$$endif$
 <span class="switch-choice choice-start" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3.7"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/></svg></span>
 <span class="switch-choice choice-end" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.3 14A8.6 8.6 0 0 1 10 3.7 8.8 8.8 0 1 0 20.3 14Z"/></svg></span></button>
 <button class="type-trigger button-open" id="type-toggle" aria-label="字号与字重 / Typography" aria-haspopup="dialog" title="字号与字重 / Typography"><span class="large-a">A</span><span class="small-a">A</span></button>
-<button type="button" class="track-switch language-switch" id="language-toggle" role="switch" aria-checked="false" aria-label="英文界面 / English interface" title="E / 中"><span class="switch-thumb" aria-hidden="true"></span><span class="switch-choice choice-start" aria-hidden="true">E</span><span class="switch-divider" aria-hidden="true">/</span><span class="switch-choice choice-end" aria-hidden="true">中</span></button>
+<button type="button" class="track-switch language-switch" id="language-toggle" role="switch" aria-checked="false" aria-label="英文界面 / English interface" title="中文 | English"><span class="switch-thumb" aria-hidden="true"></span><span class="switch-choice choice-start" aria-hidden="true">中文</span><span class="switch-divider" aria-hidden="true">|</span><span class="switch-choice choice-end" aria-hidden="true">English</span></button>
 </div></div></div></header>
 <div class="reading-progress" aria-hidden="true"><div id="reading-progress-bar"></div></div>
 $for(include-before)$$include-before$$endfor$

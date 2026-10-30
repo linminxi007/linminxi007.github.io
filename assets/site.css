@@ -921,3 +921,97 @@ dialog::backdrop { background: var(--scrim); }
 
 
 
+
+/* Full language labels, with the thumb under the active language. */
+.header-tools .language-switch {
+  width: 148px;
+  flex-basis: 148px;
+  background: var(--wood-fill);
+  border-color: var(--wood-light);
+  box-shadow: inset 2px 3px 5px #503d2b, inset -1px -1px 2px #bd9c74;
+}
+.header-tools .language-switch .switch-thumb { left: 2px; }
+.header-tools .language-switch[aria-checked="true"] .switch-thumb { left: calc(50% + 1px); }
+.header-tools .language-switch .switch-choice { font-size: 13px; }
+.header-tools .language-switch .choice-start { color: var(--ink); }
+.header-tools .language-switch .choice-end { color: var(--on-wood); }
+.header-tools .language-switch[aria-checked="true"] .choice-start { color: var(--on-wood); }
+.header-tools .language-switch[aria-checked="true"] .choice-end { color: var(--ink); }
+@media (max-width: 720px) {
+  .header-tools .language-switch { width: 136px; flex-basis: 136px; }
+}
+@media (max-width: 560px) {
+  :root { --head-h: 148px; }
+  .header-inner, [data-focus="on"] .header-inner { min-height: 147px; }
+  .wordmark { grid-column: 1 / 3; grid-row: 1; }
+  .header-tools { grid-column: 1 / 3; grid-row: 2; justify-self: end; }
+  .main-nav { grid-row: 3; }
+  .search-toggle { grid-row: 3; }
+}
+
+/* Keep the unselected half wooden in either language. */
+.header-tools .language-switch .switch-divider { color: var(--on-wood); }
+/* Use a centered vector chevron rather than a font glyph with a low baseline. */
+.category-menu > summary { display: flex; align-items: center; gap: 8px; }
+.category-menu > summary > .chevron {
+  display: block;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+  margin-left: 3px;
+  align-self: center;
+  transition: transform .18s ease;
+}
+.category-menu[open] > summary > .chevron { transform: rotate(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .category-menu > summary > .chevron { transition: none; }
+}
+
+/* Language-specific menu typography selected from the preview. */
+[data-ui="zh"] .site-header {
+  --menu-font: Arial, "Microsoft YaHei", sans-serif;
+  --menu-weight: 650;
+  --menu-spacing: .015em;
+  --menu-size: 16px;
+}
+[data-ui="en"] .site-header {
+  --menu-font: "Arial Rounded MT Bold", "Microsoft YaHei", Arial, sans-serif;
+  --menu-weight: 750;
+  --menu-spacing: .025em;
+  --menu-size: 17px;
+}
+.site-header .main-nav .nav-item,
+.site-header .category-menu .dropdown-panel a {
+  font-family: var(--menu-font);
+  font-weight: var(--menu-weight);
+  font-size: var(--menu-size);
+  letter-spacing: var(--menu-spacing);
+}
+.site-header .header-tools .switch-choice {
+  font-family: var(--menu-font);
+  font-weight: var(--menu-weight);
+  letter-spacing: var(--menu-spacing);
+}
+.site-header .type-trigger .large-a,
+.site-header .type-trigger .small-a {
+  font-weight: var(--menu-weight);
+}
+[data-ui="en"] .site-header .main-nav > .nav-item,
+[data-ui="en"] .site-header .category-menu > summary {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+@media (max-width: 720px) {
+  [data-ui="en"] .site-header { --menu-size: 16px; }
+}
+@media (max-width: 380px) {
+  .site-header .main-nav .nav-item { padding-inline: 6px; }
+}
+
+/* Reduce only the three top-level text menu labels by five percent. */
+.site-header .main-nav .category-menu > summary,
+.site-header .main-nav > [data-section="files"],
+.site-header .main-nav > [data-section="about"] {
+  font-size: calc(var(--menu-size) * 0.95);
+}
