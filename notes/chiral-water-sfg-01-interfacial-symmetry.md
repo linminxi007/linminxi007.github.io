@@ -20,11 +20,15 @@ format:
 
 # 第一章：宏观对称性——为什么手性界面允许额外的二阶极化率？
 
+![from AI](images/paste-52.png)
+
 **本章核心问题**：在 27 个二阶非线性极化率张量元 $\chi_{IJK}^{(2)}$ 中，究竟有哪些可以在界面存活？为什么 $\chi_{ZYX}^{(2)}$ 是宏观手性界面的“专属指纹”？
 
 当我们试图用和频光谱（SFG）去探测生物大分子（如 DNA 或蛋白质）周围的水合层时，遇到的第一个门槛不是复杂的量子力学，而是**宏观对称性**。对称性就像一个冷酷的“守门人”：不管微观分子的振动多么剧烈，只要宏观对称性不允许，对应的光学信号在实验室里就严格为零。
 
 这一章，我们依据 Simpson 的手性非线性光学对称性理论以及 Elsa Yan 教授 2014 年的 *Chemical Reviews* 综述，不写一行繁琐的旋转矩阵，仅凭**两次简单的空间变换**，把这个“守门人”的规则彻底看穿。
+
+![Yan EC; Fu L; Wang Z; Liu W Biological macromolecules at interfaces probed by chiral vibrational sum frequency generation spectroscopy. Chem. Rev 2014, 114, 8471–8498](images/paste-46.png)
 
 #### 1. 建立实验室的“舞台”：坐标系与二阶极化
 

@@ -15,6 +15,7 @@ format:
     toc-depth: 4
     html-math-method: mathjax
 ---
+
 # 第二章：偏振选择定则——为什么 Yan 最终选择 $\chi_{ZYX}^{(2)}$？
 
 **本章核心问题：** 既然宏观手性界面（$C_\infty$）允许 6 个正交手性张量元同时非零，为什么在实际的手性水 SFG 实验中，我们只盯着 $\chi_{ZYX}^{(2)}$ 这一项？

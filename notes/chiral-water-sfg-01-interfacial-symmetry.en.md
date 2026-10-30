@@ -18,6 +18,8 @@ format:
 
 # Chapter 1. Macroscopic Symmetry: Why Can Chiral Interfaces Have Additional Second-Order Susceptibility Components?
 
+![from AI](images/paste-51.png)
+
 **The question we want to answer:** The second-order susceptibility tensor $\chi_{IJK}^{(2)}$ has 27 Cartesian components. Which of them can actually be nonzero at an interface? More importantly, why does $\chi_{ZYX}^{(2)}$ tell us something special about macroscopic chirality?
 
 Suppose we want to use sum-frequency generation (SFG) to study the water surrounding DNA or proteins. Before worrying about quantum mechanics or the vibrations of individual molecules, we have to answer a simpler question: **Does the symmetry of the interface even allow the optical signal we want to measure?**
@@ -25,6 +27,8 @@ Suppose we want to use sum-frequency generation (SFG) to study the water surroun
 Think of symmetry as a **gatekeeper**. A molecule may vibrate as strongly as it likes, but if the macroscopic symmetry forbids the corresponding nonlinear optical response, the signal cancels out to zero.
 
 We can understand this without going through pages of rotation matrices. Using the symmetry arguments developed in Simpson's work on chiral nonlinear optics and discussed in Elsa Yan's 2014 *Chemical Reviews* review, we only need **two spatial transformations**.
+
+![Yan EC; Fu L; Wang Z; Liu W Biological macromolecules at interfaces probed by chiral vibrational sum frequency generation spectroscopy. Chem. Rev 2014, 114, 8471–8498](images/paste-46.png)
 
 #### 1. First, Define the Coordinates and the Second-Order Polarization
 
@@ -144,7 +148,7 @@ which is only possible when $\chi_{ZYX}^{(2)}=0$.
 Here is the result of the two symmetry tests:
 
 | Interfacial symmetry | Physical picture | Allowed Cartesian components | Independent coefficients |
-|:----------------|:----------------|:-----------------:|:-----------------:|
+|:-----------------|:-----------------|:----------------:|:----------------:|
 | **Achiral** $C_{\infty v}$ | Rotational isotropy and vertical mirror symmetry; e.g., an ordinary pure-water interface | **7** | **4** |
 | **Chiral** $C_\infty$ | Rotational isotropy without vertical mirror symmetry; e.g., a macroscopically chiral DNA/protein hydration interface | **13** | **7** |
 

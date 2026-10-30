@@ -15,6 +15,7 @@ format:
     toc-depth: 4
     html-math-method: mathjax
 ---
+
 # 第四章：单根 O–H 的微观对称性——为什么有手性排列，信号仍然可能为零？
 
 **本章核心问题：** 宏观群论（第一章）允许 $\chi_{ZYX}^{(2)}$ 非零，空间几何（第三章）也确认 DNA 把周围的水排成了手性螺旋，为什么当我们把水合层拆成一根根独立的 O–H 振子去计算时，算出来的手性信号却严格等于零？
@@ -41,7 +42,7 @@ format:
 1.  **红外偶极矩怎么变？** 当这根 O–H 键沿着键轴 $\mathbf{u}$ 伸长或缩短时，偶极矩的变化方向自然严格顺着键轴 $\mathbf{u}$：
 
     $$
-    \boldsymbol{\mu}'=\mu'\mathbf{u}
+    {\mu}'=\mu'\mathbf{u}
     \qquad
     (\text{即第 } K \text{ 分量为 } \mu'_K=\mu'u_K)
     $$

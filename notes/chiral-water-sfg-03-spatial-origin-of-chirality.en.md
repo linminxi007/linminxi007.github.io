@@ -18,6 +18,8 @@ format:
 
 # Chapter 3. The Spatial Origin of Chirality: How Can Achiral Water Form a Chiral Hydration Structure?
 
+![https://www.chemistryworld.com/news/dna-helix-has-chiral-water-spine/](images/paste-50.png){width="109"}
+
 **The question we want to answer:** A single $\mathrm{H_2O}$ molecule is not chiral. So how can the water molecules surrounding DNA form a chiral structure? And if countless DNA molecules are randomly oriented within the interfacial plane, why doesn't their chirality disappear when we average over all of them?
 
 In the first two chapters, we started from macroscopic group theory and polarization selection rules. We found that when an interface loses its vertical mirror symmetry—going from $C_{\infty v}$ to $C_\infty$—the chiral susceptibility component $\chi_{ZYX}^{(2)}$ becomes allowed. We also saw how psp polarization can isolate this component.
@@ -34,17 +36,19 @@ An ordinary rectangular brick has no handedness. There is no such thing as an in
 
 In chemistry and physics, we need to distinguish two different levels of chirality:
 
-1. **Intrinsic molecular chirality:** This is determined by the geometry of the covalent bonds within an individual, isolated molecule. A single water molecule ($\mathrm{H_2O}$) has a bent, planar structure and belongs to the $C_{2v}$ point group. It has two mutually perpendicular mirror planes: the molecular plane and the plane perpendicular to it that bisects the H–O–H bond angle. If we put a water molecule in front of a mirror, we can rotate its mirror image until it perfectly overlaps with the original. So an isolated water molecule is **achiral**.
+1.  **Intrinsic molecular chirality:** This is determined by the geometry of the covalent bonds within an individual, isolated molecule. A single water molecule ($\mathrm{H_2O}$) has a bent, planar structure and belongs to the $C_{2v}$ point group. It has two mutually perpendicular mirror planes: the molecular plane and the plane perpendicular to it that bisects the H–O–H bond angle. If we put a water molecule in front of a mirror, we can rotate its mirror image until it perfectly overlaps with the original. So an isolated water molecule is **achiral**.
 
-2. **Supramolecular structural chirality:** This is determined by how many molecules are positioned and oriented relative to one another in three-dimensional space. When hundreds or thousands of achiral water molecules form a hydrogen-bond network, their collective arrangement can become helical or twisted. Such an arrangement may no longer have mirror symmetry, even though every water molecule in it is achiral.
+2.  **Supramolecular structural chirality:** This is determined by how many molecules are positioned and oriented relative to one another in three-dimensional space. When hundreds or thousands of achiral water molecules form a hydrogen-bond network, their collective arrangement can become helical or twisted. Such an arrangement may no longer have mirror symmetry, even though every water molecule in it is achiral.
 
 $$
 \boxed{\text{Intrinsic molecular chirality} \ne \text{Supramolecular structural chirality}}
 $$
 
-This is the first point we need to understand about chiral hydration water. **When we ask whether a hydration layer is chiral, we are not asking whether an isolated $\mathrm{H_2O}$ molecule is chiral. We are asking whether the three-dimensional arrangement of the entire hydration structure is chiral.**
+This is the first point we need to understand about chiral hydration water. **When we ask whether a hydration layer is chiral, we are not asking whether an isolated** $\mathrm{H_2O}$ molecule is chiral. We are asking whether the three-dimensional arrangement of the entire hydration structure is chiral.
 
 ## 3.2 How Does DNA Transfer Its Helical Chirality to Water?
+
+![Yan, Chem. Sci., 2025, 16, 6853](images/paste-48.png){width="320"}
 
 Water molecules at an ordinary water interface do not spontaneously organize into a spiral staircase with one preferred handedness. So what acts as the scaffold that guides them into a chiral arrangement?
 
@@ -124,7 +128,7 @@ The two types of SFG therefore respond to different kinds of order:
 
 - **Conventional achiral SFG (such as ssp):** It is sensitive to interfacial inversion-symmetry breaking and orientational order, represented here by $\langle\mu_Z\rangle\neq0$. In this picture, it can receive contributions from the first hydration layer, the second layer, and more distant water molecules whose orientations are influenced by the electrostatic field.
 
-- **Chiral SFG (such as the $\chi_{ZYX}^{(2)}$ response measured with psp):** A simple upward or downward orientational bias is not sufficient. This channel is sensitive to the part of the hydration structure that breaks **vertical mirror symmetry**, rather than merely having a preferred direction along $Z$.
+- **Chiral SFG (such as the** $\chi_{ZYX}^{(2)}$ response measured with psp): A simple upward or downward orientational bias is not sufficient. This channel is sensitive to the part of the hydration structure that breaks **vertical mirror symmetry**, rather than merely having a preferred direction along $Z$.
 
 This distinction is also central to the 2024 experimental and molecular-dynamics (MD) study of DNA hydration by Elsa Yan's group, which we will discuss in more detail in Chapter 6. According to the interpretation presented there, the water molecules closest to the DNA grooves and backbone—in the first hydration shell—inherit the chiral spatial correlations responsible for the $\chi_{ZYX}^{(2)}$ response. Water farther away may still feel DNA's electrostatic field and retain an orientational preference ($\langle\boldsymbol{\mu}\rangle\neq0$), but its statistical distribution becomes mirror-symmetric, so its contribution to the chiral SFG response vanishes.
 
