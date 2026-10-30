@@ -19,9 +19,9 @@ draft: false
 
 You can drag the target and see its calculated projection on the camera screen.
 
-<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html" target="_blank"> Open ↗ </a>
+<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html" target="_blank"> Open ↗ </a>
 
-<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html" download> Download HTML ↓ </a>\[1\]
+<a href="../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html" download> Download HTML ↓ </a>\[1\]
 
 In **RoboMaster** competitions, we often need to use **coordinate transformations** to identify, locate, and automatically aim at targets that move and rotate at high speed.
 
@@ -162,7 +162,7 @@ So coordinate transformations in robotics can be used as a very intuitive classi
 
 # References {#references}
 
-\[1\] Interactive HTML for the automatic aiming system: `../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.html`
+\[1\] Interactive HTML for the automatic aiming system: `../files/robo/robomaster_coordinate_transform_matrix_tracker_latest_version.en.html`
 
 \[2\] RoboMaster official channel:\
 https://www.youtube.com/@RoboMaster/featured
