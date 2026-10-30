@@ -8,6 +8,26 @@
   const track = section.querySelector('.research-gallery-track');
   const previous = section.querySelector('[data-gallery-prev]');
   const next = section.querySelector('[data-gallery-next]');
+  // Keep navigation beside the scrolling cards, outside the scrollable track.
+  const viewport = document.createElement('div');
+  viewport.className = 'research-gallery-viewport';
+  track.before(viewport);
+  viewport.append(previous, track, next);
+  function setChevron(button, points) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('focusable', 'false');
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+    line.setAttribute('points', points);
+    svg.appendChild(line);
+    button.replaceChildren(svg);
+  }
+  setChevron(previous, '15,4 8,12 15,20');
+  setChevron(next, '9,4 16,12 9,20');
+  previous.setAttribute('aria-controls', 'research-gallery-track');
+  next.setAttribute('aria-controls', 'research-gallery-track');
+  track.id = 'research-gallery-track';
   const counter = section.querySelector('[data-gallery-counter]');
   const status = section.querySelector('[data-gallery-status]');
   const root = new URL(document.body.dataset.root || './', window.location.href);

@@ -48,3 +48,75 @@
   .home-gallery { padding-bottom: 28px; }
 }
 
+
+/* Gallery side navigation: matches the floating utility buttons, without shadows. */
+.home-gallery > .research-gallery-viewport {
+  position: relative;
+  order: 1;
+  min-width: 0;
+}
+.research-gallery-viewport > .research-gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  min-height: 64px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  background: linear-gradient(145deg, rgb(255 255 255 / .30), rgb(255 255 255 / .03) 52%, rgb(255 255 255 / .10)), color-mix(in srgb, var(--surface) 28%, transparent);
+  border-color: color-mix(in srgb, var(--ink) 14%, transparent);
+  border-top-color: rgb(255 255 255 / .55);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+  backdrop-filter: blur(18px) saturate(155%);
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+  color: var(--ink);
+  box-shadow: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+.research-gallery-viewport > [data-gallery-prev] { left: 4px; }
+.research-gallery-viewport > [data-gallery-next] { right: 4px; }
+.research-gallery-viewport > .research-gallery-nav:hover:not(:disabled) {
+  background: linear-gradient(145deg, rgb(255 255 255 / .40), rgb(255 255 255 / .06)), color-mix(in srgb, var(--surface) 40%, transparent);
+  color: var(--wood-dark);
+  box-shadow: none;
+}
+.research-gallery-viewport > .research-gallery-nav:active:not(:disabled) { box-shadow: none; }
+.research-gallery-viewport > .research-gallery-nav:focus-visible {
+  outline: 2px solid var(--wood-dark);
+  outline-offset: 3px;
+}
+.research-gallery-viewport > .research-gallery-nav:disabled { opacity: .35; cursor: default; }
+@media (max-width: 720px) {
+  .research-gallery-viewport > .research-gallery-nav {
+    width: 52px;
+    height: 52px;
+    min-height: 52px;
+    padding: 4px;
+    border-radius: 15px;
+  }
+}
+.research-gallery-viewport > .research-gallery-nav svg {
+  display: block;
+  width: 26px;
+  height: 26px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .research-gallery-viewport > .research-gallery-nav {
+    background: color-mix(in srgb, var(--surface) 85%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .research-gallery-viewport > .research-gallery-nav { transition: none; }
+}
