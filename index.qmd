@@ -47,13 +47,8 @@ READING ROOM / V3.1
 </div>
 
 <h2>
-<span class="lang-zh">
-费曼说:如果你只知道鸟的名字你并不理解这只鸟。
-</span>
-<span class="lang-en">
-Feynman said,<br>
- "If you only know the name of a bird, you don't understand the bird."
-</span>
+There is a difference between the name of the thing and what goes on.<br>
+Feynman
 </h2>
 
 

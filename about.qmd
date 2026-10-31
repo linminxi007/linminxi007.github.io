@@ -1,11 +1,39 @@
 ---
-title: "关于这个笔记空间"
-kicker: "ABOUT / THE NOTEBOOK"
-description: "保留问题、推导和资料之间的联系。"
+title: "这是一段意识流的自我介绍。"
+kicker: "ABOUT / STREAM OF CONSCIOUSNESS"
+description: 'This is a stream-of-consciousness "About Me."'
 toc: false
 ---
 
 ```{=html}
-<section data-lang="zh"><h2>linminxi007</h2><p>这里用于整理数学、物理、化学与光谱相关的学习和研究笔记。内容可以持续修订，正文与图像、源码、交互结果通过链接连接。</p><h2>当前版本</h2><p>当前展示的是网站阅读界面与演示笔记，尚未加入新上传的科研文档。个人介绍、所属机构和研究成果没有代为编造。</p><h2>阅读方式</h2><p>左侧目录可以收起，右上角 A / 小 A 分别提供字号与字重设置。中英文界面与对应译稿可以切换，缺失译稿会明确说明。</p><p><a href="style-guide.html">查看可点击的按钮与控件样板 ↗</a></p></section>
-<section data-lang="en"><h2>linminxi007</h2><p>A place for notes in mathematics, physics, chemistry and spectroscopy. Notes can remain works in progress, with links to images, source files and interactive results.</p><h2>This version</h2><p>The current content demonstrates the reading interface. No newly uploaded research documents have been incorporated. Biographical details, affiliations and research results have not been invented.</p><h2>Reading</h2><p>Collapse the contents on the left. Adjust text size and weight at the upper right. Change the interface language or open a translated note when available; missing translations are explicitly marked.</p><p><a href="style-guide.html">Try the button and control samples ↗</a></p></section>
+<section data-lang="zh">
+<h2>这是一段意识流的自我介绍。</h2>
+<p>我突然有一种很奇妙的感觉：后来我才明白该死的线性代数在做什么。PCA 和 SVD 教会我从高维数据投影到低维，就像《三体》中的高级文明直接把你拍扁。那种数学上的感觉，在量子力学中也被延续下去。</p>
+<p>随机森林背后的信息熵还有高维流形也让我着迷。香农真聪明。</p>
+<p>从 GNN、PINN 走到了 SO(3) 等变图神经网络（SO(3)-GNN），把坐标写进球谐函数——这个没有什么意思，The Bitter Lesson?</p>
+<p><strong>樱井纯（J. J. Sakurai）的《现代量子力学》</strong>真的太美了。我最喜欢他的逻辑：如果哈密顿量在某种变换下保持不变，这个变换的生成元就和哈密顿量对易，对应的物理量就守恒。平移不变性、时间不变性、旋转不变性，给出了动量、能量和角动量守恒……</p>
+<p>然后，这种对称性的直觉突然把我以前做过的机器人视觉和现在的分子光谱连了起来。</p>
+<p>听王鸿飞说，杨振宁一开始也是做光谱的，他从中学会了对称性。我不能忘记第一次在樱井纯书中读到两种 NH₃ 的不对称、吴先生（吴健雄）的实验，还有 CISS（手性诱导自旋选择）时的感觉。真奇妙，但是我感觉我搞不懂它们。</p>
+<p>我喜欢阿金斯（Atkins）的《物理化学》，只有看他的群论我才能明白。其他的群论书和该死的线性代数一样。</p>
+<p>我掉进了水溶液和电子的世界里。两能级模型、Marcus 理论、谐振子热浴、Jortner 的高频量子振动、Newns-Anderson 模型、Schmickler 模型，还有费曼路径积分。一开始它们看起来完全不一样，绝热与非绝热、隧穿与跳跃，真让我头晕。不过它们都能回到费米黄金法则。</p>
+<p>为什么成千上万个水分子那么混乱的热运动，最后画出来的自由能面偏偏是抛物线？因为在微观溶剂极化的涨落里，中心极限定理生效了！自由能上的抛物线，其实就是概率分布上的高斯分布。</p>
+<p>受到Hongliang Xin和Jun Huang的影响，我也开始着迷于那些古老文献。电极电势一点也不简单。当我们在测量电极电势的时候，我们到底在测什么？在理论计算里，我们甚至怎么知道自己处在哪个电势下？不可思议的是，很多催化文章根本不关心电极电势到底是什么，却能算出和实验完美吻合的结果。作为一个曾经的 DFT 熟练按键操作员，我对此鄙视、鄙视、鄙视。</p>
+<p>那些 SFG 研究者在分子的几何空间里倒来倒去，寻找几何上的组合，从而“看见”分子，看起来是聪明人的工作。</p>
+<p>我越来越觉得自己是个笨B了。就这样。</p>
+</section>
+<section data-lang="en">
+<h2>This is a stream-of-consciousness &quot;About Me.&quot;</h2>
+<p>One day, a strange feeling hit me: I only realized much later what damned linear algebra was actually doing. PCA and SVD taught me how to project high-dimensional data down to low dimensions—just like an advanced civilization in The Three-Body Problem flattening you into a 2D foil. That exact mathematical feeling carried right over into quantum mechanics.</p>
+<p>The information entropy behind Random Forests and high-dimensional manifolds also fascinate me. Shannon was so smart.</p>
+<p>I went from GNNs and PINNs to SO(3)-equivariant graph neural networks (SO(3)-GNNs), stuffing coordinates into spherical harmonics—honestly, it's not that interesting anymore. The Bitter Lesson?</p>
+<p>J. J. Sakurai's Modern Quantum Mechanics is truly beautiful. I love his logic: if a Hamiltonian is invariant under a transformation, the generator of that transformation commutes with the Hamiltonian, and the corresponding physical quantity is conserved. Translational, time, and rotational invariance give us conservation of momentum, energy, and angular momentum...</p>
+<p>Then, this intuition for symmetry suddenly connected the robot vision I used to do with the molecular spectroscopy I study now.</p>
+<p>I heard from Hongfei Wang that C. N. Yang also started out in spectroscopy, and that's where he learned symmetry. I can never forget the feeling of first reading about the inversion asymmetry of NH₃ in Sakurai's book, Madame Wu's parity violation experiment, and CISS (Chiral-Induced Spin Selectivity). It is so magical, even though I feel like I don't really understand them at all.</p>
+<p>I love Atkins' Physical Chemistry. Only his chapter on group theory actually makes sense to me. Every other group theory book reads just like that damned linear algebra.</p>
+<p>Then I fell into the world of aqueous solutions and electrons. Two-level models, Marcus theory, harmonic baths, Jortner's high-frequency quantum vibrations, the Newns-Anderson model, Schmickler's model, and Feynman path integrals. At first they looked completely different—adiabatic vs. non-adiabatic, tunneling vs. hopping—it really made my head spin. Yet in the end, they all go back to Fermi's Golden Rule.</p>
+<p>Why does the chaotic thermal motion of thousands of water molecules end up giving free energy surfaces that are simple parabolas? Because in the microscopic fluctuations of solvent polarization, the Central Limit Theorem kicks in! A parabola in free energy is simply a Gaussian in probability distribution.</p>
+<p>Influenced by Hongliang Xin and Jun Huang, I also became obsessed with old papers. "Electrode potential" is not simple at all. When we measure electrode potential, what are we actually measuring? In theoretical calculations, how do we even know what potential we are at? It is unbelievable that so many catalysis papers don't care at all what electrode potential really is, yet still get results that match experiments perfectly. As a former skilled DFT button-pusher, I despise this, despise this, despise this.</p>
+<p>Those SFG researchers keep flipping things back and forth in molecular geometric space, hunting for the right geometric combinations just to "see" molecules. It looks like work for smart people.</p>
+<p>I feel more and more like an idiot. That's it.</p>
+</section>
 ```
