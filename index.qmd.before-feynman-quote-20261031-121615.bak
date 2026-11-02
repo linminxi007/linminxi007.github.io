@@ -1,0 +1,112 @@
+---
+title: "笔记与思考"
+description: "以费曼式理解为核心，连接光谱、量子力学、计算化学与人工智能。"
+toc: false
+---
+
+```{=html}
+<section class="home-hero">
+
+<div>
+
+<div class="eyebrow">
+
+</div>
+
+<h1>
+
+<span class="lang-zh">
+那么，<br>
+电子是怎么转移的呢 <span class="accent">? </span>
+</span>
+
+<span class="lang-en">
+Then,<br>
+how do  <span class="accent">electrons transfer?</span>
+</span>
+
+</h1>
+
+
+
+<a class="soft-button button-jump"
+href="notes/index.html">
+
+<span class="lang-zh">全部笔记</span>
+<span class="lang-en">All Notes</span>
+<span aria-hidden="true">↗</span>
+
+</a>
+
+</div>
+
+<aside class="home-side">
+
+<div class="eyebrow">
+READING ROOM / V3.1
+</div>
+
+<h2>
+<span class="lang-zh">
+费曼说:如果你只知道鸟的名字你并不理解这只鸟。
+</span>
+<span class="lang-en">
+Feynman said,<br>
+ "If you only know the name of a bird, you don't understand the bird."
+</span>
+</h2>
+
+
+
+
+
+<div class="axis-decoration" aria-hidden="true">
+<i></i>
+<i></i>
+<i></i>
+<i></i>
+<i></i>
+</div>
+
+</aside>
+
+</section>
+
+<section class="home-recent" id="recent">
+
+
+
+</section>
+```
+
+```{=html}
+<!-- RESEARCH GALLERY: BEGIN -->
+<link rel="stylesheet" href="assets/gallery.css">
+<section class="home-gallery" id="research-gallery" aria-label="Research Gallery">
+  <div class="section-heading">
+    <h2><span class="lang-zh">相册</span><span class="lang-en">Research Gallery</span></h2>
+    <span>VISUAL RESEARCH NOTES</span>
+  </div>
+  <div class="research-gallery-controls">
+    <span class="research-gallery-counter" data-gallery-counter aria-live="off">00 / 00</span>
+    <button class="research-gallery-nav" data-gallery-prev type="button" aria-label="上一张 / Previous" disabled>‹</button>
+    <button class="research-gallery-nav" data-gallery-next type="button" aria-label="下一张 / Next" disabled>›</button>
+  </div>
+  <div class="research-gallery-track" aria-label="Article illustrations" role="region" tabindex="0"></div>
+  <p class="research-gallery-status" data-gallery-status role="status"></p>
+  <noscript>请开启 JavaScript 以显示相册。 / Enable JavaScript to see this gallery.</noscript>
+</section>
+<script defer src="assets/gallery.js"></script>
+<!-- RESEARCH GALLERY: END -->
+```
+
+::::: {#recent-notes-render .home-recent}
+::: section-heading
+<h2>[最近 3 篇笔记]{.lang-zh} [Recent Research Notes]{.lang-en}</h2>
+
+RECENT RESEARCH NOTES
+:::
+
+::: {#latest-notes}
+:::
+:::::
