@@ -1,6 +1,6 @@
 # GA4 管理与验证
 
-Stream name: `minxi website`；Stream ID: `16260408262`；Measurement ID: `G-NW39FZTLSN`。共享模板加载 `assets/analytics.js`，访客同意后初始化 GA4。全部 Quarto 页面覆盖，PDF、图片及附件本身不执行统计脚本。
+Stream name: `minxi website`；Stream ID: `16260408262`；Measurement ID: `G-NW39FZTLSN`。共享模板加载 `assets/analytics.js`，默认初始化 GA4，不自动弹出提示；已选择关闭的浏览器继续保持关闭。默认启用不是访客主动同意的证据；需要事前同意时应恢复 opt-in 实现。全部 Quarto 页面覆盖，PDF、图片及附件本身不执行统计脚本。
 
 ## 首次上线后的后台设置
 
@@ -14,7 +14,7 @@ Stream name: `minxi website`；Stream ID: `16260408262`；Measurement ID: `G-NW3
 
 在 Reports → Engagement → Pages and screens（网页和屏幕）选择页面路径维度，筛选 `/notes/`；查看 Views、Active users 和 Average engagement time。报告菜单可能因属性采用的报表集合不同而变化，可在 GA4 搜索框搜索 Pages and screens。
 
-平均互动时长表示前台互动时间，口径依所选指标而定，并非每次打开文章的平均阅读耗时。UV 是估算用户，不能识别某位教授，也不能排除所有机器人。未同意、被拦截或网络不可达的访问不被采集；历史数据不能回填。
+平均互动时长表示前台互动时间，口径依所选指标而定，并非每次打开文章的平均阅读耗时。UV 是估算用户，不能识别某位教授，也不能排除所有机器人。已关闭统计、被拦截或网络不可达的访问不被采集；历史数据不能回填。
 
 来源、国家、设备分别见 Acquisition、Demographic details、Tech details。代码仅保留来源 origin、移除页面查询参数和片段；不采集站内搜索词，UTM 查询参数也不保留，因此不会按这些参数归因自定义推广活动。
 
@@ -32,11 +32,11 @@ GA4 原生的 90% `scroll` 与此事件不同；本站不手动发送名为 `scr
 
 ## Realtime / DebugView
 
-1. 打开线上首页或 Note，点击“允许”，在 Realtime 查看 `page_view`。
-2. 给任意线上 Note 加 `?analytics_debug=1`，同意后滚动正文，在 Admin → DebugView 查看 `note_scroll_depth` 的三个参数。可以先用一篇未读过的 Note；同一标签页已达到的阈值不重发。新的独立标签页会话或新浏览器会话可重新验证。
-3. 普通访问不设置 `debug_mode`。预览主机默认禁止统计；只有显式加上 `?analytics_debug=1` 并同意，才允许发测试数据。调试访问仍会进入属性，是否排除取决于 GA4 的开发者流量过滤器。
-4. 若无数据，检查同意状态、部署完成情况、广告拦截及 Google 域名是否在当前网络可达；不要把前端排队成功当成 GA4 已收到。可使用 Google Tag Assistant 进一步验证。
-5. 页脚“统计设置”可撤回，删除本站可访问的 GA Cookie 并刷新；其他标签页会通过 storage 事件同步停止。
+1. 打开线上首页或 Note（默认启用），在 Realtime 查看 `page_view`。
+2. 给任意线上 Note 加 `?analytics_debug=1`，滚动正文，在 Admin → DebugView 查看 `note_scroll_depth` 的三个参数。可以先用一篇未读过的 Note；同一标签页已达到的阈值不重发。新的独立标签页会话或新浏览器会话可重新验证。
+3. 普通访问不设置 `debug_mode`。预览主机默认禁止统计；只有显式加上 `?analytics_debug=1` 且未关闭统计，才允许发测试数据。调试访问仍会进入属性，是否排除取决于 GA4 的开发者流量过滤器。
+4. 若无数据，检查统计开关状态、部署完成情况、广告拦截及 Google 域名是否在当前网络可达；不要把前端排队成功当成 GA4 已收到。可使用 Google Tag Assistant 进一步验证。
+5. 页脚“统计设置”可关闭统计，删除本站可访问的 GA Cookie 并刷新；其他标签页会通过 storage 事件同步停止。
 
 ## 本地检查与 Windows 同步
 
@@ -45,6 +45,8 @@ cd D:\linminxi007.github.io
 git status
 # 确认没有与本次改动冲突的本地未提交修改后再同步：
 git pull --ff-only origin main
+# 必须确认上一条拉取成功，再执行后续命令。
+# node 只用于开发测试；系统未安装 Node.js 可跳过此行。
 node --test tests/analytics.test.cjs
 quarto render
 python tests/check-analytics-html.py
@@ -52,3 +54,5 @@ quarto preview
 ```
 
 本次远程环境无法访问 Windows D 盘；云端推送不会自动更新 D 盘副本。不要在存在未提交修改时强制覆盖。
+
+连接 github.com:443 超时意味着拉取没有成功。`git status` 只比较上次成功获取的 origin/main，不能证明与线上最新版本同步。不要在拉取失败后继续按新版测试。Quarto 的 Node.js 测试不是部署前提，GitHub Actions 会构建并发布线上网站。

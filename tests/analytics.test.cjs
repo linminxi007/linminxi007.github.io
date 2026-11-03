@@ -49,12 +49,22 @@ function fixture({path = '/notes/test.html', host = 'linminxi007.github.io', que
   };
 }
 
-test('no Google requests or events before opt-in; decline remains disabled', () => {
-  const f = fixture(); assert.equal(f.nodes['analytics-consent'].hidden, false);
-  f.depth(90); assert.equal(f.scripts.length, 0); assert.equal(f.events().length, 0);
-  f.click('analytics-decline'); assert.equal(f.scripts.length, 0);
+test('first visit starts analytics without a popup or synthetic saved opt-in', () => {
+  const f = fixture(); assert.equal(f.nodes['analytics-consent'].hidden, true);
+  assert.equal(f.scripts.length, 1); assert.equal(f.local.has(choiceKey), false);
+  f.depth(90); assert.equal(f.events().length, 4);
+  f.click('analytics-decline'); const count = f.events().length; f.depth(95);
+  assert.equal(f.events().length, count);
   assert.equal(f.context['ga-disable-G-NW39FZTLSN'], true);
   const reload = fixture({local: f.local}); assert.equal(reload.scripts.length, 0);
+  assert.equal(reload.nodes['analytics-consent'].hidden, true);
+});
+test('previous refusals remain disabled; enabling from the footer starts once', () => {
+  const f = fixture({choice: 'denied'});
+  assert.equal(f.scripts.length, 0); f.depth(90); assert.equal(f.events().length, 0);
+  f.click('analytics-settings'); assert.equal(f.nodes['analytics-consent'].hidden, false);
+  f.click('analytics-accept'); assert.equal(f.scripts.length, 1);
+  assert.equal(f.nodes['analytics-consent'].hidden, true);
 });
 test('one initialization and automatic pageview; repeated accept/script do not duplicate', () => {
   const f = fixture(); f.click('analytics-accept'); f.click('analytics-accept'); f.rerun();
@@ -112,12 +122,12 @@ test('blocked storage does not break opt-in or in-document deduplication', () =>
 });
 test('expired, invalid or future-dated consent is not reused', () => {
   for (const data of ['bad', JSON.stringify({value: 'granted', at: 1}), JSON.stringify({value: 'granted', at: Date.now() + 100000})]) {
-    const f = fixture({local: new Map([[choiceKey, data]])}); assert.equal(f.scripts.length, 0); assert.equal(f.nodes['analytics-consent'].hidden, false);
+    const f = fixture({local: new Map([[choiceKey, data]])}); assert.equal(f.scripts.length, 1); assert.equal(f.nodes['analytics-consent'].hidden, true); assert.equal(f.local.get(choiceKey), data);
   }
 });
-test('preview excluded by default; debug requires opt-in and sets debug_mode', () => {
+test('preview excluded by default; explicit debug starts analytics and sets debug_mode', () => {
   const preview = fixture({host: 'localhost', choice: 'granted'}); assert.equal(preview.scripts.length, 0);
-  const debug = fixture({host: 'localhost', query: '?analytics_debug=1'}); assert.equal(debug.scripts.length, 0);
+  const debug = fixture({host: 'localhost', query: '?analytics_debug=1'}); assert.equal(debug.scripts.length, 1);
   debug.click('analytics-accept'); assert.equal(debug.messages().find(x => x[0] === 'config')[2].debug_mode, true);
 });
 test('query strings, fragment and referrer paths are excluded; ads disabled', () => {
@@ -126,4 +136,10 @@ test('query strings, fragment and referrer paths are excluded; ads disabled', ()
   assert.equal(config.page_location, 'https://linminxi007.github.io/notes/test.html');
   assert.equal(config.page_referrer, 'https://example.edu/');
   assert.equal(config.allow_google_signals, false); assert.equal(config.allow_ad_personalization_signals, false);
+});
+
+test('removing the saved preference restores the default without opening a panel', () => {
+  const f = fixture({choice: 'denied'}); f.local.delete(choiceKey);
+  f.listeners.storage({key: choiceKey}); assert.equal(f.scripts.length, 1);
+  assert.equal(f.nodes['analytics-consent'].hidden, true);
 });

@@ -5,11 +5,11 @@ toc: false
 
 ## 网站统计
 
-本网站由 GitHub Pages 托管。只有在你点击“允许”后，才会加载 Google Analytics 4（GA4，统计 ID：`G-NW39FZTLSN`），使用第一方 Cookie 统计页面浏览量、估算独立访客、互动时长、访问来源、大致地区、设备及笔记正文阅读深度。拒绝不影响阅读。
+本网站由 GitHub Pages 托管。默认加载 Google Analytics 4（GA4，统计 ID：`G-NW39FZTLSN`），使用第一方 Cookie 统计页面浏览量、估算独立访客、互动时长、访问来源、大致地区、设备及笔记正文阅读深度。关闭统计不影响阅读。首次访问不会自动弹出统计设置；默认开启不表示你曾主动同意。
 
 本网站不会主动采集或向 GA4 发送姓名、邮箱、原始 IP 或搜索输入；统计配置移除页面 URL 的查询参数和片段，仅保留来源网站的域名。Google 接收网络请求时会处理 IP 以提供服务与推断大致地区；GA4 不向本站提供访客原始 IP 列表。这些数据不能用于识别某位教授或读者。
 
-广告存储、广告个性化和 Google Signals 均关闭。你可以在任何页面底部的“统计设置”中拒绝或撤回同意。撤回后会清除本站可访问的 GA Cookie 并刷新页面，停止后续采集；已收集的数据不会因此自动删除。
+广告存储、广告个性化和 Google Signals 均关闭。你可以在任何页面底部的“统计设置”中关闭统计。关闭后会清除本站可访问的 GA Cookie 并刷新页面，停止后续采集；已收集的数据不会因此自动删除。
 
 统计选择保存在当前浏览器，有效期 180 天；GA Cookie 有效期最长 180 天，可随访问更新。正文阅读深度的去重记录保存在当前标签页的 `sessionStorage` 中，通常随标签页会话结束而清除。正文达到 25%、50%、75%、90% 时，各阈值在同一标签页会话、同一 URL 下最多记录一次；中英文 URL 分别统计。滚动深度表示正文被展示到的位置，并不证明认真读完。
 
@@ -17,10 +17,10 @@ GA4 的数据保留和访问权限由网站管理员在 Google Analytics 中管�
 
 ## Website analytics
 
-This site is hosted on GitHub Pages. Google Analytics 4 (`G-NW39FZTLSN`) loads only after you choose **Allow**. It uses first-party cookies to measure page views, estimated unique users, engagement time, referral sites, approximate region, device and note reading depth. Declining does not affect reading.
+This site is hosted on GitHub Pages. Google Analytics 4 (`G-NW39FZTLSN`) is enabled by default unless you have turned analytics off in this browser. The settings panel does not open automatically. Default enablement is not a record of affirmative consent. It uses first-party cookies to measure page views, estimated unique users, engagement time, referral sites, approximate region, device and note reading depth. Turning analytics off does not affect reading.
 
 The site does not deliberately collect or send names, email addresses, raw IP addresses or search input to GA4. Page query strings and fragments are removed from the configured page URL; referrers are reduced to their origin. Google processes network IP addresses to deliver its service and derive approximate location; this site receives no raw visitor IP list. Analytics cannot identify individual readers.
 
-Advertising storage, ad personalization and Google Signals are disabled. You can withdraw consent through **Analytics settings** in the footer. Withdrawal clears accessible GA cookies and reloads the page to stop further collection; it does not erase previously collected data.
+Advertising storage, ad personalization and Google Signals are disabled. You can turn analytics off through **Analytics settings** in the footer. Turning analytics off clears accessible GA cookies and reloads the page to stop further collection; it does not erase previously collected data.
 
 Your choice is stored in this browser for 180 days. GA cookies last up to 180 days and may be renewed on visits. Per-note threshold deduplication uses tab-session storage, surviving reloads and language round trips. Each language has its own URL. Thresholds describe content exposure, not confirmed reading. Google Analytics retention is managed by the site administrator. See [Google's partner-site data policy](https://policies.google.com/technologies/partner-sites) and [GitHub's privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).

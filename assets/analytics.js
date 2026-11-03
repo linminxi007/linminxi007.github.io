@@ -1,4 +1,5 @@
-/* GA4 basic consent mode. No Google requests before opt-in. */
+/* GA4 analytics enabled by default, with a persistent visitor opt-out.
+   Default enablement is a site policy, not evidence of affirmative consent. */
 (() => {
   'use strict';
   if (window.ReadingRoomAnalytics) return;
@@ -124,14 +125,14 @@
   function updateLanguage() {
     const en = document.documentElement.dataset.ui === 'en';
     const labels = en ? {
-      'analytics-consent-title': 'Website analytics',
-      'analytics-consent-text': 'Allow Google Analytics cookies to measure visits, engagement time, reading depth, referral sources, approximate region and device? Declining does not affect reading. Change your choice anytime in the footer.',
-      'analytics-accept': 'Allow', 'analytics-decline': 'Decline',
+      'analytics-consent-title': 'Analytics settings',
+      'analytics-consent-text': 'This site enables Google Analytics cookies by default to measure visits, engagement time, reading depth, referral sources, approximate region and device. You can turn analytics off here without affecting reading.',
+      'analytics-accept': 'Enable analytics', 'analytics-decline': 'Turn off analytics',
       'analytics-settings': 'Analytics settings', 'analytics-privacy': 'Privacy notice'
     } : {
-      'analytics-consent-title': '网站统计',
-      'analytics-consent-text': '允许 Google Analytics 使用 Cookie 统计浏览量、互动时长、阅读深度、访问来源、大致地区和设备吗？拒绝不影响阅读，可在页脚随时更改。',
-      'analytics-accept': '允许', 'analytics-decline': '拒绝',
+      'analytics-consent-title': '统计设置',
+      'analytics-consent-text': '本网站默认启用 Google Analytics，使用 Cookie 统计浏览量、互动时长、阅读深度、访问来源、大致地区和设备。你可以在此关闭统计，不影响阅读。',
+      'analytics-accept': '启用统计', 'analytics-decline': '关闭统计',
       'analytics-settings': '统计设置', 'analytics-privacy': '隐私说明'
     };
     for (const [id, text] of Object.entries(labels)) {
@@ -151,11 +152,7 @@
   window.addEventListener('storage', event => {
     if (event.key !== consentKey) return;
     const value = readChoice();
-    if (value) setConsent(value, false);
-    else {
-      if (initialized) { window[disableKey] = true; location.reload(); }
-      else if (banner) banner.hidden = false;
-    }
+    setConsent(value || 'granted', false);
   });
   window.addEventListener('scroll', schedule, {passive: true});
   window.addEventListener('resize', schedule, {passive: true});
@@ -165,6 +162,7 @@
   new MutationObserver(updateLanguage).observe(document.documentElement, {attributes: true, attributeFilter: ['data-ui']});
   updateLanguage();
   const choice = readChoice();
-  if (choice) setConsent(choice, false);
-  else if (banner) banner.hidden = false;
+  // Do not persist a synthetic opt-in. Keep an existing explicit refusal.
+  // The preference panel opens only when the visitor clicks its footer button.
+  setConsent(choice || 'granted', false);
 })();

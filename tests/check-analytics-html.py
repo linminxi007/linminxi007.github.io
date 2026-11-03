@@ -26,7 +26,7 @@ for path in root.rglob('*.html'):
     if 'data-version="3.1"' not in html or '<body' not in html: continue  # copied attachments are not site pages
     parsed = Page()
     parsed.feed(html)
-    scripts = [s for s in parsed.scripts if 'assets/analytics.js?' in s]
+    scripts = [s for s in parsed.scripts if 'assets/analytics.js?v=2' in s]
     assert len(scripts) == 1, (path, scripts)
     assert not any('googletagmanager.com' in s for s in parsed.scripts), path
     for src in scripts + [s for s in parsed.links if 'assets/analytics.css?' in s]:
