@@ -1,0 +1,11 @@
+/* Isolated analytics controls; reuse the site's light/dark palette. */
+.analytics-settings { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.analytics-consent { position: fixed; z-index: 90; bottom: max(12px, env(safe-area-inset-bottom)); left: 16px; width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); overflow: auto; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--paper); color: var(--ink); box-shadow: var(--shadow-jump); font-size: 14px; line-height: 1.65; }
+.analytics-consent[hidden] { display: none; }
+.analytics-consent h2 { font-size: 17px; margin: 0 0 8px; }
+.analytics-consent p { margin: 0 0 14px; }
+.analytics-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.analytics-actions button { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 16px; cursor: pointer; }
+.analytics-actions a { color: var(--wood-dark); }
+.analytics-actions button:focus-visible, .analytics-settings:focus-visible { outline: 2px solid var(--wood); outline-offset: 3px; }
+@media print { .analytics-consent, .analytics-settings { display: none; } }

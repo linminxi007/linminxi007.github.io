@@ -12,6 +12,9 @@ $if(math)$$math$$endif$
 <link rel="stylesheet" href="$site-prefix$assets/site.css?v=3.1">
 
 <script defer src="$site-prefix$assets/site.js?v=3.1"></script>
+<!-- GA4 loads only after the visitor permits analytics. -->
+<link rel="stylesheet" href="$site-prefix$assets/analytics.css?v=1">
+<script defer src="$site-prefix$assets/analytics.js?v=1"></script>
 </head>
 <body class="$site-class$" data-root="$site-prefix$" data-page="$site-path$" data-content-lang="$site-lang$">
 <a class="skip-link" href="#main" data-i18n="skip">跳到正文</a>
@@ -78,7 +81,12 @@ $if(site-home)$$else$<div class="page-heading"><div class="eyebrow">$if(kicker)$
 <div class="page-content">$body$</div>
 $endif$
 </main>
-<footer class="site-footer"><span>linminxi007 <span class="footer-dot">/</span> <span data-i18n="footer">思考，记录，连接。</span></span><span>READING ROOM <span class="footer-dot">·</span> V3.1</span></footer>
+<footer class="site-footer"><span>linminxi007 <span class="footer-dot">/</span> <span data-i18n="footer">思考，记录，连接。</span></span><span><a href="$site-prefix$privacy.html">隐私 / Privacy</a> <span class="footer-dot">·</span> <button type="button" class="analytics-settings" id="analytics-settings">统计设置 / Analytics</button> <span class="footer-dot">·</span> READING ROOM V3.1</span></footer>
+<section class="analytics-consent" id="analytics-consent" aria-labelledby="analytics-consent-title" hidden>
+  <h2 id="analytics-consent-title">网站统计 / Website analytics</h2>
+  <p id="analytics-consent-text">允许 Google Analytics 使用 Cookie 统计浏览量、互动时长和阅读深度吗？拒绝不影响阅读。可在页脚随时更改。 Allow analytics cookies to measure visits, engagement and reading depth? You can decline and change this in the footer.</p>
+  <div class="analytics-actions"><button type="button" id="analytics-accept">允许 / Allow</button><button type="button" id="analytics-decline">拒绝 / Decline</button><a href="$site-prefix$privacy.html" id="analytics-privacy">隐私说明 / Privacy notice</a></div>
+</section>
 <!--<button class="top-button button-return" id="top-button" type="button" aria-label="回到顶部" title="回到顶部">
 <svg class="return-symbol" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
 <span>顶部</span>
