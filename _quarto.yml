@@ -10,6 +10,7 @@ project:
     - "notes/**/*.md"
     - "notes/**/*.qmd"
   resources:
+    - "robots.txt"
     - "assets/**"
     - "files/**"
 
