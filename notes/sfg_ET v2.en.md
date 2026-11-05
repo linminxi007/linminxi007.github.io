@@ -3,7 +3,7 @@ title: "Can Exciting Interfacial Water Vibrations Speed Up Electron Transfer? â€
 
 date: 2026-10-20
 
-description: "Can we use light to excite molecular vibrations and thereby affect electron transfer? And can we actually observe this effect experimentally?"
+description: "I'd like to connect SFG with electron transfer. At metal/water or air/water interfaces, the intermediates we can see with SFG are often the ones that react more slowly and have time to build up. If we want to speed things up, one idea is to lower the reorganization energy for electron transfer involving these intermediates. So, if SFG can pick up vibrations of the water molecules around them, such as HOH bending and OH stretching, and if ions and light itself can affect those vibrations, could we use that to make electron transfer faster?"
 
 categories:
   - Electron transfer
@@ -19,6 +19,8 @@ draft: false
 ---
 
 # How Can We Measure and Influence Electron Transfer?
+
+I'd like to connect SFG with electron transfer. At metal/water or air/water interfaces, the intermediates we can see with SFG are often the ones that react more slowly and have time to build up. If we want to speed things up, one idea is to lower the reorganization energy for electron transfer involving these intermediates. So, if SFG can pick up vibrations of the water molecules around them, such as HOH bending and OH stretching, and if ions and light itself can affect those vibrations, could we use that to make electron transfer faster?
 
 ![](images/paste-39.png)
 
