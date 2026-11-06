@@ -1,7 +1,7 @@
 ---
 title: "My Insights on Putting AI4S into Practice"
 date: 2026-09-14
-description: "From compute depreciation and RSI to SDL reinforcement learning loops in biomedicine: AI4S creates value by understanding the dry-to-wet lab gap, with people as its ultimate moat."
+description: "**Abstract:** 1. Once LLM companies retire large numbers of GPUs, running much larger all-atom simulations will become cheaper. Future AI4S systems may combine specialized workflows and high-accuracy chemistry models running across multiple A100 nodes with a cloud-based LLM. The setup could look a lot like embodied AI today: a large model plans, while a smaller model handles real-time motion control. 2. Biopharma spends roughly five times more on R&D than traditional chemicals and materials, so it is more willing to invest in AI4S early in the drug discovery process. 3. Computational data alone is not an AI4S company’s moat. The real advantage comes from experimental and spectroscopic data, along with the trial and error people put into generating and interpreting it."
 categories:
   - AI
 lang: en
