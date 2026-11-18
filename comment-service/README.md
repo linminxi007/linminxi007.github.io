@@ -1,10 +1,9 @@
 # Academic inline comments — deployment and operations
 
-Status: the website frontend has been published. The Render/Neon backend still
-requires deployment verification and valid, rotated credentials. See
-[Render / Neon connection troubleshooting](RENDER-NEON.md) for the exact setup and
-safe error categories. The public API configuration stays separate from credentials.
-Do not represent a successful website build as proof that the backend is healthy.
+The website frontend and comment service are deployed separately. Verify the live
+API independently from the Pages build. For automatic publication, follow
+[Render automatic publication](AUTO-PUBLISH.md). Connection troubleshooting is in
+[Render / Neon](RENDER-NEON.md). Public API configuration stays separate from credentials.
 
 ## Architecture and Waline decision
 
@@ -52,7 +51,10 @@ No normal article text nodes are wrapped, split or replaced. Panel space is rese
 only while it is open. At widths 768–1439px the TOC is temporarily hidden while the
 right-side panel is open; closing restores the existing preference. Below 768px the
 panel is a bottom sheet. Escape and Cancel close it; Alt+Shift+C opens a selected
-passage (or a paragraph containing a focused link). The button always says `Comments`.
+passage (or a paragraph containing a focused link). Selection and paragraph controls
+are opaque, icon-only buttons outside the right edge of the text column. During
+native dragging the controls cannot intercept the pointer. The paragraph icon stays
+clickable while the pointer crosses the gap from the paragraph into the gutter.
 
 ## Install and deploy the service
 
@@ -96,6 +98,7 @@ injects test verification. Production `main.mjs` has no CAPTCHA-bypass flag.
 | `ALLOWED_ORIGINS` | Comma-separated exact HTTPS website origins. Usually `https://linminxi007.github.io`. |
 | `TURNSTILE_SITE_KEY` | Public widget key returned by `/v1/config`. |
 | `TURNSTILE_SECRET` | Private Siteverify key. |
+| `COMMENT_MODERATION` | `manual` (default) or `auto`. Server-only creation policy; auto publishes verified new comments/replies immediately. Invalid values prevent startup. |
 | `PORT` | API listening port, default 8080. |
 | `TRUST_PROXY` | `off` by default. Use `one` only behind one controlled proxy that overwrites X-Forwarded-For and blocks direct access. The rightmost forwarded address is trusted. |
 
@@ -113,9 +116,9 @@ in comments or returned in public JSON. Short-lived rate buckets contain only HM
 
 | Public endpoint | Behavior |
 | --- | --- |
-| `GET /v1/config` | Public Turnstile key, limits and mandatory moderation policy. |
+| `GET /v1/config` | Public Turnstile key, limits and actual `moderation` mode (`auto` or `manual`). |
 | `GET /v1/comments?page=...&cursor=...` | Approved records and this capability's private pending/rejected records. Cursor pagination, 200 records per batch. |
-| `POST /v1/comments` | New root or reply; requires allowed Origin and `X-Visitor-Key`. Returns canonical record, initially pending. |
+| `POST /v1/comments` | New root or reply; requires allowed Origin and `X-Visitor-Key`. Returns canonical record: `pending` in manual mode, `approved` in auto mode, after verification, validation and rate limits. |
 
 POST JSON includes `request_id` (UUID), `page_path`, optional `parent_id`, `nickname`,
 `content`, `anchor` and `turnstile_token`. The same request ID and payload may be
@@ -137,6 +140,19 @@ allow only configured origins; no cookies or wildcard credentialed CORS are used
 Origin checks supplement CAPTCHA/rate limits; they are not treated as authentication.
 
 ## Moderation (separate from the visitor UI)
+
+`COMMENT_MODERATION` defaults to `manual`; set it to `auto` in the server environment
+and redeploy for immediate publication of new comments and replies. The frontend
+reads the actual policy from `/v1/config` but cannot choose a status. The server
+ignores client-supplied moderation/status fields. Verification, length limits,
+rate limits and plain-text rendering remain active.
+
+Changing modes does not update existing rows. Old pending comments stay private;
+old approved comments stay public. An idempotent retry returns the original row and
+status even after a mode change. In auto mode a reply to an older private pending
+thread returns 409 until its ancestor is approved, so a hidden reply is never reported
+as published. IDs, inherited anchors and discussion/rail views are unchanged.
+The admin API remains available to approve older pending posts or reject abuse.
 
 Set private `COMMENT_API_URL` and `ADMIN_TOKEN` only in the administrator's terminal:
 
@@ -188,7 +204,7 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-`test:browser` starts loopback-only HTTP servers on 8910/8911, a **real embedded
+`test:browser` starts loopback-only HTTP servers on 8910/8911/8912, a **real embedded
 PostgreSQL engine (PGlite)**, the production request handler and actual browser UI.
 The Turnstile widget and verification call are test doubles; these tests do not prove
 that a real site key, Cloudflare challenge, managed database TLS or production proxy
@@ -197,16 +213,23 @@ Screenshots are saved in `comment-service/test-results/` or `SCREENSHOT_DIR`.
 `BROWSER_EXE` optionally selects an installed Edge/Chrome executable on Windows.
 
 Before enabling public posting, test a real Turnstile challenge on the final host,
-an anonymous pending post, private owner visibility, administrator approval, a reply,
+an anonymous post in the configured mode, cross-visitor visibility (private in
+manual mode, public in auto), administrator rejection, a reply,
 lost-response retry, reload in another browser, and service restart against the managed
 database. Never test by turning CAPTCHA off on the production service.
 
 Back up PostgreSQL regularly with the provider's PITR/backup service and verify restore.
 Back up `RATE_SECRET` separately: rotating it invalidates private pending capabilities
-and rate bucket identities. Production hosting/TLS/CAPTCHA operation remains untested
-until those resources are supplied and configured.
+and rate bucket identities. Local tests use test Turnstile verification; a real
+production challenge and managed PostgreSQL must be checked independently.
 
 ## Old version and rollback
+
+Before this auto-publication and selection update, branch
+`backup/before-auto-comments-20261118` was created at `5f8bcff` and a separate tracked-source
+ZIP was saved. No new schema or data rewrite is needed. Set `COMMENT_MODERATION=manual`
+and redeploy to stop automatically approving future submissions; this leaves existing
+comments unchanged.
 
 Before editing, a local Git branch `backup/before-inline-comments-20261118` was made
 at `ab62805`, and a complete tracked-source ZIP was saved separately. Implementation

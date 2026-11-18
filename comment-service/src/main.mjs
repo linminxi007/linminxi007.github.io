@@ -20,7 +20,7 @@ export async function startService({ env = process.env, connect = postgres, log 
       server.listen(Number(env.PORT || 8080), '0.0.0.0', () => { server.off('error', reject); ready(); });
     });
   } catch (error) { await db.close(); throw error; }
-  log('Annotation service listening. Moderation is required.');
+  log(`Annotation service listening. Comment moderation: ${cfg.moderation || 'manual'}.`);
   return {
     server,
     async close() { await new Promise(done => server.close(done)); await db.close(); }

@@ -29,7 +29,8 @@ export class Store {
     if (rows[0].request_hash !== hash) throw new ServiceError(409, 'This submission ID was already used for different text.');
     return publicRecord(rows[0]);
   }
-  async create(data, visitor, requestHash, challengeHash) {
+  async create(data, visitor, requestHash, challengeHash, moderation = 'manual') {
+    const status = moderation === 'auto' ? 'approved' : 'pending';
     return this.db.transaction(async tx => {
       // Serialize concurrent retries across service instances, before reading the key.
       await tx.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [visitor + ':' + data.request_id]);
@@ -41,11 +42,14 @@ export class Store {
         const { rows } = await tx.query('SELECT * FROM academic_comments WHERE comment_id=$1 AND page_path=$2 FOR SHARE', [data.parent_id, data.page_path]);
         const parent = rows[0];
         if (!parent || !(await this.visibleParent(tx, data.parent_id, visitor))) throw new ServiceError(404, 'Reply target is unavailable.');
+        // Do not publish a new reply into an older private pending thread.
+        // Existing pending records are never implicitly approved by auto mode.
+        if (moderation === 'auto' && !(await this.visibleParent(tx, data.parent_id, ''))) throw new ServiceError(409, 'This thread is not public yet. Reply after its parent is approved.');
         if (parent.depth >= 12) throw new ServiceError(400, 'Maximum reply depth reached.');
         anchor = publicRecord(parent).anchor; root = parent.root_id; depth = parent.depth + 1;
       }
-      const keys = ['comment_id','page_path','parent_id','root_id','depth','nickname','content','visitor_hash','request_id','request_hash','challenge_hash', ...Object.keys(anchor)];
-      const values = [id,data.page_path,data.parent_id,root,depth,data.nickname,data.content,visitor,data.request_id,requestHash,challengeHash,...Object.values(anchor)];
+      const keys = ['comment_id','page_path','parent_id','root_id','depth','nickname','content','status','visitor_hash','request_id','request_hash','challenge_hash', ...Object.keys(anchor)];
+      const values = [id,data.page_path,data.parent_id,root,depth,data.nickname,data.content,status,visitor,data.request_id,requestHash,challengeHash,...Object.values(anchor)];
       try {
         const { rows } = await tx.query(`INSERT INTO academic_comments (${keys.join(',')}) VALUES (${values.map((_,i)=>'$'+(i+1)).join(',')}) RETURNING *`, values);
         return publicRecord(rows[0]);

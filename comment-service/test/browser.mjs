@@ -9,7 +9,8 @@ const require=createRequire(import.meta.url),{chromium}=require(process.env.PLAY
 const repo=resolve(fileURLToPath(new URL('../..',import.meta.url))),site=join(repo,'_site');
 const out=process.env.SCREENSHOT_DIR||join(repo,'comment-service/test-results');await mkdir(out,{recursive:true});
 const api=await testService({port:8910});
-let configured=true,checks=0;
+const autoApi=await testService({port:8912,settings:{moderation:'auto'}});
+let configured=true,apiMode='manual',checks=0;
 const ok=(message)=>{checks++;console.log('PASS '+message);};
 const fixture=`<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/inline-comments.css"><script defer src="/assets/inline-comments-anchors.js"></script><script defer src="/assets/inline-comments.js"></script></head><body class="reading-page" data-root="../"><header class="site-header" style="height:76px"><a href="/index.html">Home</a><span>Academic note</span></header><main class="site-main"><div class="reading-layout"><aside class="reading-aside">Contents</aside><article class="reading-sheet"><div class="article-body"><section id="intro"><h2>Test note / 测试笔记</h2>
 <p id="en">A hydration layer contains water molecules whose structure is influenced by the adjacent biomolecule. Symmetry determines which vibrational responses can be observed in an optical experiment.</p>
@@ -24,7 +25,7 @@ ${Array.from({length:18},(_,i)=>`<p>Additional paragraph ${i}: scroll through th
 const web=createServer(async(req,res)=>{
   try{
     const pathname=decodeURIComponent(new URL(req.url,'http://local').pathname);
-    if(pathname==='/assets/inline-comments-config.json'){res.setHeader('Content-Type','application/json');res.end(JSON.stringify({apiBase:configured?api.base:''}));return;}
+    if(pathname==='/assets/inline-comments-config.json'){res.setHeader('Content-Type','application/json');res.end(JSON.stringify({apiBase:configured?(apiMode==='auto'?autoApi.base:api.base):''}));return;}
     if(pathname==='/notes/fixture.html'){res.setHeader('Content-Type','text/html; charset=utf-8');res.end(fixture);return;}
     const file=resolve(site,'.'+(pathname==='/'?'/index.html':pathname));if(!file.startsWith(site+sep))throw new Error('Path');
     await stat(file);res.setHeader('Content-Type',({'.js':'text/javascript','.css':'text/css','.html':'text/html','.json':'application/json','.svg':'image/svg+xml','.png':'image/png'})[extname(file)]||'application/octet-stream');res.end(await readFile(file));
@@ -42,10 +43,12 @@ try{
   await page.mouse.move(drag.a.x+1,drag.a.y+drag.a.height/2);await page.mouse.down();await page.mouse.move(drag.b.x+2,drag.b.y+drag.b.height/2,{steps:12});await page.mouse.up();await page.locator('.ic-selection').waitFor({state:'visible'});assert((await page.evaluate(()=>getSelection().toString())).length>20);ok('native mouse drag retains text selection and reveals Comments');
   const h=await page.locator('.article-body').evaluate(e=>e.offsetHeight);
   await select('#en',2,135);await page.locator('.ic-selection').waitFor({state:'visible'});
-  assert.equal(await page.locator('.ic-selection').innerText(),'Comments');
+  assert.equal(await page.locator('.ic-selection').innerText(),'');
+  assert.equal(await page.locator('.ic-selection').getAttribute('aria-label'),'Comment on selected text');
+  const gutter=await page.evaluate(()=>({body:document.querySelector('.article-body').getBoundingClientRect().right,icon:document.querySelector('.ic-selection').getBoundingClientRect().left}));assert(gutter.icon>=gutter.body+4);
   assert.equal(await page.locator('.article-body').evaluate(e=>e.offsetHeight),h);
-  await page.mouse.move(10,10);const opacity=await page.locator('.ic-selection').evaluate(e=>getComputedStyle(e).opacity);assert.equal(opacity,'0.8');
-  ok('English selection produces an 80% opacity floating Comments button without changing article height');
+  await page.mouse.move(10,10);const opacity=await page.locator('.ic-selection').evaluate(e=>getComputedStyle(e).opacity);assert.equal(opacity,'1');
+  ok('selection uses an opaque icon-only control outside the text column without changing article height');
   await page.screenshot({path:join(out,'inline-comments-selection-desktop.png')});
   await page.locator('.ic-selection').click();await page.waitForTimeout(100);
   const boxes=await page.evaluate(()=>({article:document.querySelector('.reading-sheet').getBoundingClientRect().toJSON(),panel:document.querySelector('.ic-panel').getBoundingClientRect().toJSON(),width:innerWidth,scroll:document.documentElement.scrollWidth}));
@@ -108,5 +111,50 @@ try{
   await page.evaluate(()=>localStorage.removeItem('courtyard-reading-v3.1'));await page.reload();await page.evaluate(()=>{const p=[...document.querySelectorAll('.article-body p')].find(p=>p.textContent.length>80&&!p.querySelector('math,.math'));p.dataset.previewTarget='true';});
   await select('[data-preview-target]',0,120);await page.locator('.ic-selection').click();await page.waitForTimeout(100);await page.screenshot({path:join(out,'website-comments-desktop.png')});await close();
   await page.setViewportSize({width:390,height:900});await select('[data-preview-target]',0,90);await page.locator('.ic-selection').click();await page.waitForTimeout(100);await page.screenshot({path:join(out,'website-comments-mobile.png')});await close();
+  // Regression for the reported forward-only selection flash. These real mouse
+  // movements wait long enough for each floating-control update to occur.
+  await page.setViewportSize({width:1536,height:1000});
+  for(const direction of ['forward','backward']){
+    await page.goto('http://127.0.0.1:8911/notes/fixture.html');
+    await page.evaluate(()=>{window.nativeSelectionProbe=[];document.addEventListener('selectionchange',()=>{const s=getSelection();if(!s.isCollapsed)window.nativeSelectionProbe.push({outside:!document.querySelector('.article-body').contains(s.focusNode),below:s.toString().includes('当我们')||s.toString().includes('Additional paragraph')});});});
+    const r=await page.locator('#en').evaluate(e=>{const range=document.createRange();range.setStart(e.firstChild,0);range.setEnd(e.firstChild,1);return {p:e.getBoundingClientRect().toJSON(),c:range.getBoundingClientRect().toJSON()};});
+    const left=r.c.left+2,right=Math.min(r.p.right-30,left+420),y=r.c.top+r.c.height/2;
+    await page.mouse.move(direction==='forward'?left:right,y);await page.mouse.down();
+    for(let i=0;i<=35;i++){
+      await page.mouse.move(direction==='forward'?left+(right-left)*i/35:right-(right-left)*i/35,y);await page.waitForTimeout(100);
+      if(i===18){assert.equal(await page.locator('.ic-selection').evaluate(el=>getComputedStyle(el).pointerEvents),'none');assert.equal(await page.locator('.ic-panel').isVisible(),false);}
+    }
+    await page.mouse.up();await page.waitForTimeout(150);
+    const events=await page.evaluate(()=>window.nativeSelectionProbe);assert(events.length>0);assert(events.every(e=>!e.outside&&!e.below),direction+' selection escaped into unrelated content');
+    const icon=await page.locator('.ic-selection').boundingBox(),body=await page.locator('.article-body').boundingBox();assert(icon.x>=body.x+body.width+4);
+    assert.equal(await page.locator('.ic-selection').evaluate(el=>getComputedStyle(el).pointerEvents),'auto');
+  }
+  ok('slow forward/backward native dragging never jumps below the passage or onto comment controls');
+  await page.evaluate(()=>getSelection().removeAllRanges());await page.mouse.move(10,10);
+  const paragraph=await page.locator('#en').boundingBox();await page.mouse.move(paragraph.x+paragraph.width-8,paragraph.y+12);await page.locator('.ic-hover').waitFor({state:'visible'});
+  const hover=await page.locator('.ic-hover').boundingBox();
+  for(let i=1;i<=10;i++){await page.mouse.move(paragraph.x+paragraph.width-8+(hover.x+hover.width/2-paragraph.x-paragraph.width+8)*i/10,paragraph.y+12);await page.waitForTimeout(100);assert(await page.locator('.ic-hover').isVisible());}
+  await page.waitForTimeout(350);await page.locator('.ic-hover').click();assert((await page.locator('.ic-quote').textContent()).startsWith('A hydration layer'));await close();
+  ok('paragraph icon stays clickable across a slow mouse movement through the gutter');
+
+  apiMode='auto';await page.goto('http://127.0.0.1:8911/notes/fixture.html');await page.getByText('No comments yet. Verified comments are published immediately.',{exact:true}).waitFor();
+  assert.equal(await page.getByText('Anonymous comments are reviewed before publication.',{exact:true}).count(),0);
+  await select('#en',2,135);await page.screenshot({path:join(out,'auto-comments-margin-icon-desktop.png')});await page.locator('.ic-selection').click();await page.locator('#ic-text').fill('Auto-published anonymous note <img src=x onerror=alert(1)>');await page.waitForTimeout(100);await page.locator('.ic-panel button[type=submit]').click();await page.getByText('Comment published.',{exact:true}).waitFor();
+  const autoID=await page.locator('.ic-panel .ic-thread').first().getAttribute('data-comment-id');assert.equal(await page.locator('.ic-discussion .ic-thread').first().getAttribute('data-comment-id'),autoID);assert.equal(await page.locator('.ic-thread img').count(),0);assert.equal(await page.locator('.ic-state').count(),0);
+  ok('auto mode immediately publishes with matching rail/discussion IDs, no waiting notice and inert HTML');
+  const other=await browser.newContext({viewport:{width:1536,height:1000}});
+  await other.route('https://challenges.cloudflare.com/turnstile/**',route=>route.fulfill({contentType:'text/javascript',body:`window.turnstile={render(e,o){this.o=o;setTimeout(()=>o.callback(crypto.randomUUID()),30);return 1},reset(){setTimeout(()=>this.o.callback(crypto.randomUUID()),30)},remove(){}};`}));
+  const otherPage=await other.newPage();await otherPage.goto('http://127.0.0.1:8911/notes/fixture.html');await otherPage.locator('.ic-discussion .ic-thread').first().waitFor();assert.equal(await otherPage.locator('.ic-discussion .ic-thread').first().getAttribute('data-comment-id'),autoID);
+  await otherPage.locator('.ic-discussion .ic-reply').first().click();await otherPage.locator('#ic-text').fill('A different anonymous visitor replies immediately.');await otherPage.waitForTimeout(120);await otherPage.locator('.ic-panel button[type=submit]').click();await otherPage.getByText('Comment published.',{exact:true}).waitFor();assert.equal(await otherPage.locator('.ic-discussion .ic-thread').count(),2);
+  await otherPage.reload();await otherPage.locator('.ic-discussion .ic-replies .ic-thread').waitFor();assert.equal(await otherPage.locator('.ic-discussion .ic-thread').count(),2);await other.close();
+  await close();await page.reload();await page.locator('.ic-discussion .ic-replies .ic-thread').waitFor();assert.equal(await page.locator('.ic-discussion .ic-thread').count(),2);assert.equal(await page.locator('.ic-state').count(),0);
+  ok('a second anonymous browser sees the post, publishes a reply, and both browsers retain the public thread after reload');
+  await page.getByRole('button',{name:'Add a comment',exact:true}).click();await page.locator('#ic-text').fill('This failed verification must never become public.');await page.waitForTimeout(100);await page.evaluate(()=>window.turnstile.o.callback('bad'));await page.locator('.ic-panel button[type=submit]').click();await page.getByText(/Not confirmed. Your draft is retained/).waitFor();
+  const blocked=await autoApi.engine.query('SELECT count(*)::integer AS n FROM academic_comments WHERE content=$1',['This failed verification must never become public.']);assert.equal(blocked.rows[0].n,0);assert.equal(await page.locator('#ic-text').inputValue(),'This failed verification must never become public.');await close();
+  ok('auto mode does not publish when verification fails and retains the visitor draft');
+  await select('#zh',4,100);await page.screenshot({path:join(out,'auto-comments-chinese-icon.png')});await page.locator('.ic-selection').click();await page.screenshot({path:join(out,'auto-comments-composer-desktop.png')});await close();
+  await page.setViewportSize({width:390,height:900});await select('#zh',4,90);const narrow=await page.locator('.ic-selection').boundingBox(),column=await page.locator('.article-body').boundingBox();assert(narrow.x>=column.x+column.width+4&&narrow.x+narrow.width<=390);await page.screenshot({path:join(out,'auto-comments-margin-icon-mobile.png')});
+  await page.locator('.ic-selection').click();await page.screenshot({path:join(out,'auto-comments-composer-mobile.png')});await close();
+
   assert.deepEqual(errors,[]);console.log(`BROWSER PASS: ${checks} scenarios. Persistence uses PGlite PostgreSQL; Turnstile widget/verification are test doubles only.`);
-}finally{await context.close();await browser.close();await new Promise(r=>web.close(r));await api.close();}
+}finally{await context.close();await browser.close();await new Promise(r=>web.close(r));await api.close();await autoApi.close();}

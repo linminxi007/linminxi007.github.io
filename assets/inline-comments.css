@@ -6,13 +6,12 @@
 .ic-button:hover { background: var(--recess); }
 .ic-button:disabled { cursor: not-allowed; opacity: .55; }
 .ic-ui :focus-visible, .ic-discussion :focus-visible { outline: 2px solid var(--wood); outline-offset: 3px; }
-.ic-selection, .ic-hover { position: fixed; z-index: 44; opacity: .8; display: flex; align-items: center; gap: 6px; touch-action: manipulation; }
-.ic-selection { white-space: nowrap; }
-.ic-selection:hover, .ic-selection:focus-visible, .ic-hover:hover { opacity: 1; }
-.ic-hover { width: 32px; height: 32px; padding: 6px; justify-content: center; }
+.ic-selection, .ic-hover { position: fixed; z-index: 44; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 5px; touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+.ic-selection, .ic-hover { opacity: 1; }
+.ic-ui.ic-selecting .ic-selection, .ic-ui.ic-selecting .ic-hover, .ic-ui.ic-selecting .ic-marker { pointer-events: none !important; }
 .ic-icon { width: 16px; height: 16px; flex: 0 0 16px; }
 .ic-markers { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
-.ic-marker { position: absolute; pointer-events: auto; width: 32px; min-height: 30px; padding: 4px; font-size: 11px; color: var(--wood-dark); }
+.ic-marker { position: absolute; user-select: none; -webkit-user-select: none; pointer-events: auto; width: 32px; min-height: 30px; padding: 4px; font-size: 11px; color: var(--wood-dark); }
 .ic-panel { position: fixed; width: 332px; max-width: calc(100vw - 24px); z-index: 43; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: 5px 6px 16px var(--shadow), -2px -2px 7px var(--highlight); overflow: auto; overscroll-behavior: contain; }
 .ic-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .ic-panel h2 { font: 600 17px/1.4 Arial,"Microsoft YaHei",sans-serif; margin: 0; }

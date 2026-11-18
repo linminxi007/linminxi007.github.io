@@ -51,6 +51,7 @@ ADMIN_TOKEN=<random secret of at least 32 characters>
 RATE_SECRET=<different random secret of at least 32 characters>
 PORT=8080
 TRUST_PROXY=off
+COMMENT_MODERATION=manual
 ```
 
 - `DATABASE_URL` 的 **Value** 里只放完整 URL，不要再写 `DATABASE_URL=`，不要加包裹引号，
@@ -67,7 +68,7 @@ TRUST_PROXY=off
 - 保存环境变量，选择 **Manual Deploy → Deploy latest commit**（或等待已开启的自动部署）。
   迁移失败会以非零状态退出，不会继续启动 API。迁移是幂等的，现有 schema 和用户数据保留。
 - 成功日志应依次出现 `Annotation schema ready.`、
-  `Annotation service listening. Moderation is required.`，然后 Render 服务变为健康。
+  `Annotation service listening. Comment moderation: manual.`（自动发表模式为 `auto`），然后 Render 服务变为健康。
 - 访问 Render 提供的 HTTPS 服务地址加 `/health`，应返回 `{"ok":true}`。
   `/v1/config` 应返回公开 Turnstile site key；不要把私钥放到前端配置。
 - 后端健康后，再将网站 `assets/inline-comments-config.json` 的 `apiBase` 设为该 HTTPS 地址，
@@ -75,6 +76,9 @@ TRUST_PROXY=off
 
 启动覆盖项依据：[Render Docker 文档](https://render.com/docs/docker)。
 SSL 配置依据：[node-postgres SSL 文档](https://node-postgres.com/features/ssl)。
+
+新增自动发表功能的部署步骤见 [AUTO-PUBLISH.md](AUTO-PUBLISH.md)。默认仍为手动审核；
+已正常运行的服务只需增加 `COMMENT_MODERATION=auto` 并部署新代码，无需为此更改数据库连接或密码。
 
 ## 安全错误分类
 

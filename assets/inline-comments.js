@@ -10,7 +10,7 @@
   const button=(text,fn,cls='')=>{const el=make('button','ic-button '+cls,text);el.type='button';el.addEventListener('click',fn);return el;};
   const icon=()=>{const el=document.createElementNS('http://www.w3.org/2000/svg','svg');el.classList.add('ic-icon');el.setAttribute('viewBox','0 0 24 24');el.setAttribute('fill','none');el.setAttribute('stroke','currentColor');el.setAttribute('stroke-width','1.5');el.setAttribute('aria-hidden','true');const p=document.createElementNS(el.namespaceURI,'path');p.setAttribute('d','M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-5 3v-3H3V6a2 2 0 0 1 2-2Z');el.append(p);return el;};
   const ui=make('div','ic-ui');
-  const selectionButton=button('Comments',()=>openSnapshot(snapshot,null,selectionButton),'ic-selection');selectionButton.prepend(icon());selectionButton.hidden=true;
+  const selectionButton=button('',()=>openSnapshot(snapshot,null,selectionButton),'ic-selection');selectionButton.prepend(icon());selectionButton.setAttribute('aria-label','Comment on selected text');selectionButton.hidden=true;
   const hoverButton=button('',()=>{if(hoverBlock)openSnapshot(A.paragraph(idx,hoverBlock),null,hoverButton);},'ic-hover');hoverButton.append(icon());hoverButton.setAttribute('aria-label','Comment on this paragraph');hoverButton.hidden=true;
   const markerLayer=make('div','ic-markers');
   const panel=make('aside','ic-panel');panel.hidden=true;panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','false');panel.setAttribute('aria-labelledby','ic-title');
@@ -32,7 +32,7 @@
   discussion.append(discussionTitle,state,topActions,list,loadMore);article.after(discussion);
   let idx=A.index(article),snapshot=null,hoverBlock=null,active=null,returnFocus=null,records=new Map(),markers=[],nextCursor=null;
   let apiBase='',service=null,ready=false,requestSequence=0,refreshSequence=0,pendingRequest=null,submitting=false;
-  let widget=null,challengeToken='',turnstileLoading=null,raf=0,selectionTimer=0,lastSelection=0,dirty=false;
+  let widget=null,challengeToken='',turnstileLoading=null,raf=0,selectionTimer=0,lastSelection=0,dirty=false,selecting=false,hoverHideTimer=0;
   let visitorKey;
   try {visitorKey=sessionStorage.getItem('academic-comment-visitor');}catch{}
   if(!/^[A-Za-z0-9_-]{32,128}$/.test(visitorKey||'')) {
@@ -45,6 +45,8 @@
     let value;try{value=await response.json();}catch{throw new Error('Comment service returned an invalid response.');}
     if(!response.ok)throw new Error(value.error||'Comment service unavailable.');return value;
   }
+  const automatic = () => service?.moderation === 'auto';
+  const postingPolicy = () => automatic() ? 'Verified comments are published immediately.' : 'Anonymous comments are reviewed before publication.';
   function showError(message){state.textContent=message;formStatus.textContent=message;}
   async function initialize() {
     const seq=++requestSequence;ready=false;submit.disabled=true;state.textContent='Loading comment service…';
@@ -56,9 +58,13 @@
       const url=new URL(cfg.apiBase);if(url.protocol!=='https:'&&!(url.protocol==='http:'&&['localhost','127.0.0.1'].includes(url.hostname)))throw new Error('Comment service must use HTTPS.');
       apiBase=url.href.replace(/\/$/,'');service=await api('/v1/config');if(seq!==requestSequence)return;
       if(!service.turnstile_site_key)throw new Error('Comment verification is not configured.');
-      ready=true;formStatus.textContent='Anonymous comments are reviewed before publication.';
+      ready=true;formStatus.textContent=postingPolicy();
       await refresh(true);if(!panel.hidden)await ensureChallenge();
     }catch(error){if(seq===requestSequence)showError('Comments are unavailable. Your article and draft are unchanged. '+error.message);}
+  }
+  function updateDiscussionStatus() {
+    const hasPending=[...records.values()].some(record=>record.status==='pending');
+    state.textContent=records.size ? `${records.size} comments loaded.`+(hasPending?' Pending comments are visible only to their submitting visitor.':'') : 'No comments yet. '+postingPolicy();
   }
   async function refresh(reset=true) {
     if(!ready)return;
@@ -69,7 +75,7 @@
       if(reset)records=new Map();
       for(const record of data.comments)records.set(record.comment_id,record);
       nextCursor=data.next_cursor;loadMore.hidden=!nextCursor;
-      state.textContent=records.size?`${records.size} comments loaded. Pending comments are visible only to their submitting visitor.`:'No comments yet. Anonymous comments are reviewed before publication.';
+      updateDiscussionStatus();
       render();
     }catch(error){showError('Unable to load comments. '+error.message);}
   }
@@ -80,36 +86,70 @@
     const caret=range.cloneRange();caret.collapse(false);const r=caret.getBoundingClientRect();
     const rects=[...range.getClientRects()].filter(x=>x.width||x.height);return r.height?r:rects.at(-1)||null;
   }
-  function placeButton(el,rect) {
-    if(!rect||rect.bottom<0||rect.top>innerHeight){el.hidden=true;return;}
-    el.hidden=false;const b=el.getBoundingClientRect();let left=rect.right+7,top=rect.bottom-b.height;
-    if(left+b.width>innerWidth-8){left=Math.min(rect.right,innerWidth-b.width-8);top=rect.bottom+6;}
-    el.style.left=Math.max(8,Math.min(left,innerWidth-b.width-8))+'px';el.style.top=Math.max(8,Math.min(top,innerHeight-b.height-8))+'px';
+  function placeGutterIcon(el,rect) {
+    const column=article.getBoundingClientRect(),width=28,left=column.right+6;
+    // Never clamp an annotation control back onto the selected words. The
+    // existing reading-sheet padding supplies this gutter, including on phones.
+    if(!rect||rect.bottom<0||rect.top>innerHeight||left+width>innerWidth-6){el.hidden=true;return;}
+    el.style.left=left+'px';
+    el.style.top=Math.max(6,Math.min(rect.top+(rect.height||rect.bottom-rect.top)/2-14,innerHeight-34))+'px';
+    el.hidden=false;
   }
   function updateSelection() {
     lastSelection=performance.now();if(!panel.hidden)return;
     const focused=document.activeElement;
     if(focused?.matches('input,textarea,[contenteditable]')||document.querySelector('dialog[open]')){snapshot=null;selectionButton.hidden=true;return;}
     if(dirty)rebuild();
-    snapshot=A.capture(idx,getSelection());selectionButton.hidden=!snapshot;
-    if(snapshot)placeButton(selectionButton,endpoint(snapshot.range));
+    const selection=getSelection();
+    try { snapshot=A.capture(idx,selection); } catch { snapshot=null; }
+    selectionButton.hidden=!snapshot;
+    if(snapshot){
+      // Native Selection focus is the moving end in either drag direction.
+      const focus=document.createRange();focus.setStart(selection.focusNode,selection.focusOffset);focus.collapse(true);
+      snapshot.focusRange=focus;
+      hoverButton.hidden=true;
+      placeGutterIcon(selectionButton,endpoint(focus)||endpoint(snapshot.range));
+    }
   }
   function queueSelection() {
     clearTimeout(selectionTimer);const delay=Math.max(0,80-(performance.now()-lastSelection));
     selectionTimer=setTimeout(()=>requestAnimationFrame(updateSelection),delay);
   }
   document.addEventListener('selectionchange',queueSelection);
-  document.addEventListener('pointerup',()=>{queueSelection();});
+  document.addEventListener('pointerdown',event=>{
+    if(event.button!==0||!panel.hidden||!article.contains(event.target))return;
+    selecting=true;ui.classList.add('ic-selecting');hoverButton.hidden=true;clearTimeout(hoverHideTimer);
+  },true);
+  function endSelection(){selecting=false;ui.classList.remove('ic-selecting');queueSelection();}
+  document.addEventListener('pointerup',endSelection,true);
+  document.addEventListener('pointercancel',endSelection,true);
+  addEventListener('blur',()=>{selecting=false;ui.classList.remove('ic-selecting');hoverButton.hidden=true;});
   selectionButton.addEventListener('pointerdown',event=>{if(event.button===0)event.preventDefault();});
   hoverButton.addEventListener('pointerdown',event=>{if(event.button===0)event.preventDefault();});
+  function cancelHoverHide(){clearTimeout(hoverHideTimer);}
+  function hideHoverLater(){
+    cancelHoverHide();hoverHideTimer=setTimeout(()=>{if(!hoverButton.matches(':hover,:focus'))hoverButton.hidden=true;},250);
+  }
   article.addEventListener('pointerover',event=>{
-    if(event.pointerType==='touch'||!panel.hidden||!getSelection()?.isCollapsed)return;
+    if(event.pointerType==='touch'||selecting||!panel.hidden||!getSelection()?.isCollapsed)return;
     if(dirty)rebuild();const el=event.target.closest('p,li,.math.display');hoverBlock=blockFor(el);
-    if(!hoverBlock||el.closest('pre,code')){hoverButton.hidden=true;return;}
-    positionHover();
+    if(!hoverBlock||el.closest('pre,code')){hideHoverLater();return;}
+    cancelHoverHide();positionHover();
   });
-  article.addEventListener('pointerleave',event=>{if(!hoverButton.contains(event.relatedTarget))hoverButton.hidden=true;});
-  hoverButton.addEventListener('pointerleave',event=>{if(!article.contains(event.relatedTarget))hoverButton.hidden=true;});
+  article.addEventListener('pointerleave',hideHoverLater);
+  hoverButton.addEventListener('pointerenter',cancelHoverHide);
+  hoverButton.addEventListener('focus',cancelHoverHide);
+  hoverButton.addEventListener('pointerleave',hideHoverLater);
+  hoverButton.addEventListener('blur',hideHoverLater);
+  document.addEventListener('pointermove',event=>{
+    if(selecting||hoverButton.hidden||!hoverBlock)return;
+    const p=hoverBlock.el.getBoundingClientRect(),b=hoverButton.getBoundingClientRect();
+    // Keep the icon alive while traversing the real gap. No invisible element
+    // overlaps text or links, so hover support cannot steal native selections.
+    const inside=(r,pad=0)=>event.clientX>=r.left-pad&&event.clientX<=r.right+pad&&event.clientY>=r.top-pad&&event.clientY<=r.bottom+pad;
+    const corridor={left:p.right-4,right:b.right+4,top:Math.min(p.top,b.top)-4,bottom:Math.max(p.bottom,b.bottom)+4};
+    if(inside(p)||inside(b,4)||inside(corridor))cancelHoverHide();else hideHoverLater();
+  },{passive:true});
   // Keyboard equivalent of the hover icon: Alt+Shift+C on a focused paragraph/link.
   article.addEventListener('keydown',event=>{
     if(event.altKey&&event.shiftKey&&event.code==='KeyC') {
@@ -117,7 +157,7 @@
       if(block){event.preventDefault();openSnapshot(A.paragraph(idx,block),null,event.target);}
     }
   });
-  function positionHover(){if(!hoverBlock)return;const r=hoverBlock.el.getBoundingClientRect();placeButton(hoverButton,{right:r.right,top:r.top,bottom:r.top+32});}
+  function positionHover(){if(!hoverBlock||selecting)return;const r=hoverBlock.el.getBoundingClientRect();placeGutterIcon(hoverButton,{top:r.top,bottom:r.top+28,height:28});}
   function openSnapshot(value,parent,trigger) {
     if(!value)return;
     if(value.anchor.exact.length>8000){showError('This paragraph is too long. Please select a shorter passage.');return;}
@@ -128,7 +168,7 @@
     replyStatus.textContent=parent?'Reply to '+(records.get(parent)?.nickname||'Anonymous'):'';
     text.value='';pendingRequest=null;submit.disabled=!ready;
     selectionButton.hidden=true;hoverButton.hidden=true;panel.hidden=false;document.body.classList.add('ic-panel-open');
-    formStatus.textContent=ready?'Anonymous comments are reviewed before publication.':state.textContent;
+    formStatus.textContent=ready?postingPolicy():state.textContent;
     renderPanel();schedulePosition();highlightActive();text.focus({preventScroll:true});
     requestAnimationFrame(()=>{
       if(!active||panel.hidden||innerWidth<768)return;
@@ -178,7 +218,7 @@
       formStatus.textContent=result.comment.status==='approved'?'Comment published.':'Submitted for review. This comment is not public yet.';
       // Keep a submitted thread in the rail; subsequent posts are replies to its root.
       active.parent=result.comment.comment_id;replyStatus.textContent='Reply to '+result.comment.nickname;
-      render();
+      updateDiscussionStatus();render();
       if(widget!==null&&window.turnstile)window.turnstile.reset(widget);challengeToken='';
     }catch(error){formStatus.textContent='Not confirmed. Your draft is retained; retrying the same text is safe. '+error.message;if(widget!==null&&window.turnstile)window.turnstile.reset(widget);challengeToken='';}
     finally{submitting=false;submit.disabled=!ready;cancel.disabled=false;closeButton.disabled=false;schedulePosition();}
@@ -236,7 +276,7 @@
     raf=0;if(dirty){rebuild();render();return;}
     for(const m of markers){const r=m.target.block.getBoundingClientRect();m.el.style.left=Math.min(r.right+6,innerWidth-42)+'px';m.el.style.top=r.top+scrollY+'px';}
     if(!hoverButton.hidden)positionHover();
-    if(!selectionButton.hidden&&snapshot)placeButton(selectionButton,endpoint(snapshot.range));
+    if(!selectionButton.hidden&&snapshot)placeGutterIcon(selectionButton,endpoint(snapshot.focusRange||snapshot.range));
     if(panel.hidden||innerWidth<768)return;
     const sheet=article.closest('.reading-sheet').getBoundingClientRect(),headBottom=$('.site-header')?.getBoundingClientRect().bottom||80;
     const width=Math.min(innerWidth<1200?300:332,innerWidth-sheet.right-24),topMin=Math.max(12,headBottom+12);
