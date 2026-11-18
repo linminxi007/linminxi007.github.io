@@ -968,13 +968,13 @@ dialog::backdrop { background: var(--scrim); }
 }
 
 /* Language-specific menu typography selected from the preview. */
-[data-ui="zh"] .site-header {
+[data-ui="zh"] {
   --menu-font: Arial, "Microsoft YaHei", sans-serif;
   --menu-weight: 650;
   --menu-spacing: .015em;
   --menu-size: 16px;
 }
-[data-ui="en"] .site-header {
+[data-ui="en"] {
   --menu-font: "Arial Rounded MT Bold", "Microsoft YaHei", Arial, sans-serif;
   --menu-weight: 750;
   --menu-spacing: .025em;
@@ -1018,3 +1018,11 @@ dialog::backdrop { background: var(--scrim); }
 /* Keep the references link beside the footer signature in both languages. */
 .site-footer .footer-identity { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; }
 .site-footer .footer-files { font-size: inherit; text-decoration: underline; text-underline-offset: .18em; }
+
+/* Home typography, ROOM V4.11. */
+.home-page .home-hero h1 > .lang-zh { font-size: .9em; letter-spacing: .015em; }
+.home-page .home-hero .soft-button, .home-page .home-side h2 { font-family: var(--menu-font); }
+.home-page .home-hero .soft-button { font-weight: var(--menu-weight); }
+.home-page .home-side h2 { font-weight: 400; }
+.home-page .home-side .quote-author { display: block; text-align: right; margin-top: 10px; }
+.home-page .home-side .eyebrow { color: color-mix(in srgb, var(--muted) 70%, transparent); }

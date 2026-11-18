@@ -294,8 +294,7 @@
     const width=Math.min(340,innerWidth-sheet.right-24),topMin=Math.max(12,headBottom+12);
     panel.style.width=Math.max(334,width)+'px';panel.style.left=Math.min(innerWidth-panel.offsetWidth-12,sheet.right+18)+'px';
     panel.style.maxHeight=Math.max(150,innerHeight-topMin-16)+'px';
-    const target=(active?.range?.startContainer?.isConnected&&endpoint(active.range))||active?.block?.getBoundingClientRect();
-    const desired=target?.top||topMin;panel.style.top=Math.max(topMin,Math.min(desired,innerHeight-Math.min(panel.scrollHeight,innerHeight-topMin-16)-16))+'px';
+    const desired=topMin+Math.min(80,(innerHeight-topMin)*.1);panel.style.top=Math.max(topMin,Math.min(desired,innerHeight-Math.min(panel.scrollHeight,innerHeight-topMin-16)-16))+'px';
   }
   addEventListener('scroll',schedulePosition,{passive:true});addEventListener('resize',schedulePosition,{passive:true});
   new ResizeObserver(schedulePosition).observe(article);

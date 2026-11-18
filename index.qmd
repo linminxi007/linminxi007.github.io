@@ -43,12 +43,12 @@ href="notes/index.html">
 <aside class="home-side">
 
 <div class="eyebrow">
-READING ROOM / V3.1
+ROOM V4.11
 </div>
 
 <h2>
-There is a difference between the name of the thing and what goes on.<br>
-Feynman
+There is a difference between the name of the thing and what goes on.
+<span class="quote-author">Feynman</span>
 </h2>
 
 
@@ -80,7 +80,6 @@ Feynman
 <section class="home-gallery" id="research-gallery" aria-label="Research Gallery">
   <div class="section-heading">
     <h2><span class="lang-zh">相册</span><span class="lang-en">Research Gallery</span></h2>
-    <span>VISUAL RESEARCH NOTES</span>
   </div>
   <div class="research-gallery-controls">
     <span class="research-gallery-counter" data-gallery-counter aria-live="off">00 / 00</span>
@@ -99,7 +98,6 @@ Feynman
 ::: section-heading
 <h2>[最近 3 篇笔记]{.lang-zh} [Recent Research Notes]{.lang-en}</h2>
 
-RECENT RESEARCH NOTES
 :::
 
 ::: {#latest-notes}

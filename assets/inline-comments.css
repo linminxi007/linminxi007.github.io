@@ -49,7 +49,7 @@
   .reading-page.ic-panel-open .reading-aside { display: none; }
 }
 @media (max-width: 767px) {
-  .ic-panel { left: 8px !important; right: 8px; bottom: max(8px,env(safe-area-inset-bottom)); top: auto !important; width: calc(100vw - 16px) !important; max-width: none; max-height: min(72dvh,680px) !important; }
+  .ic-panel { left: 8px !important; right: 8px; bottom: auto; top: max(calc(var(--head-h,64px) + 12px),12dvh) !important; width: calc(100vw - 16px) !important; max-width: none; max-height: min(76dvh,680px) !important; }
   .ic-panel textarea { height: 30px; min-height: 30px; padding-top: 3px; padding-bottom: 3px; }
 }
 @media (max-width: 359px) {
