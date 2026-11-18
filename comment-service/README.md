@@ -1,9 +1,10 @@
 # Academic inline comments — deployment and operations
 
-Status: deployable code with a local PostgreSQL/HTTP/browser test harness. No public
-comment backend, production database or real Turnstile widget has been provisioned.
-The public configuration intentionally contains an empty `apiBase` and fails closed.
-Never represent that state as a working public comment service.
+Status: the website frontend has been published. The Render/Neon backend still
+requires deployment verification and valid, rotated credentials. See
+[Render / Neon connection troubleshooting](RENDER-NEON.md) for the exact setup and
+safe error categories. The public API configuration stays separate from credentials.
+Do not represent a successful website build as proof that the backend is healthy.
 
 ## Architecture and Waline decision
 
@@ -71,8 +72,10 @@ The site stays on GitHub Pages. No hosting account or paid service is created he
 5. Run `node --env-file=.env.local src/migrate.mjs` once against the intended database,
    or `npm run migrate` when the environment is already provided. Migrations are
    additive and use a separate `academic_*` namespace; they do not modify Waline tables.
-6. Run `npm start`. Alternatively build the included Dockerfile, expose port 8080,
-   and run `node src/migrate.mjs` as the platform's one-off release command before start.
+6. For a direct Node deployment, run `npm run migrate` before `npm start`.
+   The Docker image automatically runs `node src/migrate.mjs && exec node src/main.mjs`;
+   leave Render's Docker Command override empty so the Dockerfile CMD is used.
+   Migration failure prevents HTTP startup; repeated migrations retain existing data.
 7. Serve the API over HTTPS through the provider's trusted reverse proxy. Verify
    `/health`, then restrict its network/database user to this service's needs.
 8. Set `apiBase` in `assets/inline-comments-config.json` to the HTTPS service origin,
@@ -87,7 +90,7 @@ injects test verification. Production `main.mjs` has no CAPTCHA-bypass flag.
 
 | Environment | Purpose |
 | --- | --- |
-| `DATABASE_URL` | Private PostgreSQL connection string. Use provider-supplied, certificate-verified TLS settings. |
+| `DATABASE_URL` | Private PostgreSQL connection string. Copy the full direct Neon URL including its scheme. Provider certificates are preserved and certificate/hostname verification stays enabled. |
 | `ADMIN_TOKEN` | Random secret of at least 32 characters for the separate admin API/CLI. |
 | `RATE_SECRET` | Different random secret of at least 32 characters, used for capability/IP HMACs. Keep stable to retain pending ownership. |
 | `ALLOWED_ORIGINS` | Comma-separated exact HTTPS website origins. Usually `https://linminxi007.github.io`. |
@@ -207,7 +210,8 @@ until those resources are supplied and configured.
 
 Before editing, a local Git branch `backup/before-inline-comments-20261118` was made
 at `ab62805`, and a complete tracked-source ZIP was saved separately. Implementation
-is on `feature/inline-academic-comments`; the `main` branch retains the original site.
+was developed on `feature/inline-academic-comments` and subsequently published to `main`;
+the named backup branch retains the old site.
 Before deploying this feature, preview the branch and keep the backup. Roll back the
 website with a normal Git revert of the feature commit(s), then rebuild and publish.
 Do not drop the database on a frontend rollback: keep comments and backups intact.

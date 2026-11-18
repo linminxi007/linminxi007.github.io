@@ -2,6 +2,7 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { ServiceError } from './store.mjs';
 import { validate, pagePath, uuid } from './validation.mjs';
+import { DatabaseError, reportDatabaseFailure } from './database-errors.mjs';
 const digest = value => createHash('sha256').update(value).digest('hex');
 export function config(env = process.env) {
   for (const key of ['DATABASE_URL','ADMIN_TOKEN','RATE_SECRET','TURNSTILE_SECRET','TURNSTILE_SITE_KEY','ALLOWED_ORIGINS']) if (!env[key]) throw new Error('Missing environment variable: '+key);
@@ -89,9 +90,14 @@ export function createHandler(store,cfg,{verify = verifyTurnstile} = {}) {
       }
       throw new ServiceError(404,'Unknown endpoint.');
     } catch (error) {
+      if (error instanceof DatabaseError) {
+        reportDatabaseFailure(error, 'request');
+        send(503, {error:'Comment service unavailable. Your text has not been discarded.'});
+        return;
+      }
       if (error.status===429) res.setHeader('Retry-After','60');
       const status=error.status || (error.name==='TimeoutError' ? 503 : 500);
-      if (!error.status) console.error('Comment service error:',error.code||error.name); // No text, tokens, IP, UA or DB URL.
+      if (!error.status) console.error('Comment service error [category=internal, code=UNKNOWN].'); // No text, tokens, IP, UA or DB URL.
       send(status,{error:error.status ? error.message : 'Comment service unavailable. Your text has not been discarded.'});
     }
   };

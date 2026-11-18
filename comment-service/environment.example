@@ -1,6 +1,7 @@
-# Copy values into your hosting provider's SECRET environment settings.
-# Do not commit a populated environment file.
-DATABASE_URL=postgresql://USER:PASSWORD@HOST:5432/DB?sslmode=verify-full
+# Placeholder only: paste the FULL new direct Neon URL into Render Environment.
+# Keep postgresql://; do not include psql, wrapping quotes, or DATABASE_URL= in Value.
+# Never commit a populated environment file or print its contents.
+DATABASE_URL=postgresql://ROLE:ENCODED_PASSWORD@your-direct-endpoint.example/DATABASE?sslmode=require&channel_binding=require
 ADMIN_TOKEN=GENERATE_A_RANDOM_SECRET_OF_AT_LEAST_32_CHARACTERS
 RATE_SECRET=GENERATE_A_DIFFERENT_RANDOM_SECRET_OF_AT_LEAST_32_CHARACTERS
 ALLOWED_ORIGINS=https://linminxi007.github.io
