@@ -12,7 +12,7 @@
 .ic-icon { width: 16px; height: 16px; flex: 0 0 16px; }
 .ic-markers { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
 .ic-marker { position: absolute; user-select: none; -webkit-user-select: none; pointer-events: auto; width: 32px; min-height: 30px; padding: 4px; font-size: 11px; color: var(--wood-dark); }
-.ic-panel { position: fixed; width: 332px; max-width: calc(100vw - 24px); z-index: 43; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: 5px 6px 16px var(--shadow), -2px -2px 7px var(--highlight); overflow: auto; overscroll-behavior: contain; }
+.ic-panel { position: fixed; width: 340px; max-width: calc(100vw - 24px); z-index: 43; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: 5px 6px 16px var(--shadow), -2px -2px 7px var(--highlight); overflow: auto; overscroll-behavior: contain; }
 .ic-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .ic-panel h2 { font: 600 17px/1.4 Arial,"Microsoft YaHei",sans-serif; margin: 0; }
 .ic-panel label { display: block; margin: 12px 0 5px; }
@@ -22,6 +22,11 @@
 .ic-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
 .ic-status { color: var(--muted); font-size: 12px; white-space: pre-wrap; }
 .ic-turnstile { margin-top: 12px; min-height: 0; }
+.ic-verification-status { margin: 6px 0; }
+.ic-submit-actions { position: sticky; bottom: 0; z-index: 1; padding: 10px 0 2px; background: var(--paper); border-top: 1px solid var(--line); }
+.ic-submit-actions button[type="submit"] { font-weight: 700; padding: 10px 20px; border-color: var(--wood); }
+.ic-discussion .ic-thread .ic-quote-link { border: 0; border-radius: 0; padding: 0; background: transparent; box-shadow: none; color: var(--muted); line-height: 1.6; }
+.ic-discussion .ic-thread .ic-content { border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; background: var(--surface); box-shadow: 1px 2px 5px var(--shadow); }
 .ic-discussion { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
 .ic-discussion h2 { font-size: 21px; margin: 0 0 16px; }
 .ic-thread { border-top: 1px solid var(--line); padding: 14px 0; overflow-wrap: anywhere; }
@@ -46,5 +51,8 @@
 @media (max-width: 767px) {
   .ic-panel { left: 8px !important; right: 8px; bottom: max(8px,env(safe-area-inset-bottom)); top: auto !important; width: calc(100vw - 16px) !important; max-width: none; max-height: min(72dvh,680px) !important; }
   .ic-panel textarea { min-height: 90px; }
+}
+@media (max-width: 359px) {
+  .ic-panel { left: 4px !important; right: 4px; width: calc(100vw - 8px) !important; padding: 5px; }
 }
 @media print { .ic-ui, .ic-discussion { display: none !important; } }

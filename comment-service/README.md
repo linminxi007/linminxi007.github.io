@@ -133,7 +133,7 @@ up to 8000; context is 64 code units per side. Requests are limited to 32 KB. Ne
 and replies are limited to 6 per ten minutes per IP HMAC and per visitor HMAC. Reads
 are limited to 120/minute/IP HMAC; buckets are shared across workers in PostgreSQL.
 
-Turnstile is loaded only when a configured composer opens. Its compact widget fits the narrow rail without horizontal overflow. The server performs
+Turnstile is loaded only when a configured composer opens. Its horizontal normal-size widget is 300×65px; the rail reserves enough width for it, including on 320px phones. The sticky Submit actions and verification hint distinguish CAPTCHA success from comment submission. The server performs
 [Siteverify validation](https://developers.cloudflare.com/turnstile/get-started/server-side-validation/),
 checking success, hostname and action `academic-comment`. Cross-origin responses
 allow only configured origins; no cookies or wildcard credentialed CORS are used.

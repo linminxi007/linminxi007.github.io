@@ -19,9 +19,10 @@
   const quote=make('blockquote','ic-quote'),panelThreads=make('div','ic-panel-threads'),form=make('form');
   const nickLabel=make('label','','Nickname (optional)'),nick=make('input');nick.id='ic-nickname';nick.maxLength=60;nick.autocomplete='nickname';nickLabel.htmlFor=nick.id;
   const textLabel=make('label','','Comment'),text=make('textarea');text.id='ic-text';text.maxLength=5000;text.required=true;textLabel.htmlFor=text.id;
-  const challenge=make('div','ic-turnstile'),actions=make('div','ic-actions'),submit=make('button','ic-button','Submit');submit.type='submit';submit.disabled=true;
+  const challenge=make('div','ic-turnstile'),actions=make('div','ic-actions ic-submit-actions'),submit=make('button','ic-button','Submit');submit.type='submit';submit.disabled=true;
   const cancel=button('Cancel',close),formStatus=make('p','ic-status');formStatus.setAttribute('role','status');formStatus.setAttribute('aria-live','polite');
-  const replyStatus=make('p','ic-status');actions.append(submit,cancel);form.append(replyStatus,nickLabel,nick,textLabel,text,challenge,actions,formStatus);
+  const verificationHint=make('p','ic-status ic-verification-status');verificationHint.id='ic-verification-status';submit.setAttribute('aria-describedby',verificationHint.id);
+  const replyStatus=make('p','ic-status');actions.append(submit,cancel);form.append(replyStatus,nickLabel,nick,textLabel,text,challenge,verificationHint,formStatus,actions);
   panel.append(head,quote,panelThreads,form);ui.append(selectionButton,hoverButton,markerLayer,panel);document.body.append(ui);
   const discussion=make('section','ic-discussion');discussion.id='discussion-comments';discussion.setAttribute('aria-labelledby','ic-discussion-title');
   const discussionTitle=make('h2','','Discussion / Comments');discussionTitle.id='ic-discussion-title';
@@ -169,6 +170,7 @@
     text.value='';pendingRequest=null;submit.disabled=!ready;
     selectionButton.hidden=true;hoverButton.hidden=true;panel.hidden=false;document.body.classList.add('ic-panel-open');
     formStatus.textContent=ready?postingPolicy():state.textContent;
+    verificationHint.textContent='Anti-bot check only. Click Submit to send your comment.';
     renderPanel();schedulePosition();highlightActive();text.focus({preventScroll:true});
     requestAnimationFrame(()=>{
       if(!active||panel.hidden||innerWidth<768)return;
@@ -200,7 +202,7 @@
         await turnstileLoading;
       }
       if(panel.hidden||widget!==null)return;
-      widget=window.turnstile.render(challenge,{sitekey:service.turnstile_site_key,action:'academic-comment',theme:document.documentElement.dataset.theme==='dark'?'dark':'light',size:'compact',callback:token=>{challengeToken=token;},'expired-callback':()=>{challengeToken='';},'error-callback':()=>{challengeToken='';formStatus.textContent='Verification unavailable. Please retry when your connection is restored.';}});
+      widget=window.turnstile.render(challenge,{sitekey:service.turnstile_site_key,action:'academic-comment',theme:document.documentElement.dataset.theme==='dark'?'dark':'light',size:'normal',callback:token=>{challengeToken=token;verificationHint.textContent='Verification passed. Click Submit to send your comment.';},'expired-callback':()=>{challengeToken='';verificationHint.textContent='Verification expired. Complete it again, then click Submit.';},'error-callback':()=>{challengeToken='';verificationHint.textContent='Verification has not completed.';formStatus.textContent='Verification unavailable. Please retry when your connection is restored.';}});
     }catch(error){turnstileLoading=null;formStatus.textContent=error.message;submit.disabled=true;}
   }
   form.addEventListener('submit',async event=>{
@@ -223,20 +225,20 @@
     }catch(error){formStatus.textContent='Not confirmed. Your draft is retained; retrying the same text is safe. '+error.message;if(widget!==null&&window.turnstile)window.turnstile.reset(widget);challengeToken='';}
     finally{submitting=false;submit.disabled=!ready;cancel.disabled=false;closeButton.disabled=false;schedulePosition();}
   });
-  function threadNode(record,depth=0) {
+  function threadNode(record,depth=0,discussion=false) {
     const el=make('article','ic-thread');el.dataset.commentId=record.comment_id;
     const header=make('header'),author=make('strong','',record.nickname||'Anonymous'),time=make('time','',new Date(record.created_at).toLocaleString());time.dateTime=record.created_at;
     header.append(author,time);if(record.status!=='approved')header.append(make('span','ic-state',record.status==='pending'?'Pending review · only visible to you':'Not published · only visible to you'));
     el.append(header);
     const a=record.anchor,target=A.resolve(idx,a);
     if(!record.parent_id&&a.anchor_type!=='document') {
-      const jump=button(a.exact,()=>jumpTo(record),'ic-quote-link');jump.disabled=!target;el.append(jump);
+      const jump=button(discussion?'"'+a.exact+'"':a.exact,()=>jumpTo(record),'ic-quote-link');jump.disabled=!target;el.append(jump);
       if(!target)el.append(make('p','ic-status','Original passage not found · unresolved anchor'));
     }
     el.append(make('p','ic-content',record.content));
     if(record.status!=='rejected')el.append(button('Reply',()=>openSnapshot({anchor:a,range:target?.range,block:target?.block},record.comment_id,document.activeElement),'ic-reply'));
     const replies=[...records.values()].filter(r=>r.parent_id===record.comment_id);
-    if(replies.length&&depth<12){const children=make('div','ic-replies');for(const reply of replies)children.append(threadNode(reply,depth+1));el.append(children);}
+    if(replies.length&&depth<12){const children=make('div','ic-replies');for(const reply of replies)children.append(threadNode(reply,depth+1,discussion));el.append(children);}
     return el;
   }
   function renderPanel(){
@@ -248,7 +250,7 @@
   }
   function render(){
     if(dirty)rebuild();list.replaceChildren();
-    for(const r of records.values())if(!r.parent_id)list.append(threadNode(r));
+    for(const r of records.values())if(!r.parent_id)list.append(threadNode(r,0,true));
     renderPanel();markerLayer.replaceChildren();markers=[];
     const groups=new Map(),ranges=[];
     for(const r of records.values()) {
@@ -279,8 +281,8 @@
     if(!selectionButton.hidden&&snapshot)placeGutterIcon(selectionButton,endpoint(snapshot.focusRange||snapshot.range));
     if(panel.hidden||innerWidth<768)return;
     const sheet=article.closest('.reading-sheet').getBoundingClientRect(),headBottom=$('.site-header')?.getBoundingClientRect().bottom||80;
-    const width=Math.min(innerWidth<1200?300:332,innerWidth-sheet.right-24),topMin=Math.max(12,headBottom+12);
-    panel.style.width=Math.max(280,width)+'px';panel.style.left=Math.min(innerWidth-panel.offsetWidth-12,sheet.right+18)+'px';
+    const width=Math.min(340,innerWidth-sheet.right-24),topMin=Math.max(12,headBottom+12);
+    panel.style.width=Math.max(334,width)+'px';panel.style.left=Math.min(innerWidth-panel.offsetWidth-12,sheet.right+18)+'px';
     panel.style.maxHeight=Math.max(150,innerHeight-topMin-16)+'px';
     const target=(active?.range?.startContainer?.isConnected&&endpoint(active.range))||active?.block?.getBoundingClientRect();
     const desired=target?.top||topMin;panel.style.top=Math.max(topMin,Math.min(desired,innerHeight-Math.min(panel.scrollHeight,innerHeight-topMin-16)-16))+'px';

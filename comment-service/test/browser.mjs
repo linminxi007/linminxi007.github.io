@@ -34,7 +34,7 @@ const web=createServer(async(req,res)=>{
 const browser=await chromium.launch({headless:true,...(process.env.BROWSER_EXE?{executablePath:process.env.BROWSER_EXE}:{})});
 const context=await browser.newContext({viewport:{width:1536,height:1000}}),page=await context.newPage();
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
-await context.route('https://challenges.cloudflare.com/turnstile/**',route=>route.fulfill({contentType:'text/javascript',body:`window.turnstile={render(e,o){this.o=o;setTimeout(()=>o.callback(crypto.randomUUID()),30);return 1},reset(){setTimeout(()=>this.o.callback(crypto.randomUUID()),30)},remove(){}};`}));
+await context.route('https://challenges.cloudflare.com/turnstile/**',route=>route.fulfill({contentType:'text/javascript',body:`window.turnstile={render(e,o){this.o=o;const box=document.createElement('div');box.className='test-turnstile';box.style.cssText='width:300px;height:65px;border:1px solid #aaa;background:#fafafa;color:#222;display:flex;align-items:center;padding:10px;box-sizing:border-box;font:12px Arial';box.textContent='Turnstile test fixture · verified';e.replaceChildren(box);setTimeout(()=>o.callback(crypto.randomUUID()),30);return 1},reset(){setTimeout(()=>this.o.callback(crypto.randomUUID()),30)},remove(){}};`}));
 async function select(selector,start=0,end=75){await page.locator(selector).scrollIntoViewIfNeeded();await page.evaluate(({selector,start,end})=>{const el=document.querySelector(selector),walker=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n=walker.nextNode();const r=document.createRange();r.setStart(n,Math.min(start,n.length));r.setEnd(n,Math.min(end,n.length));const s=getSelection();s.removeAllRanges();s.addRange(r);document.dispatchEvent(new Event('selectionchange'));},{selector,start,end});await page.waitForTimeout(160);}
 async function close(){if(await page.locator('.ic-panel').isVisible())await page.locator('.ic-panel [aria-label="Close comments"]').click();}
 try{
@@ -55,12 +55,22 @@ try{
   assert(boxes.panel.left>=boxes.article.right);assert(boxes.panel.right<=boxes.width);assert(boxes.scroll<=boxes.width);
   ok('desktop card sits to the right without obscuring the article or horizontal scrolling');
   await page.screenshot({path:join(out,'inline-comments-composer-desktop.png')});
+  await page.waitForFunction(()=>window.turnstile?.o);assert.equal(await page.evaluate(()=>window.turnstile.o.size),'normal');
+  await page.getByText('Verification passed. Click Submit to send your comment.',{exact:true}).waitFor();
+  const empty=await api.engine.query('SELECT count(*)::integer AS n FROM academic_comments');assert.equal(empty.rows[0].n,0,'verification success alone must not submit');
+  const footprint=await page.locator('.test-turnstile').boundingBox();assert.equal(footprint.width,300);assert.equal(footprint.height,65);
+  const visibleAction=await page.locator('.ic-panel button[type=submit]').evaluate(el=>{const r=el.getBoundingClientRect(),p=el.closest('.ic-panel').getBoundingClientRect();return r.top>=p.top&&r.bottom<=p.bottom&&r.bottom<=innerHeight&&el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));});assert(visibleAction,'Submit must remain fully visible and clickable');
+  ok('horizontal verification is 65px high, never submits by itself, and leaves Submit visible');
   await page.locator('#ic-text').fill('Anonymous inline note <img src=x onerror=alert(1)>');
   await page.locator('.ic-panel button[type=submit]').click();await page.getByText('Submitted for review. This comment is not public yet.',{exact:true}).waitFor();
   const id=await page.locator('.ic-panel .ic-thread').first().getAttribute('data-comment-id');assert(id);
   assert.equal(await page.locator('.ic-discussion .ic-thread').first().getAttribute('data-comment-id'),id);
   assert.equal(await page.locator('.ic-discussion .ic-thread img').count(),0);
   ok('anonymous post reaches a real PostgreSQL engine, shares its canonical ID across views and renders XSS text inert');
+  const discussionAppearance=await page.locator('.ic-discussion .ic-thread').first().evaluate(el=>{const q=el.querySelector('.ic-quote-link'),c=el.querySelector('.ic-content'),qs=getComputedStyle(q),cs=getComputedStyle(c);return {quote:q.textContent,radius:qs.borderRadius,border:qs.borderLeftWidth,background:qs.backgroundColor,contentRadius:parseFloat(cs.borderRadius),contentBorder:cs.borderTopWidth,contentBackground:cs.backgroundColor};});
+  assert(discussionAppearance.quote.startsWith('"')&&discussionAppearance.quote.endsWith('"'));assert.equal(discussionAppearance.radius,'0px');assert.equal(discussionAppearance.border,'0px');assert.equal(discussionAppearance.background,'rgba(0, 0, 0, 0)');assert(discussionAppearance.contentRadius>0);assert.equal(discussionAppearance.contentBorder,'1px');assert.notEqual(discussionAppearance.contentBackground,'rgba(0, 0, 0, 0)');
+  await page.locator('.ic-discussion .ic-thread').first().scrollIntoViewIfNeeded();await page.screenshot({path:join(out,'discussion-quoted-text-and-comment.png')});
+  ok('discussion quotation uses plain quotation marks and the comment body has the rounded card');
   const outsider=await browser.newContext();const outsiderPage=await outsider.newPage();await outsiderPage.goto('http://127.0.0.1:8911/notes/fixture.html');await outsiderPage.getByText('No comments yet. Anonymous comments are reviewed before publication.',{exact:true}).waitFor();assert.equal(await outsiderPage.locator('.ic-thread').count(),0);await outsider.close();
   ok('pending submission is hidden from another visitor');
   await close();await page.reload();await page.locator('.ic-discussion .ic-thread').first().waitFor();assert.equal(await page.locator('.ic-discussion .ic-thread').first().getAttribute('data-comment-id'),id);
@@ -81,10 +91,12 @@ try{
   await select('#test-code',0,10);assert.equal(await page.locator('.ic-selection').isVisible(),false);
   const mathBefore=await page.locator('#math-p math').innerHTML();await page.evaluate(()=>{const r=document.createRange();r.selectNodeContents(document.querySelector('#math-p'));getSelection().removeAllRanges();getSelection().addRange(r);});await page.waitForTimeout(150);await page.locator('.ic-selection').click();assert.equal(await page.locator('#math-p math').innerHTML(),mathBefore);await close();ok('code selections are excluded and MathML uses a non-destructive paragraph fallback');
   await page.evaluate(()=>getSelection().removeAllRanges());await page.locator('#test-link').click();assert(page.url().endsWith('#more'));ok('ordinary links retain native navigation');
-  for(const width of [1024,820,390]) {
+  for(const width of [1024,820,390,320]) {
     await page.setViewportSize({width,height:900});await select('#zh',0,75);await page.locator('.ic-selection').click();
     const v=await page.evaluate(()=>({a:document.querySelector('.reading-sheet').getBoundingClientRect().toJSON(),p:document.querySelector('.ic-panel').getBoundingClientRect().toJSON(),w:innerWidth,scroll:document.documentElement.scrollWidth}));
     assert(v.scroll<=width,JSON.stringify(v));if(width>=768)assert(v.p.left>=v.a.right-1,JSON.stringify(v));else assert(v.p.left>=0&&v.p.right<=width&&v.p.bottom<=900);
+    await page.waitForFunction(()=>window.turnstile?.o);const widgetBox=await page.locator('.test-turnstile').boundingBox();const panelBox=await page.locator('.ic-panel').boundingBox();assert(widgetBox.x>=panelBox.x&&widgetBox.x+widgetBox.width<=panelBox.x+panelBox.width,'horizontal verification must fit the panel at '+width);
+    const submitVisible=await page.locator('.ic-panel button[type=submit]').evaluate(el=>{const r=el.getBoundingClientRect(),p=el.closest('.ic-panel').getBoundingClientRect();return r.top>=p.top&&r.bottom<=p.bottom&&r.bottom<=innerHeight&&el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));});assert(submitVisible,'Submit is clipped at '+width);
     await page.evaluate(()=>document.documentElement.dataset.theme='dark');
     await page.screenshot({path:join(out,`inline-comments-dark-${width}.png`)});await close();
     await page.evaluate(()=>{document.documentElement.dataset.theme='light';document.documentElement.dataset.sidebar='closed';document.documentElement.style.setProperty('--reader-size','28px');});
@@ -143,7 +155,7 @@ try{
   const autoID=await page.locator('.ic-panel .ic-thread').first().getAttribute('data-comment-id');assert.equal(await page.locator('.ic-discussion .ic-thread').first().getAttribute('data-comment-id'),autoID);assert.equal(await page.locator('.ic-thread img').count(),0);assert.equal(await page.locator('.ic-state').count(),0);
   ok('auto mode immediately publishes with matching rail/discussion IDs, no waiting notice and inert HTML');
   const other=await browser.newContext({viewport:{width:1536,height:1000}});
-  await other.route('https://challenges.cloudflare.com/turnstile/**',route=>route.fulfill({contentType:'text/javascript',body:`window.turnstile={render(e,o){this.o=o;setTimeout(()=>o.callback(crypto.randomUUID()),30);return 1},reset(){setTimeout(()=>this.o.callback(crypto.randomUUID()),30)},remove(){}};`}));
+  await other.route('https://challenges.cloudflare.com/turnstile/**',route=>route.fulfill({contentType:'text/javascript',body:`window.turnstile={render(e,o){this.o=o;const box=document.createElement('div');box.className='test-turnstile';box.style.cssText='width:300px;height:65px;border:1px solid #aaa;background:#fafafa;color:#222;display:flex;align-items:center;padding:10px;box-sizing:border-box;font:12px Arial';box.textContent='Turnstile test fixture · verified';e.replaceChildren(box);setTimeout(()=>o.callback(crypto.randomUUID()),30);return 1},reset(){setTimeout(()=>this.o.callback(crypto.randomUUID()),30)},remove(){}};`}));
   const otherPage=await other.newPage();await otherPage.goto('http://127.0.0.1:8911/notes/fixture.html');await otherPage.locator('.ic-discussion .ic-thread').first().waitFor();assert.equal(await otherPage.locator('.ic-discussion .ic-thread').first().getAttribute('data-comment-id'),autoID);
   await otherPage.locator('.ic-discussion .ic-reply').first().click();await otherPage.locator('#ic-text').fill('A different anonymous visitor replies immediately.');await otherPage.waitForTimeout(120);await otherPage.locator('.ic-panel button[type=submit]').click();await otherPage.getByText('Comment published.',{exact:true}).waitFor();assert.equal(await otherPage.locator('.ic-discussion .ic-thread').count(),2);
   await otherPage.reload();await otherPage.locator('.ic-discussion .ic-replies .ic-thread').waitFor();assert.equal(await otherPage.locator('.ic-discussion .ic-thread').count(),2);await other.close();
