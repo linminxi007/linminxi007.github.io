@@ -20,6 +20,7 @@ toc: false
 <p>受到Hongliang Xin和Jun Huang的影响，我也开始着迷于那些古老文献。电极电势一点也不简单。当我们在测量电极电势的时候，我们到底在测什么？在理论计算里，我们甚至怎么知道自己处在哪个电势下？不可思议的是，很多催化文章根本不关心电极电势到底是什么，却能算出和实验完美吻合的结果。作为一个曾经的 DFT 熟练按键操作员，我对此鄙视、鄙视、鄙视。</p>
 <p>那些 SFG 研究者在分子的几何空间里倒来倒去，寻找几何上的组合，从而“看见”分子，看起来是聪明人的工作。</p>
 <p>我越来越觉得自己是个笨B了。就这样。</p>
+<p>邮箱：<a href="mailto:linminxi007@gmail.com">linminxi007@gmail.com</a></p>
 </section>
 <section data-lang="en">
 <h2>This is a stream-of-consciousness &quot;About Me.&quot;</h2>
@@ -35,5 +36,6 @@ toc: false
 <p>Influenced by Hongliang Xin and Jun Huang, I also became obsessed with old papers. "Electrode potential" is not simple at all. When we measure electrode potential, what are we actually measuring? In theoretical calculations, how do we even know what potential we are at? It is unbelievable that so many catalysis papers don't care at all what electrode potential really is, yet still get results that match experiments perfectly. As a former skilled DFT button-pusher, I despise this, despise this, despise this.</p>
 <p>Those SFG researchers keep flipping things back and forth in molecular geometric space, hunting for the right geometric combinations just to "see" molecules. It looks like work for smart people.</p>
 <p>I feel more and more like an idiot. That's it.</p>
+<p>Email: <a href="mailto:linminxi007@gmail.com">linminxi007@gmail.com</a></p>
 </section>
 ```

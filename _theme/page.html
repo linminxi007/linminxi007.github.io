@@ -9,9 +9,9 @@ $for(header-includes)$$header-includes$$endfor$
 $if(highlighting-css)$<style>$highlighting-css$</style>$endif$
 $if(math)$$math$$endif$
 <script src="$site-prefix$assets/boot.js?v=3.1"></script>
-<link rel="stylesheet" href="$site-prefix$assets/site.css?v=3.1">
+<link rel="stylesheet" href="$site-prefix$assets/site.css?v=20261118">
 
-<script defer src="$site-prefix$assets/site.js?v=3.1"></script>
+<script defer src="$site-prefix$assets/site.js?v=20261118"></script>
 <!-- GA4 defaults to enabled; visitors can opt out in the footer settings. -->
 <link rel="stylesheet" href="$site-prefix$assets/analytics.css?v=1">
 <script defer src="$site-prefix$assets/analytics.js?v=2"></script>
@@ -24,7 +24,7 @@ $if(math)$$math$$endif$
 <nav class="main-nav" id="main-nav" aria-label="网站导航 / Main navigation">
 <a class="nav-home button-jump" data-section="home" href="$site-prefix$index.html" aria-label="回到首页 / Home" title="回到首页 / Home"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h5v-6h3v6h5V9"/></svg></a>
 <details class="category-menu"><summary class="nav-item button-open"><span data-i18n="topics">分类</span><svg class="chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 9 7 6 7-6"/></svg></summary><div class="dropdown-panel"><a href="$site-prefix$notes/index.html" data-i18n="allNotes">全部笔记</a>$site-categories$</div></details>
-<a class="nav-item button-jump" data-section="files" href="$site-prefix$files.html" data-i18n="files">关联文件</a>
+
 <a class="nav-item button-jump" data-section="about" href="$site-prefix$about.html" data-i18n="about">关于</a>
 </nav>
 <button class="soft-icon button-open search-toggle" id="search-toggle" aria-label="搜索 / Search" title="Ctrl / Cmd + K"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button>
@@ -81,7 +81,7 @@ $if(site-home)$$else$<div class="page-heading"><div class="eyebrow">$if(kicker)$
 <div class="page-content">$body$</div>
 $endif$
 </main>
-<footer class="site-footer"><span>linminxi007 <span class="footer-dot">/</span> <span data-i18n="footer">思考，记录，连接。</span></span><span><a href="$site-prefix$privacy.html">隐私 / Privacy</a> <span class="footer-dot">·</span> <button type="button" class="analytics-settings" id="analytics-settings">统计设置 / Analytics</button> <span class="footer-dot">·</span> READING ROOM V3.1</span></footer>
+<footer class="site-footer"><span class="footer-identity"><span>linminxi007 <span class="footer-dot">/</span> <span data-i18n="footer">Out of the box</span></span><a class="footer-files" href="$site-prefix$files.html" data-i18n="footerFiles">关联文献</a></span><span><a href="$site-prefix$privacy.html">隐私 / Privacy</a> <span class="footer-dot">·</span> <button type="button" class="analytics-settings" id="analytics-settings">统计设置 / Analytics</button> <span class="footer-dot">·</span> READING ROOM V3.1</span></footer>
 <section class="analytics-consent" id="analytics-consent" aria-labelledby="analytics-consent-title" hidden>
   <h2 id="analytics-consent-title">统计设置 / Analytics settings</h2>
   <p id="analytics-consent-text">本网站默认启用 Google Analytics Cookie 统计，可在此关闭，不影响阅读。 Analytics cookies are enabled by default; you can turn analytics off here without affecting reading.</p>

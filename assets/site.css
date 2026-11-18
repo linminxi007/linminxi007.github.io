@@ -1015,3 +1015,6 @@ dialog::backdrop { background: var(--scrim); }
 .site-header .main-nav > [data-section="about"] {
   font-size: calc(var(--menu-size) * 0.95);
 }
+/* Keep the references link beside the footer signature in both languages. */
+.site-footer .footer-identity { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; }
+.site-footer .footer-files { font-size: inherit; text-decoration: underline; text-underline-offset: .18em; }
