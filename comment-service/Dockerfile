@@ -8,4 +8,4 @@ COPY note-paths.json ./note-paths.json
 USER node
 ENV NODE_ENV=production PORT=8080
 EXPOSE 8080
-CMD ["node", "src/main.mjs"]
+CMD ["sh", "-c", "node src/migrate.mjs && exec node src/main.mjs"]
