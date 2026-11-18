@@ -56,11 +56,16 @@ try{
   ok('desktop card sits to the right without obscuring the article or horizontal scrolling');
   await page.screenshot({path:join(out,'inline-comments-composer-desktop.png')});
   await page.waitForFunction(()=>window.turnstile?.o);assert.equal(await page.evaluate(()=>window.turnstile.o.size),'normal');
-  await page.getByText('Verification passed. Click Submit to send your comment.',{exact:true}).waitFor();
+  assert.equal(await page.getByText('Verification passed. Click Submit to send your comment.',{exact:true}).count(),0);
   const empty=await api.engine.query('SELECT count(*)::integer AS n FROM academic_comments');assert.equal(empty.rows[0].n,0,'verification success alone must not submit');
   const footprint=await page.locator('.test-turnstile').boundingBox();assert.equal(footprint.width,300);assert.equal(footprint.height,65);
   const visibleAction=await page.locator('.ic-panel button[type=submit]').evaluate(el=>{const r=el.getBoundingClientRect(),p=el.closest('.ic-panel').getBoundingClientRect();return r.top>=p.top&&r.bottom<=p.bottom&&r.bottom<=innerHeight&&el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));});assert(visibleAction,'Submit must remain fully visible and clickable');
   ok('horizontal verification is 65px high, never submits by itself, and leaves Submit visible');
+  const initialField=await page.locator('#ic-text').boundingBox();assert.equal(initialField.height,42);
+  await page.locator('#ic-text').fill('Short comment.');assert.equal((await page.locator('#ic-text').boundingBox()).height,initialField.height);
+  await page.locator('#ic-text').fill('A long comment that wraps onto further lines. '.repeat(30));const expanded=await page.locator('#ic-text').boundingBox();assert(expanded.height>initialField.height);assert.equal(expanded.width,initialField.width);
+  await page.locator('#ic-text').fill('');assert.equal((await page.locator('#ic-text').boundingBox()).height,initialField.height);
+  ok('comment field starts at one third height, grows only for overflowing input, keeps width and shrinks when cleared');
   await page.locator('#ic-text').fill('Anonymous inline note <img src=x onerror=alert(1)>');
   await page.locator('.ic-panel button[type=submit]').click();await page.getByText('Submitted for review. This comment is not public yet.',{exact:true}).waitFor();
   const id=await page.locator('.ic-panel .ic-thread').first().getAttribute('data-comment-id');assert(id);
@@ -95,6 +100,7 @@ try{
     await page.setViewportSize({width,height:900});await select('#zh',0,75);await page.locator('.ic-selection').click();
     const v=await page.evaluate(()=>({a:document.querySelector('.reading-sheet').getBoundingClientRect().toJSON(),p:document.querySelector('.ic-panel').getBoundingClientRect().toJSON(),w:innerWidth,scroll:document.documentElement.scrollWidth}));
     assert(v.scroll<=width,JSON.stringify(v));if(width>=768)assert(v.p.left>=v.a.right-1,JSON.stringify(v));else assert(v.p.left>=0&&v.p.right<=width&&v.p.bottom<=900);
+    const compactField=await page.locator('#ic-text').boundingBox();assert.equal(compactField.height,width<768?30:42);await page.locator('#ic-text').fill('Line one\nLine two\nLine three\nLine four');const grownField=await page.locator('#ic-text').boundingBox();assert(grownField.height>compactField.height);assert.equal(grownField.width,compactField.width);await page.locator('#ic-text').fill('');assert.equal((await page.locator('#ic-text').boundingBox()).height,compactField.height);
     await page.waitForFunction(()=>window.turnstile?.o);const widgetBox=await page.locator('.test-turnstile').boundingBox();const panelBox=await page.locator('.ic-panel').boundingBox();assert(widgetBox.x>=panelBox.x&&widgetBox.x+widgetBox.width<=panelBox.x+panelBox.width,'horizontal verification must fit the panel at '+width);
     const submitVisible=await page.locator('.ic-panel button[type=submit]').evaluate(el=>{const r=el.getBoundingClientRect(),p=el.closest('.ic-panel').getBoundingClientRect();return r.top>=p.top&&r.bottom<=p.bottom&&r.bottom<=innerHeight&&el.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));});assert(submitVisible,'Submit is clipped at '+width);
     await page.evaluate(()=>document.documentElement.dataset.theme='dark');
@@ -149,7 +155,7 @@ try{
   await page.waitForTimeout(350);await page.locator('.ic-hover').click();assert((await page.locator('.ic-quote').textContent()).startsWith('A hydration layer'));await close();
   ok('paragraph icon stays clickable across a slow mouse movement through the gutter');
 
-  apiMode='auto';await page.goto('http://127.0.0.1:8911/notes/fixture.html');await page.getByText('No comments yet. Verified comments are published immediately.',{exact:true}).waitFor();
+  apiMode='auto';await page.goto('http://127.0.0.1:8911/notes/fixture.html');await page.getByText('No comments yet.',{exact:true}).waitFor();assert.equal(await page.getByText('Verified comments are published immediately.',{exact:true}).count(),0);
   assert.equal(await page.getByText('Anonymous comments are reviewed before publication.',{exact:true}).count(),0);
   await select('#en',2,135);await page.screenshot({path:join(out,'auto-comments-margin-icon-desktop.png')});await page.locator('.ic-selection').click();await page.locator('#ic-text').fill('Auto-published anonymous note <img src=x onerror=alert(1)>');await page.waitForTimeout(100);await page.locator('.ic-panel button[type=submit]').click();await page.getByText('Comment published.',{exact:true}).waitFor();
   const autoID=await page.locator('.ic-panel .ic-thread').first().getAttribute('data-comment-id');assert.equal(await page.locator('.ic-discussion .ic-thread').first().getAttribute('data-comment-id'),autoID);assert.equal(await page.locator('.ic-thread img').count(),0);assert.equal(await page.locator('.ic-state').count(),0);

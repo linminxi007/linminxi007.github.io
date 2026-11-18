@@ -18,11 +18,10 @@
   const closeButton=button('×',close);closeButton.setAttribute('aria-label','Close comments');head.append(title,closeButton);
   const quote=make('blockquote','ic-quote'),panelThreads=make('div','ic-panel-threads'),form=make('form');
   const nickLabel=make('label','','Nickname (optional)'),nick=make('input');nick.id='ic-nickname';nick.maxLength=60;nick.autocomplete='nickname';nickLabel.htmlFor=nick.id;
-  const textLabel=make('label','','Comment'),text=make('textarea');text.id='ic-text';text.maxLength=5000;text.required=true;textLabel.htmlFor=text.id;
+  const textLabel=make('label','','Comment'),text=make('textarea');text.id='ic-text';text.rows=1;text.maxLength=5000;text.required=true;textLabel.htmlFor=text.id;
   const challenge=make('div','ic-turnstile'),actions=make('div','ic-actions ic-submit-actions'),submit=make('button','ic-button','Submit');submit.type='submit';submit.disabled=true;
   const cancel=button('Cancel',close),formStatus=make('p','ic-status');formStatus.setAttribute('role','status');formStatus.setAttribute('aria-live','polite');
-  const verificationHint=make('p','ic-status ic-verification-status');verificationHint.id='ic-verification-status';submit.setAttribute('aria-describedby',verificationHint.id);
-  const replyStatus=make('p','ic-status');actions.append(submit,cancel);form.append(replyStatus,nickLabel,nick,textLabel,text,challenge,verificationHint,formStatus,actions);
+  const replyStatus=make('p','ic-status');actions.append(submit,cancel);form.append(replyStatus,nickLabel,nick,textLabel,text,challenge,formStatus,actions);
   panel.append(head,quote,panelThreads,form);ui.append(selectionButton,hoverButton,markerLayer,panel);document.body.append(ui);
   const discussion=make('section','ic-discussion');discussion.id='discussion-comments';discussion.setAttribute('aria-labelledby','ic-discussion-title');
   const discussionTitle=make('h2','','Discussion / Comments');discussionTitle.id='ic-discussion-title';
@@ -47,7 +46,7 @@
     if(!response.ok)throw new Error(value.error||'Comment service unavailable.');return value;
   }
   const automatic = () => service?.moderation === 'auto';
-  const postingPolicy = () => automatic() ? 'Verified comments are published immediately.' : 'Anonymous comments are reviewed before publication.';
+  const postingPolicy = () => automatic() ? '' : 'Anonymous comments are reviewed before publication.';
   function showError(message){state.textContent=message;formStatus.textContent=message;}
   async function initialize() {
     const seq=++requestSequence;ready=false;submit.disabled=true;state.textContent='Loading comment service…';
@@ -65,7 +64,7 @@
   }
   function updateDiscussionStatus() {
     const hasPending=[...records.values()].some(record=>record.status==='pending');
-    state.textContent=records.size ? `${records.size} comments loaded.`+(hasPending?' Pending comments are visible only to their submitting visitor.':'') : 'No comments yet. '+postingPolicy();
+    state.textContent=records.size ? `${records.size} comments loaded.`+(hasPending?' Pending comments are visible only to their submitting visitor.':'') : 'No comments yet.'+(postingPolicy()?' '+postingPolicy():'');
   }
   async function refresh(reset=true) {
     if(!ready)return;
@@ -159,6 +158,18 @@
     }
   });
   function positionHover(){if(!hoverBlock||selecting)return;const r=hoverBlock.el.getBoundingClientRect();placeGutterIcon(hoverButton,{top:r.top,bottom:r.top+28,height:28});}
+  function resizeComment() {
+    if(panel.hidden)return;
+    const style=getComputedStyle(text),minimum=parseFloat(style.minHeight),maximum=Math.max(minimum,parseFloat(style.maxHeight)||Infinity);
+    const border=parseFloat(style.borderTopWidth)+parseFloat(style.borderBottomWidth),previous=text.style.height,scrollTop=text.scrollTop;
+    text.style.height='0px';
+    const needed=text.scrollHeight+border;
+    text.style.height=Math.max(minimum,Math.min(needed,maximum))+'px';
+    text.style.overflowY=needed>maximum?'auto':'hidden';
+    if(needed>maximum)text.scrollTop=scrollTop;
+    if(previous!==text.style.height)schedulePosition();
+  }
+  text.addEventListener('input',resizeComment);
   function openSnapshot(value,parent,trigger) {
     if(!value)return;
     if(value.anchor.exact.length>8000){showError('This paragraph is too long. Please select a shorter passage.');return;}
@@ -170,8 +181,7 @@
     text.value='';pendingRequest=null;submit.disabled=!ready;
     selectionButton.hidden=true;hoverButton.hidden=true;panel.hidden=false;document.body.classList.add('ic-panel-open');
     formStatus.textContent=ready?postingPolicy():state.textContent;
-    verificationHint.textContent='Anti-bot check only. Click Submit to send your comment.';
-    renderPanel();schedulePosition();highlightActive();text.focus({preventScroll:true});
+    renderPanel();resizeComment();schedulePosition();highlightActive();text.focus({preventScroll:true});
     requestAnimationFrame(()=>{
       if(!active||panel.hidden||innerWidth<768)return;
       const r=active.range?.getBoundingClientRect()||active.block?.getBoundingClientRect();
@@ -202,7 +212,7 @@
         await turnstileLoading;
       }
       if(panel.hidden||widget!==null)return;
-      widget=window.turnstile.render(challenge,{sitekey:service.turnstile_site_key,action:'academic-comment',theme:document.documentElement.dataset.theme==='dark'?'dark':'light',size:'normal',callback:token=>{challengeToken=token;verificationHint.textContent='Verification passed. Click Submit to send your comment.';},'expired-callback':()=>{challengeToken='';verificationHint.textContent='Verification expired. Complete it again, then click Submit.';},'error-callback':()=>{challengeToken='';verificationHint.textContent='Verification has not completed.';formStatus.textContent='Verification unavailable. Please retry when your connection is restored.';}});
+      widget=window.turnstile.render(challenge,{sitekey:service.turnstile_site_key,action:'academic-comment',theme:document.documentElement.dataset.theme==='dark'?'dark':'light',size:'normal',callback:token=>{challengeToken=token;},'expired-callback':()=>{challengeToken='';formStatus.textContent='Verification expired. Please verify again.';},'error-callback':()=>{challengeToken='';formStatus.textContent='Verification unavailable. Please retry when your connection is restored.';}});
     }catch(error){turnstileLoading=null;formStatus.textContent=error.message;submit.disabled=true;}
   }
   form.addEventListener('submit',async event=>{
@@ -216,7 +226,7 @@
     try {
       const result=await api('/v1/comments',{method:'POST',body:JSON.stringify({...payload,request_id:pendingRequest.request_id,turnstile_token:challengeToken})});
       ++refreshSequence; // An older in-flight GET must not discard the new submission.
-      records.set(result.comment.comment_id,result.comment);pendingRequest=null;text.value='';
+      records.set(result.comment.comment_id,result.comment);pendingRequest=null;text.value='';resizeComment();
       formStatus.textContent=result.comment.status==='approved'?'Comment published.':'Submitted for review. This comment is not public yet.';
       // Keep a submitted thread in the rail; subsequent posts are replies to its root.
       active.parent=result.comment.comment_id;replyStatus.textContent='Reply to '+result.comment.nickname;

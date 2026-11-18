@@ -17,12 +17,12 @@
 .ic-panel h2 { font: 600 17px/1.4 Arial,"Microsoft YaHei",sans-serif; margin: 0; }
 .ic-panel label { display: block; margin: 12px 0 5px; }
 .ic-panel input, .ic-panel textarea { display: block; width: 100%; padding: 10px; background: var(--recess); color: var(--ink); border: 1px solid var(--line); border-radius: 9px; font: inherit; box-shadow: inset 2px 2px 5px var(--shadow); }
-.ic-panel textarea { min-height: 125px; resize: vertical; max-height: 40vh; }
+.ic-panel textarea { height: 42px; min-height: 42px; padding: 8px 10px; resize: none; overflow-y: hidden; max-height: 40vh; }
 .ic-quote { border: 0; border-left: 3px solid var(--wood); padding: 8px 10px; margin: 12px 0; font-size: 12px; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; max-height: 115px; overflow: auto; }
 .ic-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
 .ic-status { color: var(--muted); font-size: 12px; white-space: pre-wrap; }
 .ic-turnstile { margin-top: 12px; min-height: 0; }
-.ic-verification-status { margin: 6px 0; }
+.ic-ui .ic-status:empty { display: none; }
 .ic-submit-actions { position: sticky; bottom: 0; z-index: 1; padding: 10px 0 2px; background: var(--paper); border-top: 1px solid var(--line); }
 .ic-submit-actions button[type="submit"] { font-weight: 700; padding: 10px 20px; border-color: var(--wood); }
 .ic-discussion .ic-thread .ic-quote-link { border: 0; border-radius: 0; padding: 0; background: transparent; box-shadow: none; color: var(--muted); line-height: 1.6; }
@@ -50,7 +50,7 @@
 }
 @media (max-width: 767px) {
   .ic-panel { left: 8px !important; right: 8px; bottom: max(8px,env(safe-area-inset-bottom)); top: auto !important; width: calc(100vw - 16px) !important; max-width: none; max-height: min(72dvh,680px) !important; }
-  .ic-panel textarea { min-height: 90px; }
+  .ic-panel textarea { height: 30px; min-height: 30px; padding-top: 3px; padding-bottom: 3px; }
 }
 @media (max-width: 359px) {
   .ic-panel { left: 4px !important; right: 4px; width: calc(100vw - 8px) !important; padding: 5px; }
