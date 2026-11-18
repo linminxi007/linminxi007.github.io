@@ -1,0 +1,10 @@
+import { createServer } from 'node:http';
+import { config,createHandler } from './server.mjs';
+import { postgres } from './postgres.mjs';
+import { Store } from './store.mjs';
+const cfg=config(),db=postgres(process.env.DATABASE_URL);
+await db.query('SELECT comment_id FROM academic_comments LIMIT 0');
+const server=createServer(createHandler(new Store(db),cfg));
+server.requestTimeout=15000;server.headersTimeout=10000;
+server.listen(Number(process.env.PORT||8080),'0.0.0.0',()=>console.log('Annotation service listening. Moderation is required.'));
+for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>server.close(async()=>{await db.close();process.exit(0);}));

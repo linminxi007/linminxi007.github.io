@@ -17,3 +17,7 @@ Thumbs.db
 /_checks/
 
 **/*.quarto_ipynb
+
+/comment-service/node_modules/
+/comment-service/.data/
+/comment-service/test-results/

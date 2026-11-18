@@ -1,0 +1,38 @@
+name: Academic comment checks
+on:
+  pull_request:
+  push:
+    branches: [main, 'feature/**']
+permissions:
+  contents: read
+jobs:
+  annotations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: comment-service/package-lock.json
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: '1.10.18'
+      - run: npm ci
+        working-directory: comment-service
+      - run: npx playwright install --with-deps chromium
+        working-directory: comment-service
+      - run: node --test tests/analytics.test.cjs
+      - run: npm test
+        working-directory: comment-service
+      - run: quarto render
+      - run: node comment-service/src/build-note-paths.mjs
+      - run: python tests/check-analytics-html.py
+      - run: node comment-service/test/rendered.mjs
+      - run: npm run test:browser
+        working-directory: comment-service
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: annotation-browser-screenshots
+          path: comment-service/test-results/

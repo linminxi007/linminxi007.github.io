@@ -1,0 +1,51 @@
+/* Isolated annotation UI. Existing page layout is untouched until a panel opens. */
+.ic-ui, .ic-discussion { color: var(--ink); font: 400 14px/1.55 Arial,"Microsoft YaHei",sans-serif; }
+.ic-ui *, .ic-discussion * { box-sizing: border-box; }
+.ic-ui[hidden], .ic-ui [hidden], .ic-discussion [hidden] { display: none !important; }
+.ic-button { cursor: pointer; color: var(--ink); border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 8px 12px; font: inherit; box-shadow: 2px 3px 6px var(--shadow), -2px -2px 5px var(--highlight); }
+.ic-button:hover { background: var(--recess); }
+.ic-button:disabled { cursor: not-allowed; opacity: .55; }
+.ic-ui :focus-visible, .ic-discussion :focus-visible { outline: 2px solid var(--wood); outline-offset: 3px; }
+.ic-selection, .ic-hover { position: fixed; z-index: 44; opacity: .8; display: flex; align-items: center; gap: 6px; touch-action: manipulation; }
+.ic-selection { white-space: nowrap; }
+.ic-selection:hover, .ic-selection:focus-visible, .ic-hover:hover { opacity: 1; }
+.ic-hover { width: 32px; height: 32px; padding: 6px; justify-content: center; }
+.ic-icon { width: 16px; height: 16px; flex: 0 0 16px; }
+.ic-markers { position: absolute; inset: 0; pointer-events: none; z-index: 25; }
+.ic-marker { position: absolute; pointer-events: auto; width: 32px; min-height: 30px; padding: 4px; font-size: 11px; color: var(--wood-dark); }
+.ic-panel { position: fixed; width: 332px; max-width: calc(100vw - 24px); z-index: 43; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: 5px 6px 16px var(--shadow), -2px -2px 7px var(--highlight); overflow: auto; overscroll-behavior: contain; }
+.ic-panel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ic-panel h2 { font: 600 17px/1.4 Arial,"Microsoft YaHei",sans-serif; margin: 0; }
+.ic-panel label { display: block; margin: 12px 0 5px; }
+.ic-panel input, .ic-panel textarea { display: block; width: 100%; padding: 10px; background: var(--recess); color: var(--ink); border: 1px solid var(--line); border-radius: 9px; font: inherit; box-shadow: inset 2px 2px 5px var(--shadow); }
+.ic-panel textarea { min-height: 125px; resize: vertical; max-height: 40vh; }
+.ic-quote { border: 0; border-left: 3px solid var(--wood); padding: 8px 10px; margin: 12px 0; font-size: 12px; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; max-height: 115px; overflow: auto; }
+.ic-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 12px; }
+.ic-status { color: var(--muted); font-size: 12px; white-space: pre-wrap; }
+.ic-turnstile { margin-top: 12px; min-height: 0; }
+.ic-discussion { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+.ic-discussion h2 { font-size: 21px; margin: 0 0 16px; }
+.ic-thread { border-top: 1px solid var(--line); padding: 14px 0; overflow-wrap: anywhere; }
+.ic-thread header { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; font-size: 12px; }
+.ic-thread time, .ic-state { color: var(--muted); font-size: 11px; }
+.ic-thread .ic-content { white-space: pre-wrap; margin: 10px 0; }
+.ic-thread .ic-replies { border-left: 1px solid var(--line); margin-left: 8px; padding-left: 12px; }
+.ic-thread .ic-quote-link { display: block; border: 0; border-left: 2px solid var(--wood); background: var(--recess); color: var(--ink); padding: 8px 12px; margin: 10px 0; font: inherit; font-size: 12px; text-align: left; cursor: pointer; max-width: 100%; white-space: pre-wrap; }
+.ic-thread .ic-quote-link:disabled { cursor: default; color: var(--muted); }
+.ic-reply { padding: 4px 9px; font-size: 12px; }
+.ic-anchor-fallback { outline: 2px solid var(--wood); outline-offset: 4px; border-radius: 2px; }
+::highlight(academic-comments) { background-color: color-mix(in srgb, var(--wood) 28%, transparent); color: inherit; }
+::highlight(academic-comment-active) { background-color: color-mix(in srgb, var(--wood) 50%, transparent); color: inherit; }
+@media (min-width: 768px) {
+  .reading-page.ic-panel-open .reading-layout { margin-right: 380px; }
+  .reading-page.ic-panel-open .reading-sheet { padding-left: 28px; padding-right: 42px; }
+}
+@media (min-width: 768px) and (max-width: 1439px) {
+  .reading-page.ic-panel-open .reading-layout { grid-template-columns: minmax(0,1fr); gap: 0; }
+  .reading-page.ic-panel-open .reading-aside { display: none; }
+}
+@media (max-width: 767px) {
+  .ic-panel { left: 8px !important; right: 8px; bottom: max(8px,env(safe-area-inset-bottom)); top: auto !important; width: calc(100vw - 16px) !important; max-width: none; max-height: min(72dvh,680px) !important; }
+  .ic-panel textarea { min-height: 90px; }
+}
+@media print { .ic-ui, .ic-discussion { display: none !important; } }
