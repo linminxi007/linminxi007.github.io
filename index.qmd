@@ -47,7 +47,7 @@ ROOM V4.11
 </div>
 
 <h2>
-There is a difference between the name of the thing and what goes on.
+<span class="quote-text">There is a difference between the name of the thing and what goes on.</span>
 <span class="quote-author">Feynman</span>
 </h2>
 

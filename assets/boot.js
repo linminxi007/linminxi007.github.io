@@ -17,7 +17,7 @@
     weight: [400, 500, 600].includes(saved.weight) ? saved.weight : 500,
     sidebar: saved.sidebar !== false,
     focus: saved.focus === true,
-    ui: saved.ui === 'en' ? 'en' : 'zh',
+    ui: saved.ui === 'zh' ? 'zh' : 'en',
     theme: saved.theme === 'dark' ? 'dark' : 'light'
   };
   const html = document.documentElement;

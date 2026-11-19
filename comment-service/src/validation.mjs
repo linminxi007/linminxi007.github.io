@@ -23,8 +23,8 @@ export function validate(input) {
   check(a && ['text','paragraph','document'].includes(a.anchor_type),'Invalid anchor type.');
   const anchor = a.anchor_type === 'document' ? documentAnchor() : {
     anchor_type:a.anchor_type,
-    section_id:string(a.section_id,300,'section ID'),
-    paragraph_id:string(a.paragraph_id,300,'paragraph ID',1),
+    section_id:string(a.section_id,2048,'section ID'),
+    paragraph_id:string(a.paragraph_id,2304,'paragraph ID',1),
     exact:string(a.exact,8000,'quotation',1),
     prefix:string(a.prefix,64,'prefix'),suffix:string(a.suffix,64,'suffix'),
     start_offset:a.start_offset,end_offset:a.end_offset
