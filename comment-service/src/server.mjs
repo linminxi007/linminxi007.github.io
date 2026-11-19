@@ -1,4 +1,4 @@
-import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual, randomUUID as cryptoRandom } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { ServiceError } from './store.mjs';
 import { validate, pagePath, uuid } from './validation.mjs';
@@ -11,9 +11,10 @@ export function config(env = process.env) {
   for (const value of origins) { const u = new URL(value); if (u.origin !== value || u.protocol !== 'https:') throw new Error('Production origins must be exact HTTPS origins.'); }
   const moderation = env.COMMENT_MODERATION ?? 'manual';
   if (!['auto','manual'].includes(moderation)) throw new Error('COMMENT_MODERATION must be auto or manual.');
+  if(env.COMMENT_MANAGER_PIN && !/^[0-9]{4}$/.test(env.COMMENT_MANAGER_PIN))throw new Error('COMMENT_MANAGER_PIN must contain four digits.');
   const paths=JSON.parse(readFileSync(new URL('../note-paths.json',import.meta.url),'utf8'));
   if(!Array.isArray(paths)||!paths.length)throw new Error('Generate note-paths.json before deploying.');
-  return {origins,moderation,allowedPages:new Set(paths.map(pagePath)),adminToken:env.ADMIN_TOKEN,rateSecret:env.RATE_SECRET,turnstileSecret:env.TURNSTILE_SECRET,siteKey:env.TURNSTILE_SITE_KEY,trustProxy:env.TRUST_PROXY === 'one',postLimit:6,readLimit:120};
+  return {origins,moderation,managerPin:env.COMMENT_MANAGER_PIN||'',allowedPages:new Set(paths.map(pagePath)),adminToken:env.ADMIN_TOKEN,rateSecret:env.RATE_SECRET,turnstileSecret:env.TURNSTILE_SECRET,siteKey:env.TURNSTILE_SITE_KEY,trustProxy:env.TRUST_PROXY === 'one',postLimit:6,readLimit:120};
 }
 export async function verifyTurnstile(token, origin, requestID, cfg) {
   if (typeof token !== 'string' || !token.length || token.length > 2048) throw new ServiceError(400,'Complete the anti-bot verification.');
@@ -47,7 +48,7 @@ export function createHandler(store,cfg,{verify = verifyTurnstile} = {}) {
     try {
       if (origin && !cfg.origins.includes(origin)) throw new ServiceError(403,'Origin is not allowed.');
       if (origin) res.setHeader('Access-Control-Allow-Origin',origin);
-      res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, OPTIONS');
+      res.setHeader('Access-Control-Allow-Methods','GET, POST, PATCH, DELETE, OPTIONS');
       res.setHeader('Access-Control-Allow-Headers','Content-Type, X-Visitor-Key, Authorization');
       if (req.method === 'OPTIONS') {res.statusCode=204;res.end();return;}
       const u = new URL(req.url,'http://internal.invalid');
@@ -56,7 +57,33 @@ export function createHandler(store,cfg,{verify = verifyTurnstile} = {}) {
       const ipHash = keyed('ip:'+ip);
       await store.rate('read:'+ipHash,cfg.readLimit,60);
       if (u.pathname === '/health' && req.method === 'GET') {send(200,{ok:true});return;}
-      if (u.pathname === '/v1/config' && req.method === 'GET') {send(200,{turnstile_site_key:cfg.siteKey,max_length:5000,moderation});return;}
+      if (u.pathname === '/v1/config' && req.method === 'GET') {send(200,{turnstile_site_key:cfg.siteKey,max_length:5000,moderation,manager_enabled:!!cfg.managerPin});return;}
+      if (u.pathname.startsWith('/manager/')) {
+        if(!cfg.managerPin)throw new ServiceError(503,'Comment management is not configured.');
+        if(!origin)throw new ServiceError(403,'A site origin is required.');
+        const sign=value=>createHmac('sha256',cfg.adminToken).update('comment-manager:'+cfg.managerPin+':'+value).digest('base64url');
+        if(u.pathname==='/manager/v1/session'&&req.method==='POST'){
+          await store.rate('manager-login:'+ipHash,5,900);
+          await store.rate('manager-login-global',100,3600);
+          const input=await jsonBody(req);
+          if(typeof input.pin!=='string'||!/^[0-9]{4}$/.test(input.pin)||!timingSafeEqual(Buffer.from(digest(input.pin)),Buffer.from(digest(cfg.managerPin))))throw new ServiceError(401,'Incorrect PIN.');
+          const payload=Buffer.from(JSON.stringify({exp:Date.now()+1800000,nonce:cryptoRandom()})).toString('base64url');
+          send(200,{token:payload+'.'+sign(payload),expires_in:1800});return;
+        }
+        const token=String(req.headers.authorization||'').replace(/^Bearer /,''),parts=token.split('.');let session;
+        if(token.length<=1024&&/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]{43}$/.test(token)&&parts.length===2&&parts[1].length===43&&timingSafeEqual(Buffer.from(parts[1]),Buffer.from(sign(parts[0])))){
+          try{session=JSON.parse(Buffer.from(parts[0],'base64url').toString());}catch{}
+        }
+        if(!session||!Number.isFinite(session.exp)||session.exp<=Date.now()||session.exp>Date.now()+1800000)throw new ServiceError(401,'Session expired. Enter your PIN again.');
+        await store.rate('manager:'+ipHash,60,60);
+        if(u.pathname==='/manager/v1/comments'&&req.method==='GET'){send(200,await store.managerList(cursor(u)));return;}
+        const match=u.pathname.match(/^\/manager\/v1\/comments\/([^/]+)$/);
+        if(match&&req.method==='DELETE'){
+          if(!uuid.test(match[1]))throw new ServiceError(400,'Invalid comment ID.');
+          send(200,await store.remove(match[1]));return;
+        }
+        throw new ServiceError(404,'Unknown manager endpoint.');
+      }
       if (u.pathname.startsWith('/admin/')) {
         const expected = Buffer.from('Bearer '+cfg.adminToken), actual = Buffer.from(req.headers.authorization||'');
         if (actual.length!==expected.length || !timingSafeEqual(actual,expected)) throw new ServiceError(401,'Administrator authorization required.');

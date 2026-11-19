@@ -12,3 +12,6 @@ TRUST_PROXY=off
 
 # manual (default): new comments wait for review; auto: verified new comments publish immediately.
 COMMENT_MODERATION=manual
+
+# Optional: four-digit PIN for the separate comment management page.
+COMMENT_MANAGER_PIN=

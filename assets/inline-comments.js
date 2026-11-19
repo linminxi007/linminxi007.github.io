@@ -301,5 +301,21 @@
   // MathJax may replace formula DOM after initial load; rebuild selectors safely.
   new MutationObserver(mutations=>{if(mutations.some(m=>m.type==='childList'||m.type==='characterData')){dirty=true;schedulePosition();}}).observe(article,{subtree:true,childList:true,characterData:true});
   new MutationObserver(schedulePosition).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','data-sidebar','data-focus','style']});
+  // Reconcile deletions across visitors without touching drafts or active selections.
+  let syncing=false;
+  async function syncPublicComments(){
+    if(!ready||document.hidden||submitting||syncing)return;
+    syncing=true;const sequence=refreshSequence;
+    try{let cursor='',all=[];do{const data=await api('/v1/comments?page='+encodeURIComponent(pagePath)+(cursor?'&cursor='+encodeURIComponent(cursor):''));all.push(...data.comments);cursor=data.next_cursor;}while(cursor);
+      if(sequence!==refreshSequence||submitting)return;
+      if(JSON.stringify([...records.values()])!==JSON.stringify(all)){
+        ++refreshSequence;records=new Map(all.map(r=>[r.comment_id,r]));nextCursor=null;loadMore.hidden=true;
+        if(active?.parent&&!records.has(active.parent)){active=null;submit.disabled=true;replyStatus.textContent='This thread was deleted. Close and choose a new passage.';clearActiveHighlight();}
+        updateDiscussionStatus();render();
+      }
+    }catch{}finally{syncing=false;}
+  }
+  setInterval(syncPublicComments,15000);
+  addEventListener('focus',syncPublicComments);document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncPublicComments();});
   initialize();
 })();

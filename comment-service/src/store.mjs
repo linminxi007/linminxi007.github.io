@@ -32,6 +32,7 @@ export class Store {
   async create(data, visitor, requestHash, challengeHash, moderation = 'manual') {
     const status = moderation === 'auto' ? 'approved' : 'pending';
     return this.db.transaction(async tx => {
+      await tx.query("SELECT pg_advisory_xact_lock_shared(hashtextextended('academic-comment-deletion',0))" );
       // Serialize concurrent retries across service instances, before reading the key.
       await tx.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [visitor + ':' + data.request_id]);
       const prior = await this.existing(visitor, data.request_id, requestHash, tx);
@@ -76,6 +77,23 @@ export class Store {
     ) SELECT * FROM visible WHERE seq>$3 ORDER BY seq ASC LIMIT 201`, [page,visitor,cursor]);
     const batch = rows.slice(0,200);
     return { comments: batch.map(publicRecord), next_cursor: rows.length > 200 ? String(batch.at(-1).seq) : null };
+  }
+  async managerList(cursor=0) {
+    const {rows}=await this.db.query('SELECT * FROM academic_comments WHERE seq>$1 ORDER BY seq LIMIT 201',[cursor]);
+    return {comments:rows.slice(0,200).map(publicRecord),next_cursor:rows.length>200?String(rows[199].seq):null};
+  }
+  async remove(id) {
+    return this.db.transaction(async tx=>{
+      // Block new replies and serialize deletion with comment creation/moderation.
+      await tx.query("SELECT pg_advisory_xact_lock(hashtextextended('academic-comment-deletion',0))" );
+      const {rows}=await tx.query('WITH RECURSIVE subtree AS (SELECT comment_id FROM academic_comments WHERE comment_id=$1 UNION ALL SELECT c.comment_id FROM academic_comments c JOIN subtree p ON c.parent_id=p.comment_id) SELECT comment_id FROM subtree',[id]);
+      const ids=rows.map(r=>r.comment_id);
+      if(!ids.length)return {deleted_ids:[]};
+      await tx.query('SELECT comment_id FROM academic_comments WHERE comment_id=ANY($1::uuid[]) ORDER BY comment_id FOR UPDATE',[ids]);
+      await tx.query('DELETE FROM academic_moderation_log WHERE comment_id=ANY($1::uuid[])',[ids]);
+      await tx.query('DELETE FROM academic_comments WHERE comment_id=ANY($1::uuid[])',[ids]);
+      return {deleted_ids:ids};
+    });
   }
   async adminList(status, cursor = 0) {
     const { rows } = await this.db.query('SELECT * FROM academic_comments WHERE status=$1 AND seq>$2 ORDER BY seq LIMIT 200', [status,cursor]);

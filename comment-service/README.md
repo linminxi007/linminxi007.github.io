@@ -238,3 +238,10 @@ the named backup branch retains the old site.
 Before deploying this feature, preview the branch and keep the backup. Roll back the
 website with a normal Git revert of the feature commit(s), then rebuild and publish.
 Do not drop the database on a frontend rollback: keep comments and backups intact.
+
+
+## PIN comment manager
+
+Set the optional server variable COMMENT_MANAGER_PIN to your four-digit PIN and redeploy. The footer Manage comments link opens comments-manager.html. The PIN is checked only by the server, with five login attempts per IP per fifteen minutes and a global attempt limit. A signed, PIN-bound session expires in thirty minutes and stays only in page memory. Existing ADMIN_TOKEN endpoints remain available. No administrator credential is embedded in the frontend.
+
+The manager loads all statuses using cursor pagination. The red X permanently removes the selected record and its descendants in a PostgreSQL transaction, including their moderation log rows. No schema rebuild or automatic data deletion occurs during deployment. Use Neon backups before deleting valuable discussions. Existing viewers reconcile comments every fifteen seconds and on focus; drafts are retained when a thread is deleted, but submission to that deleted thread is blocked. Anonymous posting, Turnstile and limits are unchanged.

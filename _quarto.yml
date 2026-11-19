@@ -8,6 +8,7 @@ project:
     - viewer.qmd
     - style-guide.qmd
     - privacy.qmd
+    - comments-manager.qmd
     - "notes/**/*.md"
     - "notes/**/*.qmd"
   resources:

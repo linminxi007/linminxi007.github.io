@@ -1,0 +1,13 @@
+.comment-manager { max-width:1000px;margin:0 auto;padding:20px; }
+.comment-manager h2 { font-size:28px; }
+.comment-manager [hidden] { display:none!important; }
+#manager-login { display:flex;gap:14px;align-items:center;flex-wrap:wrap; }
+#manager-pin { width:100px;padding:10px;background:var(--recess);border:1px solid var(--line);border-radius:8px;color:var(--ink);font:inherit; }
+#manager-status { min-height:24px;color:var(--muted); }
+.manager-row { display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:16px;border-top:1px solid var(--line);padding:18px 0;overflow-wrap:anywhere; }
+.manager-row p { margin:8px 0;white-space:pre-wrap; }
+.manager-row blockquote { margin:8px 0;padding-left:12px;border-left:2px solid var(--line);color:var(--muted);font-size:13px;white-space:pre-wrap; }
+.manager-row small { color:var(--muted); }
+.manager-delete { width:40px;height:40px;align-self:start;background:var(--surface);color:#c33d3d;border:1px solid currentColor;border-radius:10px;font-size:24px;cursor:pointer; }
+.manager-delete:disabled { opacity:.5;cursor:wait; }
+@media(max-width:600px){.comment-manager{padding:8px}.manager-row{gap:8px}}

@@ -9,7 +9,7 @@ const require=createRequire(import.meta.url),{chromium}=require(process.env.PLAY
 const repo=resolve(fileURLToPath(new URL('../..',import.meta.url))),site=join(repo,'_site');
 const out=process.env.SCREENSHOT_DIR||join(repo,'comment-service/test-results');await mkdir(out,{recursive:true});
 const api=await testService({port:8910});
-const autoApi=await testService({port:8912,settings:{moderation:'auto'}});
+const autoApi=await testService({port:8912,settings:{moderation:'auto',managerPin:'1234'}});
 let configured=true,apiMode='manual',checks=0;
 const ok=(message)=>{checks++;console.log('PASS '+message);};
 const fixture=`<!doctype html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/assets/site.css"><link rel="stylesheet" href="/assets/inline-comments.css"><script defer src="/assets/inline-comments-anchors.js"></script><script defer src="/assets/inline-comments.js"></script></head><body class="reading-page" data-root="../"><header class="site-header" style="height:76px"><a href="/index.html">Home</a><span>Academic note</span></header><main class="site-main"><div class="reading-layout"><aside class="reading-aside">Contents</aside><article class="reading-sheet"><div class="article-body"><section id="intro"><h2>Test note / 测试笔记</h2>
@@ -174,5 +174,16 @@ try{
   await page.setViewportSize({width:390,height:900});await select('#zh',4,90);const narrow=await page.locator('.ic-selection').boundingBox(),column=await page.locator('.article-body').boundingBox();assert(narrow.x>=column.x+column.width+4&&narrow.x+narrow.width<=390);await page.screenshot({path:join(out,'auto-comments-margin-icon-mobile.png')});
   await page.locator('.ic-selection').click();await page.screenshot({path:join(out,'auto-comments-composer-mobile.png')});await close();
 
+  await page.setViewportSize({width:1536,height:1000});
+  const peer=await browser.newContext(),peerPage=await peer.newPage();await peerPage.goto('http://127.0.0.1:8911/notes/fixture.html');await peerPage.locator('.ic-discussion .ic-thread').first().waitFor();assert.equal(await peerPage.locator('.ic-discussion .ic-thread').count(),2);
+  const manager=await context.newPage();await manager.goto('http://127.0.0.1:8911/comments-manager.html');assert.equal(await manager.locator('.manager-row').count(),0);
+  await manager.locator('#manager-pin').fill('0000');await manager.locator('#manager-login button').click();await manager.getByText('Incorrect PIN.',{exact:true}).waitFor();
+  await manager.locator('#manager-pin').fill('1234');await manager.locator('#manager-login button').click();await manager.locator('.manager-row').first().waitFor();assert.equal(await manager.locator('.manager-row').count(),2);assert.equal(await manager.locator('.manager-row img').count(),0);
+  await manager.screenshot({path:join(out,'comment-manager-desktop.png')});await manager.setViewportSize({width:390,height:900});assert(await manager.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await manager.screenshot({path:join(out,'comment-manager-mobile.png')});
+  await manager.locator('.manager-delete').first().click();await manager.getByText('Deleted / 已删除 · 2',{exact:true}).waitFor();assert.equal(await manager.locator('.manager-row').count(),0);
+  await page.evaluate(()=>dispatchEvent(new Event('focus')));await peerPage.evaluate(()=>dispatchEvent(new Event('focus')));
+  await page.waitForFunction(()=>document.querySelectorAll('.ic-discussion .ic-thread').length===0,null,{timeout:22000});await peerPage.waitForFunction(()=>document.querySelectorAll('.ic-discussion .ic-thread').length===0,null,{timeout:22000});assert.equal(await page.locator('.ic-marker').count(),0);
+  await manager.locator('#manager-logout').click();assert(await manager.locator('#manager-login').isVisible());await manager.close();await peer.close();
+  ok('manager PIN gate, red delete X, mobile layout and deletion of replies synchronize across visitors without refresh');
   assert.deepEqual(errors,[]);console.log(`BROWSER PASS: ${checks} scenarios. Persistence uses PGlite PostgreSQL; Turnstile widget/verification are test doubles only.`);
 }finally{await context.close();await browser.close();await new Promise(r=>web.close(r));await api.close();await autoApi.close();}
