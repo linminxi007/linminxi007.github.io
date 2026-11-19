@@ -41,4 +41,8 @@ CREATE TABLE IF NOT EXISTS academic_moderation_log (
   next_status TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE IF NOT EXISTS academic_deleted_requests (
+ visitor_hash TEXT NOT NULL, request_id UUID NOT NULL, challenge_hash TEXT UNIQUE NOT NULL,
+ deleted_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(visitor_hash,request_id)
+);
 COMMIT;

@@ -7,13 +7,15 @@ test('manager: PIN login, private all-status listing, authenticated physical del
   assert.equal((await req(s,'/manager/v1/comments')).status,401);
   assert.equal((await req(s,'/manager/v1/session','POST',{pin:'0000'})).status,401);
   const login=await req(s,'/manager/v1/session','POST',{pin:'1234'});assert.equal(login.status,200);const token=login.body.token;assert(token);assert(!JSON.stringify(login.body).includes('1234'));
-  const root=(await post(s.base,payload())).body.comment;const reply=(await post(s.base,payload({parent_id:root.comment_id}))).body.comment;
+  const original=payload(),root=(await post(s.base,original)).body.comment;const reply=(await post(s.base,payload({parent_id:root.comment_id}))).body.comment;
   const keep=(await post(s.base,payload({content:'Keep me'}))).body.comment;await moderate(s.base,root.comment_id,'pending');await moderate(s.base,reply.comment_id,'rejected');
   const all=await req(s,'/manager/v1/comments','GET',null,token);assert.equal(all.body.comments.length,3);assert(!JSON.stringify(all.body).includes('visitor_hash'));
   assert.equal((await req(s,'/manager/v1/comments/'+root.comment_id,'DELETE')).status,401);
   assert.equal((await req(s,'/manager/v1/comments/'+root.comment_id,'DELETE',null,token+'x')).status,401);
   const deleted=await req(s,'/manager/v1/comments/'+root.comment_id,'DELETE',null,token);assert.equal(deleted.status,200);assert.deepEqual(new Set(deleted.body.deleted_ids),new Set([root.comment_id,reply.comment_id]));
   assert.equal((await req(s,'/manager/v1/comments/'+root.comment_id,'DELETE',null,token)).status,200,'retry safe');
+  assert.equal((await post(s.base,original)).status,410,'old retries must not resurrect deleted comments');
+  assert.equal((await post(s.base,{...original,request_id:randomUUID()})).status,409,'deleted tokens remain one use');
   const rows=await s.engine.query('SELECT comment_id FROM academic_comments');assert.deepEqual(rows.rows.map(r=>r.comment_id),[keep.comment_id]);
   const publicView=await fetch(s.base+'/v1/comments?page=/notes/test.html');assert.deepEqual((await publicView.json()).comments.map(r=>r.comment_id),[keep.comment_id]);
   const part=Buffer.from(JSON.stringify({exp:Date.now()-1,nonce:'x'})).toString('base64url'),sig=createHmac('sha256',cfg.adminToken).update('comment-manager:1234:'+part).digest('base64url');assert.equal((await req(s,'/manager/v1/comments','GET',null,part+'.'+sig)).status,401);

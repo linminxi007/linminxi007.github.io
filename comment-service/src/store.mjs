@@ -24,6 +24,8 @@ export class Store {
     await this.db.query('DELETE FROM academic_rate_limits WHERE expires_at<CURRENT_TIMESTAMP');
   }
   async existing(visitor, id, hash, client = this.db) {
+    const deleted=await client.query('SELECT 1 FROM academic_deleted_requests WHERE visitor_hash=$1 AND request_id=$2',[visitor,id]);
+    if(deleted.rows.length)throw new ServiceError(410,'This comment was deleted.');
     const { rows } = await client.query('SELECT * FROM academic_comments WHERE visitor_hash=$1 AND request_id=$2', [visitor, id]);
     if (!rows.length) return null;
     if (rows[0].request_hash !== hash) throw new ServiceError(409, 'This submission ID was already used for different text.');
@@ -37,6 +39,8 @@ export class Store {
       await tx.query('SELECT pg_advisory_xact_lock(hashtextextended($1,0))', [visitor + ':' + data.request_id]);
       const prior = await this.existing(visitor, data.request_id, requestHash, tx);
       if (prior) return prior;
+      const used=await tx.query('SELECT 1 FROM academic_deleted_requests WHERE challenge_hash=$1',[challengeHash]);
+      if(used.rows.length)throw new ServiceError(409,'Verification token already used. Complete a new verification.');
       const id = randomUUID();
       let anchor = data.anchor, root = id, depth = 0;
       if (data.parent_id) {
@@ -90,6 +94,7 @@ export class Store {
       const ids=rows.map(r=>r.comment_id);
       if(!ids.length)return {deleted_ids:[]};
       await tx.query('SELECT comment_id FROM academic_comments WHERE comment_id=ANY($1::uuid[]) ORDER BY comment_id FOR UPDATE',[ids]);
+      await tx.query('INSERT INTO academic_deleted_requests(visitor_hash,request_id,challenge_hash) SELECT visitor_hash,request_id,challenge_hash FROM academic_comments WHERE comment_id=ANY($1::uuid[]) ON CONFLICT DO NOTHING',[ids]);
       await tx.query('DELETE FROM academic_moderation_log WHERE comment_id=ANY($1::uuid[])',[ids]);
       await tx.query('DELETE FROM academic_comments WHERE comment_id=ANY($1::uuid[])',[ids]);
       return {deleted_ids:ids};
